@@ -1,0 +1,50 @@
+﻿@model OnLeave.Models.Offer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Offer</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.KeyWords)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KeyWords)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfferType.KeyWords)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfferType.KeyWords)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UtilityBuilding.KeyWords)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UtilityBuilding.KeyWords)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.OfferId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

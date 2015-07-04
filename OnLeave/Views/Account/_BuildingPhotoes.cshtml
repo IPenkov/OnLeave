@@ -1,0 +1,54 @@
+﻿@model OnLeave.Models.UtilityBuildingModel
+<div style="float:left">
+    <ul>
+
+        @for (int i = 0; i < Model.PhotoIds.Length; i++)
+        {
+            <li class="@(i % 3 == 0 ? "first-in-line" : (i % 3 == 2 ? "last-in-line" : ""))">
+                @using (Ajax.BeginForm("RemovePhoto", "Account",
+            new AjaxOptions { OnSuccess = string.Format("removePhoto({0})", Model.PhotoIds[i]) },
+            new { id = string.Format("photo_{0}", Model.PhotoIds[i]) , @data_confirm = "Are you sure you want to delete photo?"}))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div style="position: relative;"
+                         onmouseover="$(this).find('.removePicture').css('display', 'inline-block')"
+                         onmouseout="$(this).find('.removePicture').css('display', 'none')">
+                        <input type="hidden" name="id" value="@Model.PhotoIds[i]" />
+                        <div>
+                            <img src="@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds[i] })" width="229" height="179" />
+                        </div>
+                        <div class="removePicture" title="Remove Photo" onclick="$('#@string.Format("photo_{0}", Model.PhotoIds[i])').submit();">
+                            <span class="uiButtonGroup">
+                                <img src="~/Content/Images/Remove.png" />
+                            </span>
+                        </div>
+                    </div>
+
+                }
+            </li>
+        }
+
+        <li class="@((Model.PhotoIds.Length + 1) % 3 == 0 ? "last-in-line" : ((Model.PhotoIds.Length + 1) % 3 == 1 ? "first-in-line" : ""))">
+            @using (Html.BeginForm("AddPicture", "Account", FormMethod.Post, new { id = "add_picture", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
+
+                <div id="add_pic" onclick="$('#file').click()" class="new_Btn" style="display: @(Model.PhotoIds.Length < 7 ? "block" : "none")" title="Add Photo">
+                    <div style="position: relative;top: 79px">
+                        <img id="first" style="" src="~/Content/Images/plus.png" />
+                    </div>
+                </div>
+                <br />
+                <input onchange="$('#add_picture').submit();" style="display:none" type="file" name="File" id="file">
+            }
+        </li>
+    </ul>
+</div>
+
+
+
+
+
+

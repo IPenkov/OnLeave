@@ -1,0 +1,69 @@
+﻿@model OnLeave.Models.City[]
+
+@{
+    ViewBag.Title = "System";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftSideBar{
+    @{Html.RenderPartial("AccounLeftSideBar");}
+}
+
+<div class="breadcrumb">
+    @Html.ActionLink("Начало", "Index", "Home")
+    » @Html.ActionLink("Профил", "Account", "Account")
+    » <a href="#"class = "last">Градове</a>
+</div>
+
+<h2>Градове</h2>
+
+<div class="cart-info">
+    <div class="shop-cart">
+        <table>
+            <thead>
+                <tr>
+                    <td class="name">Име</td>
+                    <td class="remove"></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model)
+                {
+                    <tr>                       
+                        <td class="name">
+                            <a href="@Url.Action("GetCity", "Account", new { cityId = c.CityId })">@c.Name</a>
+                            <div></div>
+                            <small>@c.Name</small>
+                        </td>
+                        <td class="remove">
+                            @using (Ajax.BeginForm("DeleteCity", "Account",
+            new AjaxOptions
+            {
+                OnSuccess = string.Format("JavaScript:$('#city_{0}').parent().parent().remove();", c.CityId),
+                OnFailure = "handleError('Delete city failt. Please contact Administrator')"
+            },
+            new { @id = string.Format("city_{0}", c.CityId), @data_confirm = string.Format("Изтриване на град '{0}'?", c.Name) }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="cityId" value="@c.CityId" />
+
+                                <span onclick="$('#@string.Format("city_{0}", c.CityId)').submit();">
+                                    <img src="~/Content/Images/delete.png" alt="Изтриване на град @c.Description" title="Изтриване на град @c.Description" />
+                                </span>
+                            }
+                        </td>
+
+                    </tr>
+                }
+                <tr class="add-row" onclick="$('#add-city')[0].click();">
+                    <td colspan="2"><a id="add-city" href="@Url.Action("GetCity", "Account", new { cityId = -1})" > Добави град </a></td>                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/autosize")
+}

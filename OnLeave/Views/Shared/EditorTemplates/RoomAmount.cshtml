@@ -1,0 +1,8 @@
+﻿@model OnLeave.Models.RoomAmount
+
+<td>
+    @*@Html.TextBoxFor(m => m.Amount, String.Format("{0:0.00}", Model.Amount), new { onchange = "javascript:setZeroAmount(this);" })*@
+    @Html.EditorFor(m => m.Amount)
+    @Html.HiddenFor(m => m.RoomAmountId)
+    @Html.HiddenFor(m => m.RoomTypeId)
+</td>

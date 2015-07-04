@@ -1,0 +1,87 @@
+﻿@model OnLeave.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftSideBar{
+    @{Html.RenderPartial("AccounLeftSideBar");}
+}
+
+<div class="breadcrumb">
+    @Html.ActionLink("Начало", "Index", "Home")
+    » @Html.ActionLink("Профил", "Login", "Login", new { @class = "last" })
+</div>
+
+<h1>Профил</h1>
+
+<div class="box-container">
+    <div class="login-content">
+        <div class="left">
+            <h2>Нов потребител</h2>
+            <div class="content">
+                <p><b>Съществуващ потребител</b></p>
+                @*<p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>*@
+                <a class="button" href="@Url.Action("Register", "Account")"><span>Продължи</span></a>
+            </div>
+        </div>
+        <div class="right">
+            <h2>Съществуващ потребител</h2>
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "login", @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="content">
+
+                    <p>Имам профил</p>                    
+
+                    <div class="clear"></div>
+                    <b class="padd-form">@Html.LabelFor(m => m.Email) </b>
+
+                    <div class="clear"></div>
+                    <div style="float:left;">
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
+                    <div class="clear"></div>
+                    <div>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "q1 margen-bottom" })
+                    </div>
+                    <div class="clear"></div>
+
+                    <b class="padd-form">@Html.LabelFor(m => m.Password) </b>
+                    <div style="float:left">
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </div>
+                    <div class="clear"></div>
+                    <div>
+                        @Html.PasswordFor(m => m.Password, new { @class = "q1 margen-bottom" })
+                    </div>
+                    
+                    <div>
+                        @Html.ActionLink("Забравена парола", "ForgotPassword", "Account", new { @class = "link-login" })
+                    </div>
+                    <div class="clear"></div>
+                    <a class="button" onclick="$('#login').submit();"><span>Влез</span></a>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @*Submit data on enter pressed*@
+    <script type="text/javascript"> 
+        $('#login').on("keypress", function (e) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code == 13) {
+                e.preventDefault();
+                e.stopPropagation();
+                $('#login').submit();
+            }
+        });
+    </script>
+}

@@ -1,0 +1,8 @@
+﻿@model OnLeave.Models.FacilityTypeModel
+
+<div>
+    @Html.HiddenFor(x => x.FacilityTypeId)
+    @Html.HiddenFor(x => x.FacilityTypeName)
+    @Html.CheckBoxFor(x => x.Selected)
+    @Html.LabelFor(x => x.Selected, Model.FacilityTypeName)
+</div>

@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Успех";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="breadcrumb">
+    @Html.ActionLink("Начало", "Index", "Home")
+    » @Html.ActionLink("Профил", "Index", "Account")
+    » @Html.ActionLink("Успех", "Success", "Account", new { @class = "last" })
+</div>
+
+<h1>Профилът беше създаден успешно!</h1>
+
+<div class="box-container">
+    <p>Поздравления! Профилът беше създаден успешно!</p>
+    <div class="buttons">
+        <div class="right"><a class="button" href=@Url.Action("Account", "Account")><span>Продължи</span></a></div>
+    </div>
+</div>
+
+
+

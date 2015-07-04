@@ -1,0 +1,57 @@
+﻿<div class="box account">
+    <div class="box-heading"><span>Профил</span></div>
+    <div class="box-content">
+        <ul class="acount">
+
+            @{var actionName = ViewContext.RouteData.Values["action"].ToString();}
+
+            @if (!Request.IsAuthenticated)
+            {
+                <li class="@if (actionName == "Login" || actionName == "Register") {<text>active</text>}">
+                    @Html.ActionLink("Профил", "Login", "Account") / @Html.ActionLink("Регистрация", "Register", "Account")
+                </li>
+                <li class="@if (actionName == "ForgotPassword") {<text>active</text>}">
+                    @Html.ActionLink("Забравена парола", "ForgotPassword", "Account")
+                </li>
+            }
+
+            <li class="@if (actionName == "Login") {<text>active</text>}">
+                @Html.ActionLink("Моя профил", "Login", "Account")
+            </li>
+            <li class="@if (actionName == "EditAccount"){<text>active</text>}">
+                @Html.ActionLink("Промяна профил", "EditAccount", "Account")
+            </li>
+
+            @if (Request.IsAuthenticated)
+            {
+                <li class="@if (actionName == "ChangePassword"){<text>active</text>}">
+                    @Html.ActionLink("Промяна парола", "ChangePassword", "Account")
+                </li>
+                <li>
+                    @Html.ActionLink("Добавене хотел", "AddUtilityBuilding", "Account")
+                </li>
+                <li>
+                    @Html.ActionLink("Моите хотели", "UtilityBuildings", "Account")
+                </li>
+            }
+            
+            @if (User.IsInRole("Root"))
+            {
+                <li>
+                    @Html.ActionLink("Система", "Cities", "Account")
+                </li>
+            }
+
+            @if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("Излез", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <li><a href="javascript:$('#logoutForm').submit()">Излез</a></li>
+                }
+            }
+
+        </ul>
+    </div>
+</div>

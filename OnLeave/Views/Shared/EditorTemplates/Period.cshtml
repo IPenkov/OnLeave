@@ -1,0 +1,11 @@
+﻿@model OnLeave.Models.Period
+
+<tr>
+    <td>@Html.EditorFor(p => p.StartDate)</td>
+    <td>@Html.EditorFor(p => p.EndDate)</td>
+    @Html.HiddenFor(p => p.PeriodId)
+
+    @Html.EditorFor(p => p.RoomAmounts)
+
+</tr>
+

@@ -1,0 +1,47 @@
+﻿@model OnLeave.Models.UtilityBuildingModel[]
+<div class="product-list">
+    <ul>
+        @for (int i = 0; i < Model.Length; i++)
+        {
+            <li class="@(i == 0 ? "first-in-line" : (i == Model.Length - 1 ? "last-in-line" : ""))">
+                <div class="right">
+                    <div class="price">
+                        <span class="price-new">@Model[i].Name</span>
+                        <span class="price-old">$589.50</span>
+                        <span class="price-tax">Ex Tax: $499.00</span>
+                        
+                    </div>  <div class="cart"><a onclick="addToCart('43');" class="button"><span>Add to Cart</span></a></div>  <div class="wishlist"><a class="tip" title="Add to Wish List" onclick="addToWishList('43');"></a></div>  <div class="compare"><a class="tip2" title="Add to Compare" onclick="addToCompare('43');"></a></div>
+                </div>
+
+                <div class="left">
+                    <div class="image">
+                        <a href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})">
+                            <img src="@Url.Action("229/179/" + @Model[i].PhotoIds.FirstOrDefault(), "Account", new { })"
+                                 title="@Model[i].Name" alt="@Model[i].Name">
+                        </a>
+                    </div>
+                    <div class="name">
+                        <a href="">@Model[i].Name</a>
+                    </div>
+                    <div class="description">
+                        @Model[i].Description
+                    </div>
+                    <div class="rating">
+                        <span class="starRating" disabled>
+                            <input id="@(Model[i].Id)rating5" type="radio" name="@(Model[i].Id)rating" value="5" @if (Model[i].Rating == 5) { <text> checked</text>} disabled>
+                            <label for="@(Model[i].Id)rating5">5</label>
+                            <input id="@(Model[i].Id)rating4" type="radio" name="@(Model[i].Id)rating" value="4" @if (Model[i].Rating == 4) { <text> checked</text>} disabled>
+                            <label for="@(Model[i].Id)rating4">4</label>
+                            <input id="@(Model[i].Id)rating3" type="radio" name="@(Model[i].Id)rating" value="3" @if (Model[i].Rating == 3) { <text> checked</text>} disabled>
+                            <label for="@(Model[i].Id)rating3">3</label>
+                            <input id="@(Model[i].Id)rating2" type="radio" name="@(Model[i].Id)rating" value="2" @if (Model[i].Rating == 2) { <text> checked</text>} disabled>
+                            <label for="@(Model[i].Id)rating2">2</label>
+                            <input id="@(Model[i].Id)rating1" type="radio" name="@(Model[i].Id)rating" value="1" @if (Model[i].Rating == 1) { <text> checked</text>} disabled>
+                            <label for="@(Model[i].Id)rating1">1</label>
+                        </span>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

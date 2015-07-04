@@ -1,0 +1,125 @@
+﻿@model OnLeave.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register Account";
+}
+
+<div class="breadcrumb">
+    @Html.ActionLink("Начало", "Index", "Home") 
+    » @Html.ActionLink("Профил", "Index", "Login")
+    » @Html.ActionLink("Нов Профил", "Register", "Account", new { @class="last" })
+</div>
+
+<h1>Регистрация</h1>
+
+<div class="box-container">
+
+    <p>Ако имате профил, моля попълнете формата @Html.ActionLink("влез", "Index", "Account").</p>
+
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { id="register", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h2>Лични Данни</h2>
+        
+        <div class="content">
+            <table class="form">
+                <tbody>
+                    <tr>
+                        <td>
+                            <span class="required">*</span>
+                            @Html.LabelFor(m => m.FirstName):
+                        </td>
+                        <td>
+                            <div style="float:left">
+                                @Html.ValidationMessageFor(m => m.FirstName)
+                            </div>
+                            <div class="clear"></div>
+                            <div style="float:left">
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "q1" })
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="required">*</span>
+                            @Html.LabelFor(m => m.LastName):
+                        </td>
+                        <td>
+                            <div style="float:left">
+                                @Html.ValidationMessageFor(m => m.LastName)
+                            </div>
+                            <div class="clear"></div>
+                            <div style="float:left">
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "q1" })
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="required">*</span>
+                            @Html.LabelFor(m => m.Email):
+                        </td>
+                        <td>
+                            <div style="float:left">
+                                @Html.ValidationMessageFor(m => m.Email)
+                            </div>
+                            <div class="clear"></div>
+                            <div style="float:left">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "q1" })
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(m => m.Telephone):
+                        </td>
+                        <td>                            
+                            @Html.TextBoxFor(m => m.Telephone, new { @class = "q1" })
+                        </td>
+                    </tr>
+                    <tr><td><h2>Парола</h2></td></tr>
+                    <tr>
+                        <td>
+                            <span class="required">*</span>
+                            @Html.LabelFor(m => m.Password):
+                        </td>
+                        <td>
+                            <div style="float:left">
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </div>
+                            <div class="clear"></div>
+                            <div style="float:left">
+                                @Html.PasswordFor(m => m.Password, new { @class = "q1" })
+                            </div>
+                        </td>
+                    </tr>                    
+                    <tr>
+                        <td>
+                            <span class="required">*</span>
+                            @Html.LabelFor(m => m.ConfirmPassword):
+                        </td>
+                        <td>
+                            <div style="float:left">
+                                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                            </div>
+                            <div class="clear"></div>
+                            <div style="float:left">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "q1" })
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="buttons">
+                <div class="right">
+                    @*I have read and agree to the <a class="colorbox cboxElement" href="http://livedemo00.template-help.com/opencart_43219/index.php?route=information/information/info&amp;information_id=3" alt="Privacy Policy"><b>Privacy Policy</b></a>                        <input name="agree" type="checkbox" value="1">*@
+                    <a class="button" onclick="$('#register').submit();"><span>Продължи</span></a>                    
+                </div>
+            </div>
+        </div>
+    }           
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

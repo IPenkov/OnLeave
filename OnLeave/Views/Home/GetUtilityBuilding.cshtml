@@ -1,0 +1,175 @@
+﻿@model OnLeave.Models.UtilityBuildingModel
+
+@{
+    ViewBag.Title = "GetUtilityBuilding";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftSideBar{
+    @Html.Action("Search", "Home", null)
+}
+
+<div class="breadcrumb">
+    @Html.ActionLink("Home", "Index", "Home")
+    » @Html.ActionLink(@Model.Name, "GetUtilityBuilding", "Home", new { buildingId = @Model.Id }, new { @class = "last" })
+</div>
+
+<div id="home_content">
+
+    <div class="product-info">
+        <div class="wrapper indent-bot">
+            <div class="fleft left spacing">
+                <div class="image">
+                    <a title="@Model.Name"
+                       id='zoom1'
+                       href="@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds.First(), width= 600, height = 472 })"
+                       class='cloud-zoom'
+                       rel="position: 'right'">
+                        <img title="@Model.Name" alt="@Model.Name"
+                             src="@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds.First(), width= 300, height = 236 })" />
+                    </a>
+                    <a title="@Model.Name" href="@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds.First(), width= 600, height = 472 })">
+                        <img id="image" title="@Model.Name" alt="@Model.Name" src="@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds.First(), width= 300, height = 236 })" />
+                    </a>
+                </div>
+                <div class="image-additional @if (Model.PhotoIds.Length > 0) {<text>image-caroucel</text>}"
+                     style="display: block; position: relative;">
+                    @*<div class="jcarousel-clip jcarousel-clip-horizontal" style="position: relative;">*@
+                    <ul>
+
+                        @for (int i = 0; i < Model.PhotoIds.Length; i++)
+                        {
+                            <li class="@if (Model.PhotoIds.Length < 4 && i == 3){<text>last</text>}">
+                                <a title="@Model.Name" class="cloud-zoom-gallery"
+                                   href="@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds[i], width= 600, height = 472 })"
+                                   rel="useZoom: 'zoom1', smallImage: '@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds[i], width= 300, height = 236 })' ">
+                                    <img title="@Model.Name" alt="@Model.Name" src="@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds[i], width= 90, height = 71 })">
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                    @*</div>*@
+                </div>
+            </div>
+            <div class="extra-wrap">
+                <h1>@Model.Name</h1>
+                <div class="description">
+                    <span>Град:&nbsp;</span>@if (((OnLeave.Models.City[])ViewBag.Cities).Any(c => c.CityId == @Model.CityId))
+                    {
+                        @(((OnLeave.Models.City[])ViewBag.Cities).First(c => c.CityId == Model.CityId).Name)
+
+                    }
+                    <br />
+                    <span>Адрес:&nbsp;</span>@Model.Address
+                </div>
+                <div class="rating">
+                    <span class="starRating" disabled>
+                        <input id="rating5" type="radio" name="rating" value="5" @if (Model.Rating == 5) { <text>checked</text>} disabled>
+                        <label for="rating5">5</label>
+                        <input id="rating4" type="radio" name="rating" value="4" @if (Model.Rating == 4) { <text>checked</text>} disabled>
+                        <label for="rating4">4</label>
+                        <input id="rating3" type="radio" name="rating" value="3" @if (Model.Rating == 3) { <text>checked</text>} disabled>
+                        <label for="rating3">3</label>
+                        <input id="rating2" type="radio" name="rating" value="2" @if (Model.Rating == 2) { <text>checked</text>} disabled>
+                        <label for="rating2">2</label>
+                        <input id="rating1" type="radio" name="rating" value="1" @if (Model.Rating == 1) { <text>checked</text>} disabled>
+                        <label for="rating1">1</label>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper mb-1">
+            <div class="htabs" id="tabs">
+                <a style="display: inline;" href="#tab-description">Описание</a>
+                <a style="display: inline;" href="#tab-attribute">Услуги</a>
+                <a style="display: inline;" href="#tab-map">Карта</a>
+                <a style="display: inline;" href="#tab-amount">Цени</a>
+                <a style="display: inline;" href="#tab-reservation">Резервация</a>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="tab-content" id="tab-description" style="display: block;">
+                <p> @Html.Raw(Model.Description)</p>
+            </div>
+            <div class="tab-content addhotel-content" id="tab-attribute" style="display: none;">
+                <ul>
+                    @for (int i = 0; i < Model.Facilities.Length; i++)
+                    {
+                        <li class="@(i % 3 == 0 ? "first-in-line" : (i % 3 == 2 ? "last-in-line" : ""))" style="width: 200px; background: none">
+                            @Html.CheckBoxFor(x => Model.Facilities[i].Selected, new { disabled = "disabled" })
+                            @Html.LabelFor(x => Model.Facilities[i].Selected, Model.Facilities[i].FacilityTypeName)
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div id="tab-map" class="tab-content" style="display: none;">
+                @Html.Hidden("locationName", Model.Name)
+                @Html.Hidden("latitude", Model.Latitude)
+                @Html.Hidden("longitude", Model.Longitude)
+                <div id="map-canvas" style="width: 100%; height: 600px"></div>
+            </div>
+            <div class="tab-content" id="tab-amount" style="display: none;">
+                <table style="border-collapse:collapse" class="grid_prize">
+                    <thead>
+                        <tr>
+                            <td></td>
+
+                            @foreach (var roomType in ((OnLeave.Models.RoomType[])ViewBag.RoomTypes).OrderBy(r => r.Description))
+                            {
+                                if (Model.Periods.Any(p => p.RoomAmounts.Any(a => a.RoomTypeId == roomType.RoomTypeId && a.Amount != 0M)))
+                                {
+                                    <td>@roomType.Description</td>
+                                }
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            @foreach (var period in Model.Periods)
+                            {
+                                <tr>
+                                    <td>
+                                        <b>@period.FromDate.Value.ToString("dd/MM")</b>&nbsp;-&nbsp;<b>@period.ToDate.Value.ToString("dd/MM")</b>
+                                    </td>
+                                    @foreach (var amount in period.RoomAmounts)
+                                    {
+                                    <td>
+                                        <b>@string.Format("{0:N2} лв.", amount.Amount)</b>
+                                    </td>
+                                    }
+                                </tr>
+                            }
+                                
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-content" id="tab-reservation" style="display: none">
+                @{Html.RenderPartial("_SendReservation", new OnLeave.Models.SendReservationModel { UtilityBuildingId = Model.Id });}
+            </div>
+            <div class="tab-content" id="tab-related" style="display: none;">
+                <div class="tags">
+                    <b>Tags:</b>
+                    <a href="http://localhost:10293/index.php?route=product/search&amp;tag=lorem">lorem</a>,
+                    <a href="http://localhost:10293/index.php?route=product/search&amp;tag=ipsum">ipsum</a>,
+                    <a href="http://localhost:10293/index.php?route=product/search&amp;tag=dolore">dolore</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/autosize")
+   @Scripts.Render("~/bundles/jquery-ui")
+
+    <script type="text/javascript">
+        this.initialize(false);
+        $('textarea').autosize();
+        $('.datepick').each(function () { $(this).datepicker({ dateFormat: "dd/mm/yy" }) });
+        $('#tabs a').makeTabs();
+    </script>
+
+}
+

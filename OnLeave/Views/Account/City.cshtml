@@ -1,0 +1,88 @@
+﻿@model OnLeave.Models.CityModel
+
+@{
+    ViewBag.Title = "City";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftSideBar{
+    @{Html.RenderPartial("AccounLeftSideBar");}
+}
+
+<div class="breadcrumb">
+    @Html.ActionLink("Начало", "Index", "Home")
+    » @Html.ActionLink("Профил", "Account", "Account")
+    » <a href="#" class="last">Град</a>
+</div>
+
+<h2>Град</h2>
+
+<div class="addhotel">
+    <div id="addhotel">
+        <div class="addhotel-content" style="display:block">
+
+            @using (Html.BeginForm("City", "Account", FormMethod.Post, new { id = "city" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.CityId)
+
+                <div class="content" style="padding: 0">
+                    <table class="form">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="label">
+                                        <span class="required">*</span>
+                                        @Html.LabelFor(m => m.Name):
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="float:left">
+                                        @Html.ValidationMessageFor(m => m.Name)
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div style="float:left">
+                                        @Html.TextBoxFor(m => m.Name, new { @class = "q1" })
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <fieldset class="collapse-section">
+                        <legend>Карта</legend>                        
+
+                        @Html.HiddenFor(m => m.latitude)
+                        @Html.HiddenFor(m => m.longitude)
+
+                        <div id="map-canvas" style="width: 100%; height: 600px"></div>
+                        <div class="clear"></div>                        
+                    </fieldset>
+                    <div class="buttons" style="margin-left: 20px; margin-right: 20px;">
+                        <div class="left">
+                            <a class="button" href="@Url.Action("Cities", "Account")"><span>Назад</span></a>
+                        </div>
+                        <div class="right">
+                            <a class="button" onclick="$('#city').submit();"><span>Запис</span></a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>        
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")   
+    
+<script type="text/javascript">
+    $(document).ready(function ()
+    {
+        initialize();        
+    });
+</script>
+}
+
+
+

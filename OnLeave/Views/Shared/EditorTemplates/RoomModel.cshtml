@@ -1,0 +1,10 @@
+﻿@model OnLeave.Models.RoomModel
+
+<tr>
+    <td>@Html.DisplayTextFor(m => m.RoomTypeName)</td>
+    <td>@Html.TextBoxFor(m => m.TotalNumber)</td>
+    
+    @Html.HiddenFor(m => m.RoomTypeId)
+    @Html.HiddenFor(m => m.RoomTypeName)
+    
+</tr>

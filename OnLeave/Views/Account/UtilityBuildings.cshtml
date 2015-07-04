@@ -1,0 +1,72 @@
+﻿@model OnLeave.Models.UtilityBuildingModel[]
+@{
+    ViewBag.Title = "UtilityBuildings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftSideBar{
+    @{Html.RenderPartial("AccounLeftSideBar");}
+}
+
+<div class="breadcrumb">
+    @Html.ActionLink("Начало", "Index", "Home")
+    » @Html.ActionLink("Профил", "Account", "Account")
+    » @Html.ActionLink("Хотелите ми", "UtilityBuildings", "Account", new { @class = "last" })
+</div>
+
+<h2>Хотели</h2>
+
+<div class="cart-info">
+    <div class="shop-cart">
+        <table>
+            <thead>
+                <tr>
+                    <td class="image">Снимка</td>
+                    <td class="name">Име</td>
+                    <td class="remove"></td>                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var building in Model)
+                {
+                    <tr>
+                        <td class="image">
+                            <a href="@Url.Action("EditBuilding", "Account", new { buildingId = building.Id })">
+                                <img src="@Url.Action("47/37/" + @building.PhotoIds.FirstOrDefault(), "Account", new { })" />
+                            </a>
+                        </td>
+                        <td class="name">
+                            <a href="@Url.Action("EditBuilding", "Account", new { buildingId = building.Id })">@building.Name</a>
+                            <div></div>
+                            <small>@building.Description</small>
+                        </td>
+                        <td class="remove">
+                            @using (Ajax.BeginForm("DeleteBuilding", "Account",
+            new AjaxOptions
+            {
+                OnSuccess = string.Format("JavaScript:$('#building_{0}').parent().parent().remove();", building.Id),
+                OnFailure = "handleError('Delete hotel failt. Please contact Administrator')"
+            },
+            new { @id = string.Format("building_{0}", building.Id), @data_confirm = string.Format("Изтриване на хотел '{0}'?", building.Name) }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="buildingId" value="@building.Id" />
+
+                                <span onclick="$('#@string.Format("building_{0}", building.Id)').submit();">
+                                    <img src="~/Content/Images/delete.png" alt="Изтриване на хотел @building.Name" title="Изтирване на хотел @building.Name" />
+                                </span>
+                            }
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/autosize")
+}
+

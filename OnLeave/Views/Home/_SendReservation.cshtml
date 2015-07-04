@@ -1,0 +1,96 @@
+﻿@model OnLeave.Models.SendReservationModel
+
+@using (Ajax.BeginForm("SendReservation", "Home",
+                    new AjaxOptions
+                    {
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "send_reservation",
+                        OnSuccess = "$('textarea').autosize(); $('.datepick').each(function () { $(this).datepicker({ dateFormat: 'dd/mm/yy' }) });"
+                    },
+                    new { id = "send_reservation", }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.UtilityBuildingId)
+    @Html.HiddenFor(m => m.PWHJVT)
+    @Html.HiddenFor(m => m.BSRGVS)
+    @Html.HiddenFor(m => m.BHVESH)
+
+    <h2 id="review-title">Контакти</h2>
+    <table style="border: 0">
+        <tr>
+            <td><b>Име:</b></td>
+            <td>
+                <div style="float:left">
+                    @Html.ValidationMessageFor(m => m.ClientName)
+                </div>
+                <div style="clear:both; float:left">
+                    @Html.TextBoxFor(m => m.ClientName, new { @class = "q1" })
+                </div>
+            </td>
+        </tr>
+        <tr class="tooltip">
+            <td><b>Презме:</b></td>
+            <td>                
+                <div style="clear:both; float:left">
+                    @Html.TextBoxFor(m => m.SGEGEH, new { @class = "q1" })
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Email:</b>
+            </td>
+            <td>
+                <div style="float:left">
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+                <div style="clear:both; float: left">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "q1" })
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Телефон:</b>
+            </td>
+            <td>
+                <div style="float:left">
+                    @Html.ValidationMessageFor(m => m.Tel)
+                </div>
+                <div style="clear:both; float: left">
+                    @Html.TextBoxFor(m => m.Tel, new { @class = "q1" })
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Период</b>
+            </td>
+            <td>
+                <div style="float:left">
+                    @Html.ValidationMessageFor(m => m.StartDate)
+                </div>
+                <div style="clear:both; float: left">
+                    @Html.ValidationMessageFor(m => m.EndDate)
+                </div>
+                <div style="clear: both; float: left">
+                    @Html.EditorFor(m => m.StartDate) - @Html.EditorFor(m => m.EndDate)
+                </div>
+            </td>
+        </tr>        
+    </table>
+    
+    <br>
+    <br>
+    <b>Описание на Резервацията:</b>
+    @Html.TextAreaFor(m => m.ReservationDescription, new { @style = "width: 98%;", @rows = "8", @cols = "40" })
+
+    <div class="buttons">
+        <div class="right">
+            <a class="button" id="button-review" onclick="$('#send_reservation').submit();">
+                <span>Изпрати</span>
+            </a>
+        </div>
+    </div>
+}
+

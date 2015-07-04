@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="726573ffdac94fdd837ae42e2eeac489" Name="Diagram1">
+        <EntityTypeShape EntityType="OnLeaveModel.City" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveModel.Offer" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveModel.OfferPhotoDetail" Width="1.5" PointX="7.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveModel.OfferType" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveModel.Region" Width="1.5" PointX="7.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveModel.UtilityBuilding" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveModel.UtilityBuildingPhotoDetail" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveModel.UtilityBuildingType" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="OnLeaveModel.FK_Offer_OfferType" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveModel.FK_Offer_UtilityBuilding" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveModel.FK_OfferPhotoDetail_Offer" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveModel.FK_UtilityBuilding_UtilityBuildingType" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveModel.FK_UtilityBuildingPhotoDetail_UtilityBuilding" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OnLeaveModel.Photo" Width="1.5" PointX="7.375" PointY="0.875" />
+        <AssociationConnector Association="OnLeaveModel.FK_UtilityBuildingPhotoDetail_UtilityBuilding1" />
+        <EntityTypeShape EntityType="OnLeaveModel.UtilityBuidingFacilityDetail" Width="1.5" PointX="10.25" PointY="3.875" />
+        <EntityTypeShape EntityType="OnLeaveModel.UtilityBuildingFacilityType" Width="1.5" PointX="8" PointY="10.125" />
+        <AssociationConnector Association="OnLeaveModel.FK_UtilityBuidingFacilityDetail_UtilityBuildingFacilityType" />
+        <AssociationConnector Association="OnLeaveModel.FK_UtilityBuidingFacilityDetail_UtilityBuildings" />
+        <EntityTypeShape EntityType="OnLeaveModel.Room" Width="1.5" PointX="3" PointY="9.875" />
+        <EntityTypeShape EntityType="OnLeaveModel.RoomType" Width="1.5" PointX="0.75" PointY="10.125" />
+        <AssociationConnector Association="OnLeaveModel.FK_Room_RoomType" />
+        <AssociationConnector Association="OnLeaveModel.FK_Room_UtilityBuildings" />
+        <AssociationConnector Association="OnLeaveModel.FK_UtilityBuildings_Cities" />
+        <EntityTypeShape EntityType="OnLeaveModel.Period" Width="1.5" PointX="10.375" PointY="6.75" />
+        <AssociationConnector Association="OnLeaveModel.FK_Period_UtilityBuildings" />
+        <EntityTypeShape EntityType="OnLeaveModel.RoomAmount" Width="1.5" PointX="12.625" PointY="8.375" />
+        <AssociationConnector Association="OnLeaveModel.FK_RoomAmount_Period" />
+        <AssociationConnector Association="OnLeaveModel.FK_RoomAmount_RoomType" />
+        <EntityTypeShape EntityType="OnLeaveModel.Locale" Width="1.5" PointX="3" PointY="13.125" />
+        <EntityTypeShape EntityType="OnLeaveModel.UtilityBuildingLocale" Width="1.5" PointX="5.25" PointY="9.625" />
+        <AssociationConnector Association="OnLeaveModel.FK_UtilityBuildingLocale_UtilityBuildingLocale" />
+        <AssociationConnector Association="OnLeaveModel.FK_UtilityBuildingLocale_UtilityBuildings" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

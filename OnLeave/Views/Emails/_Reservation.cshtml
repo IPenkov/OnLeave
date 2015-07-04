@@ -1,0 +1,61 @@
+﻿<h2 id="review-title">Contact Hotel</h2>
+<table style="border: 0">
+    <tr>
+        <td><b>Име на Клиент</b></td>
+        <td>
+            <div style="clear:both; float:left">
+                   
+                <label>@ViewBag.ClientName</label>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Email:</b>
+        </td>
+        <td>
+            <div style="float:left">
+                    
+            </div>
+            <div style="clear:both; float: left">                    
+                <label>@ViewBag.Email</label>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Контакти:</b>
+        </td>
+        <td>
+            <div style="float:left">
+                    
+            </div>
+            <div style="clear:both; float: left">
+                    
+                <label>@ViewBag.Tel</label>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Period:</b>
+        </td>
+        <td>                        
+            <div style="clear: both; float: left">
+                @ViewBag.StartDate.ToString("dd/MM/yyyy") - @ViewBag.EndDate.ToString("dd/MM/yyyy")
+            </div>
+        </td>
+    </tr>
+</table>
+
+<br>
+<br>
+<b>Описание на Резервацията:</b>
+<p>@ViewBag.ReservationDescription</p>
+<br />
+<a href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = @ViewBag.BuildingId }, Request.Url.Scheme)">@ViewBag.Name</a>
+
+
+
+
+    
