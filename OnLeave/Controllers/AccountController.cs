@@ -379,20 +379,20 @@ namespace OnLeave.Controllers
                     var buildingLocaleEN = buildingDB.UtilityBuildingLocales.FirstOrDefault(l => l.LocaleId == (int)LocaleTypes.EN);
                     if (buildingLocaleEN != null)
                     {
-                        buildingLocaleEN.Name = model.Name;
-                        buildingLocaleEN.Description = model.Description;
-                        buildingLocaleEN.ContactPerson = model.ContactPerson;
-                        buildingLocaleEN.Address = model.Address;
+                        buildingLocaleEN.Name = model.NameEN;
+                        buildingLocaleEN.Description = model.DescriptionEN;
+                        buildingLocaleEN.ContactPerson = model.ContactPersonEN;
+                        buildingLocaleEN.Address = model.AddressEN;
                     }
                     else
                     {
                         buildingDB.UtilityBuildingLocales.Add(new UtilityBuildingLocale
                         {
                             LocaleId = (int)LocaleTypes.EN,
-                            Name = model.Name,
-                            Description = model.Description,
-                            ContactPerson = model.ContactPerson,
-                            Address = model.Address
+                            Name = model.NameEN,
+                            Description = model.DescriptionEN,
+                            ContactPerson = model.ContactPersonEN,
+                            Address = model.AddressEN
                         });
                     }
 

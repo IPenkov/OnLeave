@@ -1,10 +1,13 @@
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_UtilityBuildingLocale_UtilityBuildings]') AND parent_object_id = OBJECT_ID(N'[dbo].[UtilityBuildingLocale]'))
 ALTER TABLE [dbo].[UtilityBuildingLocale] DROP CONSTRAINT [FK_UtilityBuildingLocale_UtilityBuildings]
 GO
 
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_UtilityBuildingLocale_UtilityBuildingLocale]') AND parent_object_id = OBJECT_ID(N'[dbo].[UtilityBuildingLocale]'))
 ALTER TABLE [dbo].[UtilityBuildingLocale] DROP CONSTRAINT [FK_UtilityBuildingLocale_UtilityBuildingLocale]
 GO
 
-/****** Object:  Table [dbo].[UtilityBuildingLocale]    Script Date: 7/4/2015 10:10:00 AM ******/
+/****** Object:  Table [dbo].[UtilityBuildingLocale]    Script Date: 7/8/2015 10:14:27 PM ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UtilityBuildingLocale]') AND type in (N'U'))
 DROP TABLE [dbo].[UtilityBuildingLocale]
 GO
 
