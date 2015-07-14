@@ -33,6 +33,7 @@ namespace OnLeave.Models
         public Nullable<decimal> lat { get; set; }
         public Nullable<decimal> lon { get; set; }
         public Nullable<byte> Rating { get; set; }
+        public Nullable<int> Size { get; set; }
     
         public virtual ICollection<Offer> Offers { get; set; }
         public virtual UtilityBuildingType UtilityBuildingType { get; set; }

@@ -124,7 +124,8 @@ namespace OnLeave.Controllers
                         CityId = city.CityId,
                         Rating = model.Rating,
                         lon = model.Longitude,
-                        lat = model.Latitude
+                        lat = model.Latitude,
+                        Size = model.Size
                     };
 
                     building.UtilityBuildingLocales.Add(new UtilityBuildingLocale
@@ -266,7 +267,8 @@ namespace OnLeave.Controllers
                     CityId = buildingDB.CityId,
                     Rating = buildingDB.Rating ?? 0,
                     Latitude = buildingDB.lat ?? 0M,
-                    Longitude = buildingDB.lon ?? 0M,
+                    Longitude = buildingDB.lon ?? 0M,                    
+                    Size = buildingDB.Size,
                     PhotoIds = buildingDB.UtilityBuildingPhotoDetails.Select(ph => ph.PhotoId).ToArray(),
                     Facilities = db.UtilityBuildingFacilityTypes.Select(ft =>
                         new FacilityTypeModel
@@ -355,6 +357,7 @@ namespace OnLeave.Controllers
                     buildingDB.PhoneNumber = model.PhoneNumber;
                     buildingDB.CityId = model.CityId;
                     buildingDB.Rating = model.Rating;
+                    buildingDB.Size = model.Size;
 
                     var buildingLocaleBG = buildingDB.UtilityBuildingLocales.FirstOrDefault(l => l.LocaleId == (int)LocaleTypes.BG);
                     if (buildingLocaleBG != null)

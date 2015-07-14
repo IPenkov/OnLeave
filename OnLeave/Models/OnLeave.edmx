@@ -156,6 +156,7 @@
           <Property Name="lat" Type="decimal" Precision="9" Scale="6" />
           <Property Name="lon" Type="decimal" Precision="9" Scale="6" />
           <Property Name="Rating" Type="tinyint" />
+          <Property Name="Size" Type="int" />
         </EntityType>
         <EntityType Name="UtilityBuildingTypes">
           <Key>
@@ -506,6 +507,7 @@
           <NavigationProperty Name="Periods" Relationship="OnLeaveModel.FK_Period_UtilityBuildings" FromRole="UtilityBuilding" ToRole="Period" />
           <Property Name="Rating" Type="Byte" />
           <NavigationProperty Name="UtilityBuildingLocales" Relationship="OnLeaveModel.FK_UtilityBuildingLocale_UtilityBuildings" FromRole="UtilityBuilding" ToRole="UtilityBuildingLocale" />
+          <Property Name="Size" Type="Int32" />
         </EntityType>
         <EntityType Name="UtilityBuildingPhotoDetail">
           <Key>
@@ -977,7 +979,8 @@
     <EntitySetMapping Name="UtilityBuildings">
       <EntityTypeMapping TypeName="IsTypeOf(OnLeaveModel.UtilityBuilding)">
         <MappingFragment StoreEntitySet="UtilityBuildings">
-          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="lon" ColumnName="lon" />
                 <ScalarProperty Name="lat" ColumnName="lat" />
                 <ScalarProperty Name="CityId" ColumnName="CityId" />

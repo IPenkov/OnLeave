@@ -26,6 +26,9 @@
                     <div class="description">
                         @Model[i].Description
                     </div>
+                    <div class="description">
+                        <span>@Html.DisplayNameFor(m => m[i].Size)  :&nbsp;</span>@Model[i].Size
+                    </div>
                     <div class="rating">
                         <span class="starRating" disabled>
                             <input id="@(Model[i].Id)rating5" type="radio" name="@(Model[i].Id)rating" value="5" @if (Model[i].Rating == 5) { <text> checked</text>} disabled>
@@ -39,7 +42,7 @@
                             <input id="@(Model[i].Id)rating1" type="radio" name="@(Model[i].Id)rating" value="1" @if (Model[i].Rating == 1) { <text> checked</text>} disabled>
                             <label for="@(Model[i].Id)rating1">1</label>
                         </span>
-                    </div>
+                    </div>                    
                 </div>
             </li>
         }

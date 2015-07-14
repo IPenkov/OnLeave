@@ -81,6 +81,7 @@ namespace OnLeave.Controllers
                     Rating = buildingDB.Rating ?? 0,
                     Latitude = buildingDB.lat ?? 0M,
                     Longitude = buildingDB.lon ?? 0M,
+                    Size = buildingDB.Size,
                     Periods = buildingDB.Periods.ToList(),
                     Facilities = db.UtilityBuildingFacilityTypes.Select(ft =>
                         new FacilityTypeModel
@@ -139,6 +140,7 @@ namespace OnLeave.Controllers
                         Name = b.UtilityBuildingLocales.Where(l => l.LocaleId == (int)LocaleTypes.BG).Select(l => l.Name).FirstOrDefault(),
                         Description = b.UtilityBuildingLocales.Where(l => l.LocaleId == (int)LocaleTypes.BG).Select(l => l.Description).FirstOrDefault(),
                         Rating = b.Rating ?? 0,
+                        Size = b.Size,
                         PhotoIds = new int[] { b.UtilityBuildingPhotoDetails.First().PhotoId }
                     }).ToArray();
 

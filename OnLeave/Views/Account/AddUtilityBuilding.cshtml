@@ -173,6 +173,20 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td class="label">                                    
+                                    @Html.LabelFor(m => m.Size):
+                                </td>
+                                <td>
+                                    <div style="float:left">
+                                        @Html.ValidationMessageFor(m => m.Size)
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div style="float:left">
+                                        @Html.TextBoxFor(m => m.Size, new { @class = "q1" })
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td class="label">
                                     <span class="required">*</span>
                                     @Html.LabelFor(m => m.PhoneNumber):

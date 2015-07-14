@@ -255,7 +255,16 @@ namespace OnLeave.Models
         /// The longitude.
         /// </value>
         public decimal Longitude { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the size.
+        /// </summary>
+        /// <value>
+        /// The size.
+        /// </value>
+        [Display(Name="Обща леглова база")]
+        [DisplayFormat(NullDisplayText="")]
+        public int? Size { get; set; }
 
         [FileSize(10240)]
         [FileTypes("jpg,jpeg,png")]
