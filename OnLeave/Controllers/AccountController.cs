@@ -170,8 +170,7 @@ namespace OnLeave.Controllers
                         buildingDB.Periods.Add(p);
                         p.RoomAmounts.Where(a => a.Amount == 0M)
                             .ToList()
-                            .ForEach(a => p.RoomAmounts.Remove(a));
-                        
+                            .ForEach(a => p.RoomAmounts.Remove(a));                        
                     });
 
                     db.SaveChanges();

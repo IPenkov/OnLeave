@@ -370,6 +370,10 @@
       <DependentUpon>OnLeave.edmx</DependentUpon>
       <LastGenOutput>OnLeave.cs</LastGenOutput>
     </Content>
+    <Content Include="ConnectionStrings.Debug.config" />
+    <Content Include="ConnectionStrings.Release.config" />
+    <Content Include="Config\Smtp.Debug.config" />
+    <Content Include="Config\Smtp.Release.config" />
     <None Include="Properties\PublishProfiles\OnLeave.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\cloud-zoom.1.0.2.js" />

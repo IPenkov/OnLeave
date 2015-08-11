@@ -154,3 +154,7 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+OnLeave/ConnectionStrings.Debug.config
+OnLeave/Config/Smtp.Release.config
+OnLeave/Config/Smtp.Debug.config
+OnLeave/ConnectionStrings.Release.config

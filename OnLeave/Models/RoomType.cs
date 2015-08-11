@@ -23,6 +23,7 @@ namespace OnLeave.Models
         public int RoomTypeId { get; set; }
         public string DBC_KEYWORDS { get; set; }
         public string Description { get; set; }
+        public short Order { get; set; }
     
         public virtual ICollection<Room> Rooms { get; set; }
         public virtual ICollection<RoomAmount> RoomAmounts { get; set; }

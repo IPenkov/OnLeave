@@ -63,7 +63,7 @@
                 {
                     using (var db = new OnLeaveContext())
                     {
-                        StaticDataProvider.roomTypes = db.RoomTypes.ToArray();
+                        StaticDataProvider.roomTypes = db.RoomTypes.OrderBy(r => r.Order).ToArray();
                     }
                 }
 

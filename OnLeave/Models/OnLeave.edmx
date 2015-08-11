@@ -105,6 +105,7 @@
           <Property Name="RoomTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DBC_KEYWORDS" Type="nvarchar" MaxLength="255" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Order" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="UtilityBuidingFacilityDetail">
           <Key>
@@ -770,6 +771,7 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Rooms" Relationship="OnLeaveModel.FK_Room_RoomType" FromRole="RoomType" ToRole="Room" />
           <NavigationProperty Name="RoomAmounts" Relationship="OnLeaveModel.FK_RoomAmount_RoomType" FromRole="RoomType" ToRole="RoomAmount" />
+          <Property Name="Order" Type="Int16" Nullable="false" />
         </EntityType>
         <Association Name="FK_Room_RoomType">
           <End Type="OnLeaveModel.RoomType" Role="RoomType" Multiplicity="1" />
@@ -1055,6 +1057,7 @@
           <EntitySetMapping Name="RoomTypes">
             <EntityTypeMapping TypeName="OnLeaveModel.RoomType">
               <MappingFragment StoreEntitySet="RoomType">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="DBC_KEYWORDS" ColumnName="DBC_KEYWORDS" />
                 <ScalarProperty Name="RoomTypeId" ColumnName="RoomTypeId" />
