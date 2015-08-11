@@ -158,3 +158,4 @@ OnLeave/ConnectionStrings.Debug.config
 OnLeave/Config/Smtp.Release.config
 OnLeave/Config/Smtp.Debug.config
 OnLeave/ConnectionStrings.Release.config
+Onleave/Web.Release.config
