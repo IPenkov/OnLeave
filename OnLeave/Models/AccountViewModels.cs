@@ -225,6 +225,7 @@ namespace OnLeave.Models
         public string ContactPerson { get; set; }
 
         [Display(Name="Contact Person")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Contact Person missing")]
         [StringLength(255, ErrorMessage = "Maximum {1} characters ")]
         public string ContactPersonEN { get; set; }
 

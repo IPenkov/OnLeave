@@ -298,6 +298,12 @@
     <Content Include="Content\Images\delete.png" />
     <Content Include="Content\Images\star-off.svg" />
     <Content Include="Content\Images\star-on.svg" />
+    <Content Include="Content\Images\stars-0.png" />
+    <Content Include="Content\Images\stars-1.png" />
+    <Content Include="Content\Images\stars-2.png" />
+    <Content Include="Content\Images\stars-3.png" />
+    <Content Include="Content\Images\stars-4.png" />
+    <Content Include="Content\Images\stars-5.png" />
     <Content Include="Content\Images\warning.png" />
     <Content Include="Content\slideshow.css" />
     <Content Include="Content\themes\base\accordion.css" />

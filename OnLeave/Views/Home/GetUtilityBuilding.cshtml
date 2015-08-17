@@ -63,70 +63,70 @@
                     <span>Адрес:&nbsp;</span>@Model.Address
                     <br />
                     <span>@Html.DisplayNameFor(m => m.Size):&nbsp;</span>@Model.Size
+                    <div class="review">
+                        <div>
+                            <img alt="0 reviews" src="~/Content/Images/stars-@(Model.Rating).png">&nbsp;&nbsp;                            
+                        </div>
+                        <div class="share">
+                            <div class="addthis_toolbox addthis_default_style ">
+                                <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+                                <a class="addthis_button_tweet"></a>
+                                <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+                                <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+                                <a class="addthis_counter addthis_pill_style"></a>
+                                <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f419f410efe76d3"></script>
+                            </div>
+                        </div>
+                    </div>                    
                 </div>
-                <div class="rating">
-                    <span class="starRating" disabled>
-                        <input id="rating5" type="radio" name="rating" value="5" @if (Model.Rating == 5) { <text>checked</text>} disabled>
-                        <label for="rating5">5</label>
-                        <input id="rating4" type="radio" name="rating" value="4" @if (Model.Rating == 4) { <text>checked</text>} disabled>
-                        <label for="rating4">4</label>
-                        <input id="rating3" type="radio" name="rating" value="3" @if (Model.Rating == 3) { <text>checked</text>} disabled>
-                        <label for="rating3">3</label>
-                        <input id="rating2" type="radio" name="rating" value="2" @if (Model.Rating == 2) { <text>checked</text>} disabled>
-                        <label for="rating2">2</label>
-                        <input id="rating1" type="radio" name="rating" value="1" @if (Model.Rating == 1) { <text>checked</text>} disabled>
-                        <label for="rating1">1</label>
-                    </span>
+            </div>
+            <div class="wrapper mb-1">
+                <div class="htabs" id="tabs">
+                    <a style="display: inline;" href="#tab-description">Описание</a>
+                    <a style="display: inline;" href="#tab-attribute">Услуги</a>
+                    <a style="display: inline;" href="#tab-map">Карта</a>
+                    <a style="display: inline;" href="#tab-amount">Цени</a>
+                    <a style="display: inline;" href="#tab-reservation">Резервация</a>
                 </div>
             </div>
-        </div>
-        <div class="wrapper mb-1">
-            <div class="htabs" id="tabs">
-                <a style="display: inline;" href="#tab-description">Описание</a>
-                <a style="display: inline;" href="#tab-attribute">Услуги</a>
-                <a style="display: inline;" href="#tab-map">Карта</a>
-                <a style="display: inline;" href="#tab-amount">Цени</a>
-                <a style="display: inline;" href="#tab-reservation">Резервация</a>
-            </div>
-        </div>
-        <div class="wrapper">
-            <div class="tab-content" id="tab-description" style="display: block;">
-                <p> @Html.Raw(Model.Description)</p>
-            </div>
-            <div class="tab-content addhotel-content" id="tab-attribute" style="display: none;">
-                <ul>
-                    @for (int i = 0; i < Model.Facilities.Length; i++)
-                    {
-                        <li class="@(i % 3 == 0 ? "first-in-line" : (i % 3 == 2 ? "last-in-line" : ""))" style="width: 200px; background: none">
-                            @Html.CheckBoxFor(x => Model.Facilities[i].Selected, new { disabled = "disabled" })
-                            @Html.LabelFor(x => Model.Facilities[i].Selected, Model.Facilities[i].FacilityTypeName)
-                        </li>
-                    }
-                </ul>
-            </div>
-            <div id="tab-map" class="tab-content" style="display: none;">
-                @Html.Hidden("locationName", Model.Name)
-                @Html.Hidden("latitude", Model.Latitude)
-                @Html.Hidden("longitude", Model.Longitude)
-                <div id="map-canvas" style="width: 100%; height: 600px"></div>
-            </div>
-            <div class="tab-content" id="tab-amount" style="display: none;">
-                <table style="border-collapse:collapse" class="grid_prize">
-                    <thead>
-                        <tr>
-                            <td></td>
+            <div class="wrapper">
+                <div class="tab-content" id="tab-description" style="display: block;">
+                    <p> @Html.Raw(Model.Description)</p>
+                </div>
+                <div class="tab-content addhotel-content" id="tab-attribute" style="display: none;">
+                    <ul>
+                        @for (int i = 0; i < Model.Facilities.Length; i++)
+                        {
+                            <li class="@(i % 3 == 0 ? "first-in-line" : (i % 3 == 2 ? "last-in-line" : ""))" style="width: 200px; background: none">
+                                @Html.CheckBoxFor(x => Model.Facilities[i].Selected, new { disabled = "disabled" })
+                                @Html.LabelFor(x => Model.Facilities[i].Selected, Model.Facilities[i].FacilityTypeName)
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div id="tab-map" class="tab-content" style="display: none;">
+                    @Html.Hidden("locationName", Model.Name)
+                    @Html.Hidden("latitude", Model.Latitude)
+                    @Html.Hidden("longitude", Model.Longitude)
+                    <div id="map-canvas" style="width: 100%; height: 600px"></div>
+                </div>
+                <div class="tab-content" id="tab-amount" style="display: none;">
+                    <table style="border-collapse:collapse" class="grid_prize">
+                        <thead>
+                            <tr>
+                                <td></td>
 
-                            @foreach (var roomType in ((OnLeave.Models.RoomType[])ViewBag.RoomTypes).OrderBy(r => r.Description))
-                            {
-                                if (Model.Periods.Any(p => p.RoomAmounts.Any(a => a.RoomTypeId == roomType.RoomTypeId && a.Amount != 0M)))
+                                @foreach (var roomType in ((OnLeave.Models.RoomType[])ViewBag.RoomTypes).OrderBy(r => r.Description))
                                 {
-                                    <td>@roomType.Description</td>
+                                    if (Model.Periods.Any(p => p.RoomAmounts.Any(a => a.RoomTypeId == roomType.RoomTypeId && a.Amount != 0M)))
+                                    {
+                                        <td>@roomType.Description</td>
+                                    }
                                 }
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
+                            </tr>
+                        </thead>
+                        <tbody>
+
                             @foreach (var period in Model.Periods)
                             {
                                 <tr>
@@ -135,43 +135,42 @@
                                     </td>
                                     @foreach (var amount in period.RoomAmounts)
                                     {
-                                    <td>
-                                        <b>@string.Format("{0:N2} лв.", amount.Amount)</b>
-                                    </td>
+                                        <td>
+                                            <b>@string.Format("{0:N2} лв.", amount.Amount)</b>
+                                        </td>
                                     }
                                 </tr>
                             }
-                                
-                    </tbody>
-                </table>
-            </div>
-            <div class="tab-content" id="tab-reservation" style="display: none">
-                @{Html.RenderPartial("_SendReservation", new OnLeave.Models.SendReservationModel { UtilityBuildingId = Model.Id });}
-            </div>
-            <div class="tab-content" id="tab-related" style="display: none;">
-                <div class="tags">
-                    <b>Tags:</b>
-                    <a href="http://localhost:10293/index.php?route=product/search&amp;tag=lorem">lorem</a>,
-                    <a href="http://localhost:10293/index.php?route=product/search&amp;tag=ipsum">ipsum</a>,
-                    <a href="http://localhost:10293/index.php?route=product/search&amp;tag=dolore">dolore</a>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-content" id="tab-reservation" style="display: none">
+                    @{Html.RenderPartial("_SendReservation", new OnLeave.Models.SendReservationModel { UtilityBuildingId = Model.Id });}
+                </div>
+                <div class="tab-content" id="tab-related" style="display: none;">
+                    <div class="tags">
+                        <b>Tags:</b>
+                        <a href="http://localhost:10293/index.php?route=product/search&amp;tag=lorem">lorem</a>,
+                        <a href="http://localhost:10293/index.php?route=product/search&amp;tag=ipsum">ipsum</a>,
+                        <a href="http://localhost:10293/index.php?route=product/search&amp;tag=dolore">dolore</a>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 
-</div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/autosize")
+        @Scripts.Render("~/bundles/jquery-ui")
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/autosize")
-   @Scripts.Render("~/bundles/jquery-ui")
-
-    <script type="text/javascript">
-        this.initialize(false);
-        $('textarea').autosize();
-        $('.datepick').each(function () { $(this).datepicker({ dateFormat: "dd/mm/yy" }) });
-        $('#tabs a').makeTabs();
-    </script>
-
-}
+        <script type="text/javascript">
+            this.initialize(false);
+            $('textarea').autosize();
+            $('.datepick').each(function () { $(this).datepicker({ dateFormat: "dd/mm/yy" }) });
+            $('#tabs a').makeTabs();
+        </script>
+    }
 
