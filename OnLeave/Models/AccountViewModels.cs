@@ -186,8 +186,7 @@ namespace OnLeave.Models
         [StringLength(50, ErrorMessage="Максимален брой {1} символи")]
         public string Name { get; set; }
 
-        [Display(Name = "Name")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Name missing")]
+        [Display(Name = "Name")]        
         [StringLength(50, ErrorMessage = "Maximum {1} characters")]
         public string NameEN { get; set; }
 
@@ -224,8 +223,7 @@ namespace OnLeave.Models
         [StringLength(255, ErrorMessage = "Максимален брой {1} символи")]
         public string ContactPerson { get; set; }
 
-        [Display(Name="Contact Person")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Contact Person missing")]
+        [Display(Name="Contact Person")]        
         [StringLength(255, ErrorMessage = "Maximum {1} characters ")]
         public string ContactPersonEN { get; set; }
 

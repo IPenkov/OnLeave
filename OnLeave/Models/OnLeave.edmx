@@ -130,10 +130,10 @@
           <Property Name="UtilityBuildingLocaleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UtilityBuildingId" Type="int" Nullable="false" />
           <Property Name="LocaleId" Type="int" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="2000" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="ContactPerson" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="Address" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="ContactPerson" Type="nvarchar" MaxLength="255" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="UtilityBuildingPhotoDetails">
           <Key>
@@ -889,12 +889,12 @@
           <Property Name="UtilityBuildingLocaleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UtilityBuildingId" Type="Int32" Nullable="false" />
           <Property Name="LocaleId" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="ContactPerson" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPerson" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Locale" Relationship="OnLeaveModel.FK_UtilityBuildingLocale_UtilityBuildingLocale" FromRole="UtilityBuildingLocale" ToRole="Locale" />
           <NavigationProperty Name="UtilityBuilding" Relationship="OnLeaveModel.FK_UtilityBuildingLocale_UtilityBuildings" FromRole="UtilityBuildingLocale" ToRole="UtilityBuilding" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_UtilityBuildingLocale_UtilityBuildingLocale">
           <End Type="OnLeaveModel.Locale" Role="Locale" Multiplicity="1" />

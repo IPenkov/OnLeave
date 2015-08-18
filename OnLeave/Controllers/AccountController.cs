@@ -137,14 +137,20 @@ namespace OnLeave.Controllers
                         Address = model.Address
                     });
 
-                    building.UtilityBuildingLocales.Add(new UtilityBuildingLocale
+                    if (!string.IsNullOrWhiteSpace(model.ContactPersonEN)
+                        || !string.IsNullOrWhiteSpace(model.NameEN)
+                        || !string.IsNullOrWhiteSpace(model.DescriptionEN)
+                        || !string.IsNullOrWhiteSpace(model.Address))
                     {
-                        LocaleId = (int)LocaleTypes.EN,
-                        Name = model.NameEN,
-                        Description = model.DescriptionEN,
-                        ContactPerson = model.ContactPersonEN,
-                        Address = model.AddressEN
-                    });
+                        building.UtilityBuildingLocales.Add(new UtilityBuildingLocale
+                        {
+                            LocaleId = (int)LocaleTypes.EN,
+                            Name = model.NameEN,
+                            Description = model.DescriptionEN,
+                            ContactPerson = model.ContactPersonEN,
+                            Address = model.AddressEN
+                        });
+                    }
 
                     var buildingDB = db.UtilityBuildings.Add(building);                    
 
@@ -208,8 +214,8 @@ namespace OnLeave.Controllers
                     .Select(b => new UtilityBuildingModel
                     {
                         Id = b.UtilityBuildingId,
-                        Name = string.Join(" / ", b.UtilityBuildingLocales.Select(l => l.Name).ToArray()),
-                        Description = string.Join(System.Environment.NewLine, b.UtilityBuildingLocales.Select(l => l.Description).ToArray()),
+                        Name = string.Join(" / ", b.UtilityBuildingLocales.Where(l => !string.IsNullOrWhiteSpace(l.Name)).Select(l => l.Name).ToArray()),
+                        Description = string.Join(System.Environment.NewLine, b.UtilityBuildingLocales.Where(l => !string.IsNullOrWhiteSpace(l.Description)).Select(l => l.Description).ToArray()),
                         PhotoIds = b.UtilityBuildingPhotoDetails.Select(photo =>  photo.PhotoId).ToArray()
                         //UtilityBuildingPhotoDetails = b.UtilityBuildingPhotoDetails.Select(photo => new UtilityBuildingPhotoDetail { PhotoId = photo.PhotoId }).ToArray()
                     }).ToArray();
@@ -381,24 +387,41 @@ namespace OnLeave.Controllers
                     var buildingLocaleEN = buildingDB.UtilityBuildingLocales.FirstOrDefault(l => l.LocaleId == (int)LocaleTypes.EN);
                     if (buildingLocaleEN != null)
                     {
-                        buildingLocaleEN.Name = model.NameEN;
-                        buildingLocaleEN.Description = model.DescriptionEN;
-                        buildingLocaleEN.ContactPerson = model.ContactPersonEN;
-                        buildingLocaleEN.Address = model.AddressEN;
+                         if (string.IsNullOrWhiteSpace(model.ContactPersonEN)
+                        && string.IsNullOrWhiteSpace(model.NameEN)
+                        && string.IsNullOrWhiteSpace(model.DescriptionEN)
+                        && string.IsNullOrWhiteSpace(model.AddressEN))
+                         {
+                             // remove if no data                             
+                             db.UtilityBuildingLocales.Remove(buildingLocaleEN);
+                         }
+                         else
+                         {
+                             buildingLocaleEN.Name = model.NameEN;
+                             buildingLocaleEN.Description = model.DescriptionEN;
+                             buildingLocaleEN.ContactPerson = model.ContactPersonEN;
+                             buildingLocaleEN.Address = model.AddressEN;
+                         }
                     }
                     else
                     {
-                        buildingDB.UtilityBuildingLocales.Add(new UtilityBuildingLocale
+                        if (!string.IsNullOrWhiteSpace(model.ContactPersonEN)
+                       || !string.IsNullOrWhiteSpace(model.NameEN)
+                       || !string.IsNullOrWhiteSpace(model.DescriptionEN)
+                       || !string.IsNullOrWhiteSpace(model.Address))
                         {
-                            LocaleId = (int)LocaleTypes.EN,
-                            Name = model.NameEN,
-                            Description = model.DescriptionEN,
-                            ContactPerson = model.ContactPersonEN,
-                            Address = model.AddressEN
-                        });
+                            buildingDB.UtilityBuildingLocales.Add(new UtilityBuildingLocale
+                            {
+                                LocaleId = (int)LocaleTypes.EN,
+                                Name = model.NameEN,
+                                Description = model.DescriptionEN,
+                                ContactPerson = model.ContactPersonEN,
+                                Address = model.AddressEN
+                            });
+                        }
                     }
 
-                    // update facilities info
+                     // update facilities info
                     var facilitiesToRemove = buildingDB.UtilityBuidingFacilityDetails
                         .Where(fd => !model.Facilities.Any(f => f.FacilityTypeId == fd.UtilityBuildingFacilityTypeId && f.Selected));                    
 
@@ -585,6 +608,7 @@ namespace OnLeave.Controllers
             using (var db = new Models.OnLeaveContext())
             {
                 var building = db.UtilityBuildings
+                    .Include(b => b.UtilityBuildingLocales)
                     .Include(b => b.UtilityBuildingPhotoDetails)
                     .Include(b => b.UtilityBuildingPhotoDetails.Select(pd => pd.Photo))
                     .Include(b => b.UtilityBuidingFacilityDetails)
@@ -598,8 +622,8 @@ namespace OnLeave.Controllers
                     // avoid to delete building, which doesn't belong to user
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
                 }
-               
-                
+
+                db.UtilityBuildingLocales.RemoveRange(building.UtilityBuildingLocales);                
                 db.UtilityBuildingPhotoDetails.RemoveRange(building.UtilityBuildingPhotoDetails);
                 db.Photos.RemoveRange(building.UtilityBuildingPhotoDetails.Select(pd => pd.Photo));
                 db.UtilityBuidingFacilityDetails.RemoveRange(building.UtilityBuidingFacilityDetails);
