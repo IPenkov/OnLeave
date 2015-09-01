@@ -239,6 +239,12 @@ namespace OnLeave.Models
         [Display(Name="Кагегория")]
         public byte Rating { get; set; }
 
+        [Display(Name="Приоритет(търсене)")]
+        [Range(0, 256, ErrorMessage = "Моля въведе стойност 0 - 256")]
+        [RegularExpression(@"[0-9]*$", ErrorMessage = "Невалидна стойност")]
+        [DisplayFormat(NullDisplayText = "")]
+        public int? SearchRating { get; set; }
+
         /// <summary>
         /// Gets or sets the latitude.
         /// </summary>
@@ -263,6 +269,8 @@ namespace OnLeave.Models
         /// </value>
         [Display(Name="Обща леглова база")]
         [DisplayFormat(NullDisplayText="")]
+        [Range(1, 1000, ErrorMessage = "Моля въведе стойност 1 - 1000")]
+        [RegularExpression(@"[0-9]*$", ErrorMessage = "Невалидна стойност")]
         public int? Size { get; set; }
 
         [FileSize(10240)]
@@ -400,6 +408,38 @@ namespace OnLeave.Models
         /// The longitude.
         /// </value>
         public decimal longitude { get; set; }        
+    }
+
+    /// <summary>
+    /// Search ViewModel
+    /// </summary>
+    public class SearchSystemViewModel
+    {
+
+        /// <summary>
+        /// Gets or sets the name to search for.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the city id.
+        /// </summary>
+        /// <value>
+        /// The city id.
+        /// </value>
+        public int? CityId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the utility building type id.
+        /// </summary>
+        /// <value>
+        /// The utility building type id.
+        /// </value>
+        public int? UtilityBuildingTypeId { get; set; }
+        
     }
 }
 

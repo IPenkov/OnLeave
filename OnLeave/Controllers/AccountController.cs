@@ -48,7 +48,7 @@ namespace OnLeave.Controllers
 
         // GET: Account/Account
         public ActionResult Account()
-        {
+        {            
             return View();
         }
 
@@ -95,7 +95,7 @@ namespace OnLeave.Controllers
                 Value = t.UtilityBuildingTypeId.ToString()
             });
 
-            return View(utilityBuilding);
+            return PartialView(utilityBuilding);
         }
 
         /// <summary>
@@ -195,10 +195,11 @@ namespace OnLeave.Controllers
             });
 
             ModelState.Keys.Where(key => key.StartsWith("Periods")).ToList().ForEach(key => ModelState.Remove(key));
-            return View(model);
+            return PartialView(model);
         }
 
         [HttpGet]
+
         public ActionResult UtilityBuildings()
         {
             string userId = User.Identity.GetUserId();
@@ -206,7 +207,7 @@ namespace OnLeave.Controllers
             {
                 var result = db.UtilityBuildings
                     .Where(b => b.UserId == userId)
-                    .Include(b => b.UtilityBuildingPhotoDetails) 
+                    .Include(b => b.UtilityBuildingPhotoDetails)
                     .Include(b => b.UtilityBuildingLocales)
                     .ToArray();
 
@@ -216,12 +217,44 @@ namespace OnLeave.Controllers
                         Id = b.UtilityBuildingId,
                         Name = string.Join(" / ", b.UtilityBuildingLocales.Where(l => !string.IsNullOrWhiteSpace(l.Name)).Select(l => l.Name).ToArray()),
                         Description = string.Join(System.Environment.NewLine, b.UtilityBuildingLocales.Where(l => !string.IsNullOrWhiteSpace(l.Description)).Select(l => l.Description).ToArray()),
-                        PhotoIds = b.UtilityBuildingPhotoDetails.Select(photo =>  photo.PhotoId).ToArray()
-                        //UtilityBuildingPhotoDetails = b.UtilityBuildingPhotoDetails.Select(photo => new UtilityBuildingPhotoDetail { PhotoId = photo.PhotoId }).ToArray()
+                        PhotoIds = b.UtilityBuildingPhotoDetails.Select(photo => photo.PhotoId).ToArray()                        
                     }).ToArray();
 
-                return View(photoes);
+                return PartialView("UtilityBuildings", photoes);
             }
+        }
+
+        /// <summary>
+        /// Buildings system search.
+        /// </summary>
+        /// <param name="model">The model.</param>                
+        [HttpPost]
+        [Authorize(Roles="Root")]
+        [ValidateAntiForgeryToken]
+        public ActionResult SearchBuildings(SearchSystemViewModel model)
+        {
+            using (var db = new Models.OnLeaveContext())
+            {
+                var result = db.UtilityBuildings
+                    .Where(b =>  (model.Name == null || model.Name.Trim() == string.Empty || b.UtilityBuildingLocales.Any(l => l.Name.Trim().ToLower().Contains(model.Name.Trim().ToLower())))
+                        && b.UtilityBuildingPhotoDetails.Count > 0)
+                    .Where(b => !model.CityId.HasValue || b.CityId == model.CityId)
+                    .Include(b => b.UtilityBuildingPhotoDetails)
+                    .Include(b => b.UtilityBuildingLocales)
+                    .OrderByDescending(b => b.SearchRating)
+                    .ToArray();
+
+                UtilityBuildingModel[] photoes = result
+                    .Select(b => new UtilityBuildingModel
+                    {
+                        Id = b.UtilityBuildingId,
+                        Name = string.Join(" / ", b.UtilityBuildingLocales.Where(l => !string.IsNullOrWhiteSpace(l.Name)).Select(l => l.Name).ToArray()),
+                        Description = string.Join(System.Environment.NewLine, b.UtilityBuildingLocales.Where(l => !string.IsNullOrWhiteSpace(l.Description)).Select(l => l.Description).ToArray()),
+                        PhotoIds = b.UtilityBuildingPhotoDetails.Select(photo => photo.PhotoId).ToArray()                        
+                    }).ToArray();
+
+                return PartialView("UtilityBuildings", photoes);
+            }           
         }
 
         /// <summary>
@@ -271,6 +304,7 @@ namespace OnLeave.Controllers
                     PhoneNumber = buildingDB.PhoneNumber,
                     CityId = buildingDB.CityId,
                     Rating = buildingDB.Rating ?? 0,
+                    SearchRating = User.IsInRole("Root") ? buildingDB.SearchRating : null,
                     Latitude = buildingDB.lat ?? 0M,
                     Longitude = buildingDB.lon ?? 0M,                    
                     Size = buildingDB.Size,
@@ -331,7 +365,7 @@ namespace OnLeave.Controllers
                     Value = t.UtilityBuildingTypeId.ToString()
                 });
 
-                return View(model);
+                return PartialView(model);
             }            
         }
 
@@ -363,6 +397,11 @@ namespace OnLeave.Controllers
                     buildingDB.CityId = model.CityId;
                     buildingDB.Rating = model.Rating;
                     buildingDB.Size = model.Size;
+
+                    if (User.IsInRole("Root"))
+                    {
+                        buildingDB.SearchRating = model.SearchRating;
+                    }
 
                     var buildingLocaleBG = buildingDB.UtilityBuildingLocales.FirstOrDefault(l => l.LocaleId == (int)LocaleTypes.BG);
                     if (buildingLocaleBG != null)
@@ -554,7 +593,7 @@ namespace OnLeave.Controllers
             });
 
             ModelState.Keys.Where(key => key.StartsWith("Periods")).ToList().ForEach(key => ModelState.Remove(key));
-            return View(model);
+            return PartialView(model);
         }
 
 
@@ -617,10 +656,11 @@ namespace OnLeave.Controllers
                     .FirstOrDefault(b => b.UtilityBuildingId == buildingId);
                 System.Diagnostics.Debug.Assert(building != null, "building not found");
 
-                if (building.UserId != User.Identity.GetUserId())
+                if (building.UserId != User.Identity.GetUserId() && !User.IsInRole("Root"))
                 {
+                    Elmah.ErrorSignal.FromCurrentContext().Raise(new Exception("avoid to delete building, which doesn't belong to user"));                    
                     // avoid to delete building, which doesn't belong to user
-                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);                    
                 }
 
                 db.UtilityBuildingLocales.RemoveRange(building.UtilityBuildingLocales);                
@@ -639,12 +679,13 @@ namespace OnLeave.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Root")]
         public ActionResult Cities()
         {
             using (var db = new OnLeaveContext())
             {
                 var cities = db.Cities.ToArray();
-                return View(cities);
+                return PartialView(cities);
             }
         }
 
@@ -658,7 +699,7 @@ namespace OnLeave.Controllers
             if (cityId == -1)
             {
                 ModelState.Clear();
-                return View("City", new CityModel());
+                return PartialView("City", new CityModel());
             }
             
             using (var db = new OnLeaveContext())
@@ -670,7 +711,7 @@ namespace OnLeave.Controllers
                     return RedirectToAction("Cities");                    
                 }
 
-                return View("City",
+                return PartialView("City",
                     new CityModel
                     {
                         Name = city.Name,
@@ -719,11 +760,12 @@ namespace OnLeave.Controllers
         /// <param name="city">The city.</param>        
         [ValidateAntiForgeryToken]
         [Authorize(Roles="Root")]
+        [HttpPost]
         public ActionResult City(CityModel city)
         {
             if (!ModelState.IsValid)
             {
-                return View(city);
+                return PartialView(city);
             }
             
             using (var db = new OnLeaveContext())
@@ -733,7 +775,7 @@ namespace OnLeave.Controllers
                     if (db.Cities.Any(c => c.Name.ToLower() == city.Name.ToLower()))
                     {
                         ModelState.AddModelError(GenericHelper.GetPropertyName(() => city.Name), "Дублиран град");
-                        return View(city);
+                        return PartialView(city);
                     }
 
                     // add city
@@ -760,7 +802,7 @@ namespace OnLeave.Controllers
 
                     if (!ModelState.IsValid)
                     {
-                        return View(city);
+                        return PartialView(city);
                     }
 
                     c.Name = city.Name;
@@ -957,7 +999,7 @@ namespace OnLeave.Controllers
                 Telephone = user.Telephone
             };
             
-            return View(model);
+            return PartialView(model);
         }
 
         /// <summary>
@@ -987,7 +1029,7 @@ namespace OnLeave.Controllers
                 }
             }
 
-            return View(model);
+            return PartialView(model);
         }
 
         /// <summary>
@@ -1034,6 +1076,13 @@ namespace OnLeave.Controllers
         {
             if (AuthenticationManager.User.Identity.IsAuthenticated)
             {
+                //ViewBag.Cities = StaticDataProvider.Cities.Select(c => new SelectListItem { Text = c.Name, Value = c.CityId.ToString() });
+                /*ViewBag.UtilityBuildingTypes = StaticDataProvider.UtilityBuildingTypes.Select(t => new SelectListItem
+                {
+                    Text = t.Description,
+                    Value = t.UtilityBuildingTypeId.ToString()
+                });*/
+
                 return View("Account");
             }
 

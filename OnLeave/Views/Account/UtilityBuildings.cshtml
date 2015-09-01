@@ -1,12 +1,4 @@
 ﻿@model OnLeave.Models.UtilityBuildingModel[]
-@{
-    ViewBag.Title = "UtilityBuildings";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@section LeftSideBar{
-    @{Html.RenderPartial("AccounLeftSideBar");}
-}
 
 <div class="breadcrumb">
     @Html.ActionLink("Начало", "Index", "Home")
@@ -23,23 +15,40 @@
                 <tr>
                     <td class="image">Снимка</td>
                     <td class="name">Име</td>
-                    <td class="remove"></td>                    
+                    <td class="remove"></td>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var building in Model)
                 {
                     <tr>
-                        <td class="image">
-                            <a href="@Url.Action("EditBuilding", "Account", new { buildingId = building.Id })">
+                        <td>                            
+                            <a data-ajax="true"
+                               data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
+                               data-ajax-method="GET"
+                               data-ajax-mode="replace"
+                               data-ajax-update="#content"
+                               href="@Url.Action("EditBuilding", "Account", new { buildingId = building.Id })"
+                               data-ajax-complete="init()">
                                 <img src="@Url.Action("47/37/" + @building.PhotoIds.FirstOrDefault(), "Account", new { })" />
                             </a>
                         </td>
-                        <td class="name">
-                            <a href="@Url.Action("EditBuilding", "Account", new { buildingId = building.Id })">@building.Name</a>
+                        <td class="name">                           
+                            @Ajax.ActionLink(@building.Name, "EditBuilding", "Account",
+                            new { buildingId = building.Id },
+                            new AjaxOptions
+                                {
+                                    AllowCache = false,
+                                    HttpMethod = "GET",
+                                    InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
+                                    UpdateTargetId = "content",
+                                    OnFailure = "handleError('Error. Please contact Administrator.')",
+                                    OnComplete = "init()"
+                                })
                             <div></div>
                             <small>@building.Description</small>
                         </td>
+
                         <td class="remove">
                             @using (Ajax.BeginForm("DeleteBuilding", "Account",
             new AjaxOptions
@@ -64,9 +73,3 @@
         </table>
     </div>
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/autosize")
-}
-

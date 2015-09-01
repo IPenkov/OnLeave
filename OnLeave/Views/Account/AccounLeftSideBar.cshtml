@@ -1,4 +1,5 @@
-﻿<div class="box account">
+﻿@model OnLeave.Models.SearchSystemViewModel
+<div class="box account">
     <div class="box-heading"><span>Профил</span></div>
     <div class="box-content">
         <ul class="acount">
@@ -16,29 +17,65 @@
             }
 
             <li class="@if (actionName == "Login") {<text>active</text>}">
-                @Html.ActionLink("Моя профил", "Login", "Account")
+                @Html.ActionLink("Моя профил", "Login", "Account")                
             </li>
-            <li class="@if (actionName == "EditAccount"){<text>active</text>}">
-                @Html.ActionLink("Промяна профил", "EditAccount", "Account")
+            <li class="@if (actionName == "EditAccount"){<text>active</text>}">                
+                @Ajax.ActionLink("Промяна профил", "EditAccount", "Account",
+                    new AjaxOptions
+                    {
+                        AllowCache = false,
+                        HttpMethod = "GET",
+                        InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
+                        UpdateTargetId = "content",
+                        OnFailure = "handleError('Error. Please contact Administrator.')",
+                        OnComplete = "init();"
+                    })
             </li>
 
             @if (Request.IsAuthenticated)
             {
                 <li class="@if (actionName == "ChangePassword"){<text>active</text>}">
-                    @Html.ActionLink("Промяна парола", "ChangePassword", "Account")
+                    @Html.ActionLink("Промяна парола", "ChangePassword", "Account")                    
                 </li>
                 <li>
-                    @Html.ActionLink("Добавене хотел", "AddUtilityBuilding", "Account")
+                    @Ajax.ActionLink("Добавене хотел", "AddUtilityBuilding", "Account",
+                    new AjaxOptions
+                    {
+                        AllowCache = false,
+                        HttpMethod = "GET",
+                        InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
+                        UpdateTargetId = "content",
+                        OnFailure = "handleError('Error. Please contact Administrator.')",
+                        OnComplete = "init();"
+                    })
+
                 </li>
                 <li>
-                    @Html.ActionLink("Моите хотели", "UtilityBuildings", "Account")
+                    @Ajax.ActionLink("Моите хотели", "UtilityBuildings", "Account",
+                    new AjaxOptions
+                    {
+                        AllowCache = false,
+                        HttpMethod = "GET",
+                        InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
+                        UpdateTargetId = "content",
+                        OnFailure = "handleError('Error. Please contact Administrator.')",
+                        OnComplete = "addActionConfirmation()"
+                    })
                 </li>
             }
-            
+
             @if (User.IsInRole("Root"))
             {
-                <li>
-                    @Html.ActionLink("Система", "Cities", "Account")
+                <li>                   
+                    @Ajax.ActionLink("Система", "Cities", "Account",
+                    new AjaxOptions
+                    {
+                        AllowCache = false,
+                        HttpMethod = "GET",
+                        InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
+                        UpdateTargetId = "content",
+                        OnFailure = "handleError('Error. Please contact Administrator.')",                        
+                    })
                 </li>
             }
 
@@ -53,5 +90,71 @@
             }
 
         </ul>
+
+        @if (User.IsInRole("Root"))
+        {
+            using (Ajax.BeginForm("SearchBuildings", "Account",
+                    new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                        InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
+                        UpdateTargetId = "content",
+                        OnComplete = "addActionConfirmation()"
+                    },
+                    new { id = "search_building", }))
+            {
+                @Html.AntiForgeryToken()
+
+                <fieldset class="collapse-section">
+                    <legend rel="open">Хотел</legend>
+                    <p></p>
+                    <div class="clear"></div>
+
+                    <ul>
+                        <li style="margin-bottom: 5px">
+                            <div style="overflow: hidden">
+                                @Html.TextBoxFor(m => m.Name, new
+                                   {
+                                       id = "search_by_name",
+                                       placeholder = "търси хотел",
+                                       @style = "-moz-box-sizing: border-box; -webkit-box-sizing:border-box; box-sizing:border-box; width: 184px; height: 26px"
+                                   })
+
+                                <span class="search_name" onclick="$('#search_building').submit();" title="search by name"
+                                      style="-moz-box-sizing: border-box; -webkit-box-sizing:border-box; box-sizing:border-box; width: 22px; height: 26px">
+                                    <span class="search_name"></span>
+                                </span>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 5px">                                                   
+                            @Html.DropDownListFor(
+                            m => m.CityId,
+                            OnLeave.Models.StaticDataProvider.Cities.Select(c => new SelectListItem{ Text = c.Name, Value = c.CityId.ToString()}),
+                            "-- Избери град --",
+                            new
+                            {
+                                @class = "q1",
+                                style = "background: #ffffff; -moz-box-sizing: border-box; -webkit-box-sizing:border-box; box-sizing:border-box; width: 206px; height: 26px"
+                            })
+                        </li>
+                        <li style="margin-bottom: 5px">
+                            <div>
+                                @Html.DropDownListFor(
+                            m => m.UtilityBuildingTypeId,
+                            OnLeave.Models.StaticDataProvider.UtilityBuildingTypes.Select(t => new SelectListItem{ Text = t.Description, Value = t.UtilityBuildingTypeId.ToString()}),
+                            "-- Избери тип --",
+                             new
+                             {
+                                 @class = "q1",
+                                 style = "background: #ffffff;  -moz-box-sizing: border-box; -webkit-box-sizing:border-box; box-sizing:border-box; width: 206px; height: 26px"
+                             })
+                            </div>
+                        </li>
+                    </ul>
+                </fieldset>
+                <div class="clear"></div>
+            }
+        }
+
     </div>
 </div>

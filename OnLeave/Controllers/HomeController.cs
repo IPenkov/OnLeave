@@ -23,7 +23,8 @@ namespace OnLeave.Controllers
                 .Include(p => p.UtilityBuildingPhotoDetails)
                 .Include(b => b.UtilityBuildingLocales)
                 .Where(b => b.UtilityBuildingPhotoDetails.Count > 0)
-                .OrderByDescending(b => b.UtilityBuildingId)
+                .OrderByDescending(b => b.SearchRating)
+                .ThenByDescending(b => b.UtilityBuildingId)
                 .Take(9)
                 .ToArray()
                 .Select(b => new UtilityBuildingModel
@@ -131,6 +132,7 @@ namespace OnLeave.Controllers
                     .Where(b => (!model.MinAmount.HasValue && !model.MaxAmount.HasValue) 
                         || b.Periods.SelectMany(p => p.RoomAmounts).Any(a => (!model.MinAmount.HasValue || model.MinAmount <= a.Amount) && (!model.MaxAmount.HasValue || model.MaxAmount >= a.Amount)))
                     // .Select(b => new UtilityBuilding() { Name = b.Name })
+                    .OrderByDescending(b => b.SearchRating)
                     .ToArray();
 
                 var buildings = result

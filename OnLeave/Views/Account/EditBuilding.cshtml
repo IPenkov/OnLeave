@@ -1,12 +1,12 @@
 ﻿@model OnLeave.Models.UtilityBuildingModel
-@{
-    ViewBag.Title = "EditBuilding";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@*@{
+        ViewBag.Title = "EditBuilding";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 
-@section LeftSideBar{
-    @{Html.RenderPartial("AccounLeftSideBar");}
-}
+    @section LeftSideBar{
+        @{Html.RenderPartial("AccounLeftSideBar");}
+    }*@
 
 <div class="breadcrumb">
     @Html.ActionLink("Начало", "Index", "Home")
@@ -23,7 +23,16 @@
         </div>
         <div class="addhotel-content" style="@(Model.Id != 0 ?  "display:block;" : "display:none")">
 
-            @using (Html.BeginForm("EditBuilding", "Account", FormMethod.Post, new { id = "add" }))
+            @using (Ajax.BeginForm("EditBuilding", "Account",
+                new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "context",
+                    OnFailure = "handleError('Error. Please contact Administrator.')",
+                    OnSuccess = "init()"
+                },
+                new { id = "add" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(m => m.Id)
@@ -175,7 +184,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="label">                                    
+                                <td class="label">
                                     @Html.LabelFor(m => m.Size):
                                 </td>
                                 <td>
@@ -230,20 +239,37 @@
                                     <div class="clear"></div>
                                     <div style="float:left">
                                         <span class="starRating">
-                                            <input id="rating5" type="radio" name="Rating" value="5" @if (Model.Rating == 5) { <text>checked</text>}>
+                                            <input id="rating5" type="radio" name="Rating" value="5" @if (Model.Rating == 5) { <text> checked</text>}>
                                             <label for="rating5">5</label>
-                                            <input id="rating4" type="radio" name="Rating" value="4" @if (Model.Rating == 4) { <text>checked</text>}>
+                                            <input id="rating4" type="radio" name="Rating" value="4" @if (Model.Rating == 4) { <text> checked</text>}>
                                             <label for="rating4">4</label>
                                             <input id="rating3" type="radio" name="Rating" value="3" @if (Model.Rating == 3) { <text> checked</text>}>
                                             <label for="rating3">3</label>
-                                            <input id="rating2" type="radio" name="Rating" value="2" @if (Model.Rating == 2) { <text>checked</text>}>
+                                            <input id="rating2" type="radio" name="Rating" value="2" @if (Model.Rating == 2) { <text> checked</text>}>
                                             <label for="rating2">2</label>
-                                            <input id="rating1" type="radio" name="Rating" value="1" @if (Model.Rating == 1) { <text>checked</text>}>
+                                            <input id="rating1" type="radio" name="Rating" value="1" @if (Model.Rating == 1) { <text> checked</text>}>
                                             <label for="rating1">1</label>
                                         </span>
                                     </div>
                                 </td>
                             </tr>
+                            @if (User.IsInRole("Root"))
+                            {
+                                <tr>
+                                    <td class="label">
+                                        @Html.LabelFor(m => m.SearchRating):
+                                    </td>
+                                    <td>
+                                        <div style="float:left">
+                                            @Html.ValidationMessageFor(m => m.SearchRating)
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div style="float:left">
+                                            @Html.TextBoxFor(m => m.SearchRating, new { @class = "q1" })
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
 
@@ -293,8 +319,15 @@
                     </fieldset>
 
                     <div class="buttons" style="margin-left: 20px; margin-right: 20px;">
-                        <div class="left">
-                            <a class="button" href="@Url.Action("UtilityBuildings", "Account")"><span>Назад</span></a>
+                        <div class="left">                            
+                            <a class="button" data-ajax="true"
+                               data-ajax-failure="handleError('Error. Please contact Administrator.')"
+                               data-ajax-method="GET"
+                               data-ajax-mode="replace"
+                               data-ajax-update="#content"
+                               href="@Url.Action("UtilityBuildings", "Account")">
+                                <span>Назад</span>
+                            </a>
                         </div>
                         <div class="right">
                             <a class="button" onclick="$('#add').submit();"><span>Запис</span></a>
@@ -348,25 +381,30 @@
                 <div class="buttons" style="margin: 10px 20px 0 20px">
                     <div class="left">
                     </div>
-                    <div class="right">
-                        <a class="button" href="@Url.Action("UtilityBuildings", "Account")"><span>Край</span></a>
+                    <div class="right">                        
+                        <a class="button" data-ajax="true"
+                           data-ajax-failure="handleError('Error. Please contact Administrator.')"
+                           data-ajax-method="GET"
+                           data-ajax-mode="replace"
+                           data-ajax-update="#content"
+                           href="@Url.Action("UtilityBuildings", "Account")">
+                            <span>Край</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    //this code goes in your partialview
+    $(function () {
+        //allow the validation framework to re-prase the DOM
+        jQuery.validator.unobtrusive.parse();
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/autosize")
-    @Scripts.Render("~/bundles/jquery-ui")
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            attachAddPicture();
-            initialize();
-            $('.datepick').each(function () { $(this).datepicker({ dateFormat: "dd/mm/yy" }) });
-        });
-    </script>
-}
+        //or to give the parser some context, supply it with a selector
+        //jQuery validator will parse all child elements (deep) starting
+        //from the selector element supplied
+        jQuery.validator.unobtrusive.parse("#content");
+    });
+</script>

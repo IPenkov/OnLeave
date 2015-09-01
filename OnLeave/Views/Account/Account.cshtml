@@ -1,10 +1,11 @@
-﻿@{
+﻿@*@model OnLeave.Models.SearchSystemViewModel*@
+@{
     ViewBag.Title = "Account";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section LeftSideBar{
-    @{Html.RenderPartial("AccounLeftSideBar");}
+    @{Html.RenderPartial("AccounLeftSideBar", new OnLeave.Models.SearchSystemViewModel());}
 }
 
 
@@ -19,10 +20,38 @@
 
     <div class="content">
         <ul>
-            <li>@Html.ActionLink("Промяна профил", "EditAccount", "Account")</li>
-            <li>@Html.ActionLink("Смяна парола", "ChangePassword", "Account")</li>            
+            <li>
+                @*@Html.ActionLink("Промяна профил", "EditAccount", "Account")*@
+                @Ajax.ActionLink("Промяна профил", "EditAccount", "Account",
+                    new AjaxOptions
+                    {
+                        AllowCache = false,
+                        HttpMethod = "GET",
+                        InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
+                        UpdateTargetId = "content",
+                        OnFailure = "handleError('Error. Please contact Administrator.')",
+                        OnComplete = "init();"
+                    })
+            </li>
+            <li>@Html.ActionLink("Смяна парола", "ChangePassword", "Account")</li>
         </ul>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/autosize")
+    @Scripts.Render("~/bundles/jquery-ui")
+
+    <script type="text/javascript">
+            function init() {
+                $('.resize').autosize();
+                attachAddPicture();
+                initialize();
+                $('.datepick').each(function () { $(this).datepicker({ dateFormat: "dd/mm/yy" }) });
+            };
+    </script>
+}
 
 

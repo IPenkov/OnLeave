@@ -10,5 +10,6 @@ namespace OnLeave
         {
             ConfigureAuth(app);
         }
+        
     }
 }

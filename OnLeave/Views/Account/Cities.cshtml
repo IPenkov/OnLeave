@@ -1,14 +1,5 @@
 ﻿@model OnLeave.Models.City[]
 
-@{
-    ViewBag.Title = "System";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@section LeftSideBar{
-    @{Html.RenderPartial("AccounLeftSideBar");}
-}
-
 <div class="breadcrumb">
     @Html.ActionLink("Начало", "Index", "Home")
     » @Html.ActionLink("Профил", "Account", "Account")
@@ -30,8 +21,18 @@
                 @foreach (var c in Model)
                 {
                     <tr>                       
-                        <td class="name">
-                            <a href="@Url.Action("GetCity", "Account", new { cityId = c.CityId })">@c.Name</a>
+                        <td class="name">                            
+                            @Ajax.ActionLink(@c.Name, "GetCity", "Account",
+                         new { cityId = c.CityId },
+                            new AjaxOptions
+                                {
+                                    AllowCache = false,
+                                    HttpMethod = "GET",
+                                    InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
+                                    UpdateTargetId = "content",
+                                    OnFailure = "handleError('Error. Please contact Administrator.')",
+                                    OnComplete = "init()"
+                                })
                             <div></div>
                             <small>@c.Name</small>
                         </td>
@@ -56,14 +57,28 @@
                     </tr>
                 }
                 <tr class="add-row" onclick="$('#add-city')[0].click();">
-                    <td colspan="2"><a id="add-city" href="@Url.Action("GetCity", "Account", new { cityId = -1})" > Добави град </a></td>                    
+                    <td colspan="2">                        
+                        @Ajax.ActionLink("Добави град", "GetCity", "Account",
+                            new { cityId = -1 },
+                            new AjaxOptions
+                                {
+                                    AllowCache = false,
+                                    HttpMethod = "GET",
+                                    InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
+                                    UpdateTargetId = "content",
+                                    OnFailure = "handleError('Error. Please contact Administrator.')",
+                                    OnComplete = "init()"
+                                },
+                                new { id = "add-city" })
+                    </td>                    
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/autosize")
-}
+<script type="text/javascript">
+    $(function()
+    {
+        addActionConfirmation();
+    })
+</script>
