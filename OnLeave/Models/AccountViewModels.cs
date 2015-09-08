@@ -198,11 +198,11 @@ namespace OnLeave.Models
         /// </value>
         [Display(Name = "Описание")]
         [Required(AllowEmptyStrings=false, ErrorMessage="Липсва описание")]
-        [StringLength(255, ErrorMessage="Максимален брой {1} символи")]
+        [StringLength(2000, ErrorMessage="Максимален брой {1} символи")]
         public string Description { get; set; }
 
-        [Display(Name = "Description")]        
-        [StringLength(255, ErrorMessage = "Maximum {1} characters")]
+        [Display(Name = "Description")]
+        [StringLength(2000, ErrorMessage = "Maximum {1} characters")]
         public string DescriptionEN { get; set; }
 
         [Display(Name="Тип")]

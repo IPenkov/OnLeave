@@ -3194,6 +3194,7 @@ a.button-return-right span, a.button-order-right span, a.button-cont-right span,
 .cart-info table {
 	width: 100%;
 	border-collapse: collapse;
+    table-layout: fixed;
 }
 a {
 	outline:none;
@@ -3206,6 +3207,7 @@ a {
 }
 .cart-info td {
 	padding:7px 7px 6px 8px;
+    overflow: hidden;
 }
 .cart-info thead td {
 	color: #191919;
