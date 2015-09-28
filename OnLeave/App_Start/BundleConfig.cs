@@ -13,6 +13,7 @@ namespace OnLeave
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*",
+                         "~/Scripts/additional-methods*",
                         "~/Scripts/jquery.unobtrusive-ajax*",
                         "~/Scripts/on.leave.js",
                         "~/Scripts/jquery.form*",

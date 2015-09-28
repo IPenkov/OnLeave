@@ -118,6 +118,8 @@ div.spacer0
 .validation-summary-errors ul li {
 	/*color:  #ff0000 !important;*/
 	padding-left: 0 !important;
+    width: auto !important;
+    margin: 0 !important
 }
 .validation-summary-valid {
 	display: none;

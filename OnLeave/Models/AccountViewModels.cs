@@ -168,7 +168,7 @@ namespace OnLeave.Models
     {
         public UtilityBuildingModel()
         {
-            this.PhotoIds = new int[0];
+            this.PhotoIds = new List<int>();
         }
         /// <summary>
         /// Hotel's id.
@@ -273,9 +273,9 @@ namespace OnLeave.Models
         [RegularExpression(@"[0-9]*$", ErrorMessage = "Невалидна стойност")]
         public int? Size { get; set; }
 
-        [FileSize(10240)]
+        [FileSize(1024 * 1024 * 4, ErrorMessage="Максимална големина на снимката - 4MB")]
         [FileTypes("jpg,jpeg,png")]
-        public HttpPostedFileBase File { get; set; }
+        public HttpPostedFileBase PhotoFile { get; set; }
 
         /// <summary>
         /// Gets or sets the photo ids.
@@ -283,7 +283,7 @@ namespace OnLeave.Models
         /// <value>
         /// The photo ids.
         /// </value>
-        public int[] PhotoIds { get; set; }
+        public List<int> PhotoIds { get; set; }
 
         /// <summary>
         /// Gets or sets the facilities.

@@ -1,13 +1,18 @@
 ﻿@model OnLeave.Models.UtilityBuildingModel
-<div style="float:left">
+@if (!ViewData.ModelState.IsValid)
+{
+    @Html.ValidationSummary(false, null, new { id="photoes_validation",  style = "overflow: hidden" })
+}
+
+<div id="photoes" style="float:left">
     <ul>
 
-        @for (int i = 0; i < Model.PhotoIds.Length; i++)
+        @for (int i = 0; i < Model.PhotoIds.Count; i++)
         {
             <li class="@(i % 3 == 0 ? "first-in-line" : (i % 3 == 2 ? "last-in-line" : ""))">
                 @using (Ajax.BeginForm("RemovePhoto", "Account",
             new AjaxOptions { OnSuccess = string.Format("removePhoto({0})", Model.PhotoIds[i]) },
-            new { id = string.Format("photo_{0}", Model.PhotoIds[i]) , @data_confirm = "Are you sure you want to delete photo?"}))
+            new { id = string.Format("photo_{0}", Model.PhotoIds[i]), @data_confirm = "Are you sure you want to delete photo?" }))
                 {
                     @Html.AntiForgeryToken()
 
@@ -29,23 +34,103 @@
             </li>
         }
 
-        <li class="@((Model.PhotoIds.Length + 1) % 3 == 0 ? "last-in-line" : ((Model.PhotoIds.Length + 1) % 3 == 1 ? "first-in-line" : ""))">
+        <li class="@((Model.PhotoIds.Count + 1) % 3 == 0 ? "last-in-line" : ((Model.PhotoIds.Count + 1) % 3 == 1 ? "first-in-line" : ""))">
             @using (Html.BeginForm("AddPicture", "Account", FormMethod.Post, new { id = "add_picture", enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(m => m.Id)
+                for (int i = 0; i < Model.PhotoIds.Count; i++)
+                {
+                    @Html.HiddenFor(m => m.PhotoIds[i])
+                }
 
-                <div id="add_pic" onclick="$('#file').click()" class="new_Btn" style="display: @(Model.PhotoIds.Length < 7 ? "block" : "none")" title="Add Photo">
+                <div id="add_pic" onclick="$('#PhotoFile ').click()" class="new_Btn" style="display: @(Model.PhotoIds.Count < 7 ? "block" : "none")" title="Add Photo">
                     <div style="position: relative;top: 79px">
                         <img id="first" style="" src="~/Content/Images/plus.png" />
                     </div>
                 </div>
                 <br />
-                <input onchange="$('#add_picture').submit();" style="display:none" type="file" name="File" id="file">
+                <input onchange="sendPicture()" style="display:none" type="file" name="PhotoFile" id="PhotoFile">
             }
         </li>
+
+
+        @*<li class="@((Model.PhotoIds.Count + 1) % 3 == 0 ? "last-in-line" : ((Model.PhotoIds.Count + 1) % 3 == 1 ? "first-in-line" : ""))">
+            @using (Ajax.BeginForm("AddPicture", "Account",
+            new AjaxOptions
+            {
+                HttpMethod = "POST",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "photoes",
+                OnFailure = "handleError('Error. Please contact Administrator.')",                
+            },
+                
+                new { id = "add_picture", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
+                for (int i = 0; i < Model.PhotoIds.Count; i++)
+                {
+                    @Html.HiddenFor(m => m.PhotoIds[i])
+                }
+
+                <div id="add_pic" onclick="$('#PhotoFile ').click()" class="new_Btn" style="display: @(Model.PhotoIds.Count < 7 ? "block" : "none")" title="Add Photo">
+                    <div style="position: relative;top: 79px">
+                        <img id="first" style="" src="~/Content/Images/plus.png" />
+                    </div>
+                </div>
+                <br />
+                <input onchange="sendPicture()" style="display:none" type="file" name="PhotoFile" id="PhotoFile">
+            }
+        </li>*@
+
+
     </ul>
+
+
 </div>
+<script type="text/javascript">
+
+    // just for the demos, avoids form submit
+    //$.validator.setDefaults({
+    //    debug: true,
+    //    success: "valid"
+    //});
+    
+    $(function () {
+        $.validator.addMethod(
+        "maxfilesize",
+        function (value, element) {
+            return this.optional(element) || element.files === undefined || (element.files[0]
+                                   && element.files[0].size < 1024 * 1024 * 4);
+        },
+        'Максимален размер на снимка 4MB.'
+    );
+
+        $("#add_picture").validate({
+            ignore: "",
+            rules: {
+                PhotoFile: {
+                    required: true,
+                    maxfilesize: true,
+                    accept: "image/*"
+                }
+            },
+            messages: {
+                PhotoFile: {
+                    accept: "Невалидна снимка."
+                }
+            }
+        })
+    });
+
+    function sendPicture() {
+        if (!$('#add_picture').valid()) return;
+
+        $('#add_picture').submit();
+    }
+</script>
+
 
 
 

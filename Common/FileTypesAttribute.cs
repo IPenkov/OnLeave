@@ -29,7 +29,7 @@
 
         public override string FormatErrorMessage(string name)
         {
-            return string.Format("Invalid file type. Only the following types {0} are supported.", String.Join(", ", _types));
+            return string.Format("Невалидна снимка. Валидни типове снимки {0}.", String.Join(", ", _types));
         }
     }
 }

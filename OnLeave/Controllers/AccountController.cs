@@ -217,7 +217,7 @@ namespace OnLeave.Controllers
                         Id = b.UtilityBuildingId,
                         Name = string.Join(" / ", b.UtilityBuildingLocales.Where(l => !string.IsNullOrWhiteSpace(l.Name)).Select(l => l.Name).ToArray()),
                         Description = string.Join(System.Environment.NewLine, b.UtilityBuildingLocales.Where(l => !string.IsNullOrWhiteSpace(l.Description)).Select(l => l.Description).ToArray()),
-                        PhotoIds = b.UtilityBuildingPhotoDetails.Select(photo => photo.PhotoId).ToArray()                        
+                        PhotoIds = b.UtilityBuildingPhotoDetails.Select(photo => photo.PhotoId).ToList()                        
                     }).ToArray();
 
                 return PartialView("UtilityBuildings", photoes);
@@ -250,7 +250,7 @@ namespace OnLeave.Controllers
                         Id = b.UtilityBuildingId,
                         Name = string.Join(" / ", b.UtilityBuildingLocales.Where(l => !string.IsNullOrWhiteSpace(l.Name)).Select(l => l.Name).ToArray()),
                         Description = string.Join(System.Environment.NewLine, b.UtilityBuildingLocales.Where(l => !string.IsNullOrWhiteSpace(l.Description)).Select(l => l.Description).ToArray()),
-                        PhotoIds = b.UtilityBuildingPhotoDetails.Select(photo => photo.PhotoId).ToArray()                        
+                        PhotoIds = b.UtilityBuildingPhotoDetails.Select(photo => photo.PhotoId).ToList()                        
                     }).ToArray();
 
                 return PartialView("UtilityBuildings", photoes);
@@ -308,7 +308,7 @@ namespace OnLeave.Controllers
                     Latitude = buildingDB.lat ?? 0M,
                     Longitude = buildingDB.lon ?? 0M,                    
                     Size = buildingDB.Size,
-                    PhotoIds = buildingDB.UtilityBuildingPhotoDetails.Select(ph => ph.PhotoId).ToArray(),
+                    PhotoIds = buildingDB.UtilityBuildingPhotoDetails.Select(ph => ph.PhotoId).ToList(),
                     Facilities = db.UtilityBuildingFacilityTypes.Select(ft =>
                         new FacilityTypeModel
                         {
@@ -568,7 +568,7 @@ namespace OnLeave.Controllers
                         });
                     }
 
-                    model.PhotoIds = buildingDB.UtilityBuildingPhotoDetails.Select(p => p.PhotoId).ToArray();
+                    model.PhotoIds = buildingDB.UtilityBuildingPhotoDetails.Select(p => p.PhotoId).ToList();
                 }
             }
 
@@ -818,6 +818,12 @@ namespace OnLeave.Controllers
             return RedirectToAction("Cities");
         }
 
+        [ValidateAntiForgeryToken] 
+        public ActionResult AddPicture()
+        {
+            return PartialView("_BuildingPhotoes", new UtilityBuildingModel());
+        }
+
         /// <summary>
         /// Adds the picture of the hotel.
         /// </summary>
@@ -827,16 +833,20 @@ namespace OnLeave.Controllers
         [ValidateAntiForgeryToken]        
         public async Task<ActionResult> AddPicture(UtilityBuildingModel model)
         {
-            ModelState.Clear();
+            //ModelState.Clear();
             if (model.Id == 0)
             {
                 ModelState.AddModelError(string.Empty, "hotel missing");
             }
 
-            if (model.File == null)
+            if (model.PhotoFile == null)
             {
                 ModelState.AddModelError(string.Empty, "image missing");
             }
+
+            // take just PhotoFile validation
+            var errors = ModelState.Where(s => s.Key != GenericHelper.GetPropertyName(() => model.PhotoFile));
+            errors.ToList().ForEach(e => ModelState.Remove(e.Key));
 
             if (!ModelState.IsValid)
             {
@@ -846,49 +856,50 @@ namespace OnLeave.Controllers
             using (var db = new Models.OnLeaveContext())
             {
                 // add pictures
-
-                byte[] buffer = new byte[model.File.ContentLength];
-                MemoryStream ms = new MemoryStream(buffer);
-                await model.File.InputStream.CopyToAsync(ms);
-                await ms.FlushAsync();
-                ms.Close();
-
-                // resize
-
-                var rSetting = new ImageResizer.ResizeSettings(600, 472, ImageResizer.FitMode.Max, "jpg");                
-                // if image size less scale, otherwise not
-                var resizedImage = ImageResizer.ImageBuilder.Current.Build(buffer, rSetting);
-
-                var imageDb = new Photo
+                                
+                //var resizedImage = ImageResizer.ImageBuilder.Current.Build(buffer, rSetting);
+                //resizedImage.Save(@"C:\\Temp\" + Path.GetFileName(model.PhotoFile.FileName));
+                
+                using (var ms = new MemoryStream())
                 {
-                    KeyWords = null,
-                    Name = Path.GetFileName(model.File.FileName),
-                    Image = resizedImage.ToByteArray()
-                };
-                db.Photos.Add(imageDb);                
+                    var job = new ImageResizer.ImageJob(
+                        model.PhotoFile,
+                        ms,
+                        new ImageResizer.Instructions("mode=crop;format=jpg;width=600;height=472;"));
+                    
+                    await Task.Run(() =>  job.Build());
 
-                var imageDetail = new UtilityBuildingPhotoDetail
-                {                    
-                    UtilityBuildingId = model.Id,
-                    KeyWords = null,
-                    PhotoId = imageDb.PhotoId
-                };
+                    var imageDb = new Photo
+                    {
+                        KeyWords = null,
+                        Name = Path.GetFileName(model.PhotoFile.FileName),
+                        Image = ms.ToArray()
+                    };                    
+                    db.Photos.Add(imageDb);
 
-                db.UtilityBuildingPhotoDetails.Add(imageDetail);
-                try
-                {
-                    db.SaveChanges();
+                    var imageDetail = new UtilityBuildingPhotoDetail
+                    {
+                        UtilityBuildingId = model.Id,
+                        KeyWords = null,
+                        PhotoId = imageDb.PhotoId
+                    };
+
+                    db.UtilityBuildingPhotoDetails.Add(imageDetail);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Console.WriteLine(ex);
+                    }
+
+                    // get images
+                    model.PhotoIds = db.UtilityBuildingPhotoDetails
+                        .Where(pDetail => pDetail.UtilityBuildingId == model.Id)
+                        .Select(pDetail => pDetail.PhotoId)
+                        .ToList();
                 }
-                catch (Exception ex)
-                {
-                    System.Console.WriteLine(ex);
-                }
-
-                // get images
-                model.PhotoIds = db.UtilityBuildingPhotoDetails
-                    .Where(pDetail => pDetail.UtilityBuildingId == model.Id)
-                    .Select(pDetail => pDetail.PhotoId)
-                    .ToArray();
             }
 
             return PartialView("_BuildingPhotoes", model);

@@ -32,14 +32,14 @@
                         <img id="image" title="@Model.Name" alt="@Model.Name" src="@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds.First(), width= 300, height = 236 })" />
                     </a>
                 </div>
-                <div class="image-additional @if (Model.PhotoIds.Length > 0) {<text>image-caroucel</text>}"
+                <div class="image-additional @if (Model.PhotoIds.Count > 0) {<text>image-caroucel</text>}"
                      style="display: block; position: relative;">
                     @*<div class="jcarousel-clip jcarousel-clip-horizontal" style="position: relative;">*@
                     <ul>
 
-                        @for (int i = 0; i < Model.PhotoIds.Length; i++)
+                        @for (int i = 0; i < Model.PhotoIds.Count; i++)
                         {
-                            <li class="@if (Model.PhotoIds.Length < 4 && i == 3){<text>last</text>}">
+                            <li class="@if (Model.PhotoIds.Count < 4 && i == 3){<text>last</text>}">
                                 <a title="@Model.Name" class="cloud-zoom-gallery"
                                    href="@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds[i], width= 600, height = 472 })"
                                    rel="useZoom: 'zoom1', smallImage: '@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds[i], width= 300, height = 236 })' ">

@@ -46,7 +46,7 @@ function makeCarousel() {
         visible: 3,
         scroll: 1
     });
-}
+};
 
 function search() {
     $("#search").off().ajaxForm({
@@ -219,3 +219,11 @@ function loadScript() {
         'callback=initialize';
     document.body.appendChild(script);
 }
+
+
+function sendPicture() {
+    if (!$('#add_picture').valid()) return;
+
+    $('#add_picture').submit();
+}
+

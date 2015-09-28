@@ -32,7 +32,7 @@ namespace OnLeave.Controllers
                     Id = b.UtilityBuildingId,
                     Name = string.Join(" / ", b.UtilityBuildingLocales.Select(l => l.Name)),
                     Description = string.Join(System.Environment.NewLine, b.UtilityBuildingLocales.Select(l => l.Description)),
-                    PhotoIds = b.UtilityBuildingPhotoDetails.Select(p => p.PhotoId).ToArray()
+                    PhotoIds = b.UtilityBuildingPhotoDetails.Select(p => p.PhotoId).ToList()
                 })
                 .ToArray();
             
@@ -77,7 +77,7 @@ namespace OnLeave.Controllers
                     Address = string.Join(" / ", buildingDB.UtilityBuildingLocales.Select(l => l.Address).ToArray()),
                     ContactPerson = string.Join(" / ", buildingDB.UtilityBuildingLocales.Select(l => l.ContactPerson).ToArray()),
                     PhoneNumber = buildingDB.PhoneNumber,
-                    PhotoIds = buildingDB.UtilityBuildingPhotoDetails.Select(ph => ph.PhotoId).ToArray(),
+                    PhotoIds = buildingDB.UtilityBuildingPhotoDetails.Select(ph => ph.PhotoId).ToList(),
                     CityId = buildingDB.CityId,
                     Rating = buildingDB.Rating ?? 0,
                     Latitude = buildingDB.lat ?? 0M,
@@ -143,7 +143,7 @@ namespace OnLeave.Controllers
                         Description = b.UtilityBuildingLocales.Where(l => l.LocaleId == (int)LocaleTypes.BG).Select(l => l.Description).FirstOrDefault(),
                         Rating = b.Rating ?? 0,
                         Size = b.Size,
-                        PhotoIds = new int[] { b.UtilityBuildingPhotoDetails.First().PhotoId }
+                        PhotoIds =  new System.Collections.Generic.List<int>(){  b.UtilityBuildingPhotoDetails.First().PhotoId }
                     }).ToArray();
 
                 return PartialView("_SearchResult", buildings.ToArray());
