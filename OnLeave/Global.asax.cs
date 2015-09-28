@@ -32,7 +32,7 @@ namespace OnLeave
             {
                 Server.ClearError();
                 //handle the error
-                Response.Write(@"<div style='overflow:hidd en' class='validation-summary-errors'><ul><li>Максимален размер на снимка 4MB</li></ul></div>");
+                Response.Write(@"<div style='overflow:hidden' class='validation-summary-errors'><ul><li>Максимален размер на снимка 4MB</li></ul></div>");
             }            
         }
     }
