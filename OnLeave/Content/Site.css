@@ -254,7 +254,7 @@ h2 {
 }
 /* layout */
 #container {
-	width:950px;
+	width:970px;
 	padding:6px 10px 10px;
 	margin:0 auto;
 	text-align: left;
@@ -262,14 +262,14 @@ h2 {
 	}
 #column-left {
 	float: left;
-	width:230px;
+	width:250px;
 }
 #column-right {
 	float: right;
 	width:230px;
 }
 #column-left + #column-right + #content, #column-left + #content {
-	margin-left:240px;
+	margin-left:260px;
 }
 .common-home #content {
 	padding:0px;
@@ -288,7 +288,7 @@ h2 {
 	}
 .row-1 {}
 .outer {
-	width:970px;
+	width:990px;
 	margin:0 auto;
 	}
 #header {
