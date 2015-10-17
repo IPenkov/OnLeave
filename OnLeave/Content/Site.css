@@ -2289,6 +2289,7 @@ ul {
 	display: block;
 	float:left;
 }
+
 .image-caroucel .jcarousel-clip {
 	width:300px;
 }
@@ -2311,7 +2312,11 @@ ul {
 	top:40%;
 	background:url(Images/image-caroucel-next.png) 6px 50% no-repeat #2584fa;
 }
-.image-caroucel .jcarousel-prev.jcarousel-prev-disabled, .image-caroucel .jcarousel-next.jcarousel-next-disabled {
+.image-caroucel .jcarousel-prev.jcarousel-prev-disabled,
+.image-caroucel .jcarousel-next.jcarousel-next-disabled,
+.image-caroucel .jcarousel-prev.inactive,
+.image-caroucel .jcarousel-next.inactive
+ {
 	background-color:#3A3637 !important;
 	cursor:default !important
 }

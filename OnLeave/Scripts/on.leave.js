@@ -41,11 +41,58 @@ function addActionConfirmation() {
  * Makes Carousel
  */
 function makeCarousel() {
-    $('div.image-caroucel').jcarousel({
-        vertical: false,
-        visible: 3,
-        scroll: 1
-    });
+    var carouselNavigation = $('.jcarousel')
+        .on('jcarousel:targetin', 'li', function (event, carousel) {
+            $(this).find("a").click();
+            var size = carousel.items().size();
+            if (size - 2 == carousel.items().index(this)) {
+                setTimeout(function () {
+                    carousel.scroll('+=1');
+                }, 3000);
+            }
+        })
+        .jcarousel({
+        })
+        .jcarouselAutoscroll({
+            interval: 3000,
+            target: '+=1',
+            autostart: true
+        });
+
+    $('.jcarousel-prev')
+        .off()
+        .on('jcarouselcontrol:inactive', function () {
+            $(this).addClass('inactive');
+        })
+        .on('jcarouselcontrol:active', function () {
+            $(this).removeClass('inactive');
+        })
+        .jcarouselControl({
+            target: '-=1',
+            carousel: carouselNavigation
+        });
+
+    $('.jcarousel-next')
+        .off()
+        .on('jcarouselcontrol:inactive', function () {
+            $(this).addClass('inactive');
+        })
+        .on('jcarouselcontrol:active', function () {
+            $(this).removeClass('inactive');
+        })
+        .jcarouselControl({
+            target: '+=1',
+            carousel: carouselNavigation
+        });
+
+    $('#photo_wrapper').off().hover(
+        function () {            
+            $('.jcarousel').jcarouselAutoscroll('stop');
+        },
+        function () {            
+            $('.jcarousel').jcarouselAutoscroll('start');
+        }
+    );    
 };
 
 function search() {

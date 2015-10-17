@@ -394,6 +394,10 @@
     <Content Include="Scripts\jquery.autosize.min.js" />
     <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\jquery.form.min.js" />
+    <Content Include="Scripts\jquery.jcarousel-autoscroll.min.js" />
+    <Content Include="Scripts\jquery.jcarousel-control.min.js" />
+    <Content Include="Scripts\jquery.jcarousel-core.min.js" />
+    <Content Include="Scripts\jquery.jcarousel-pagination.min.js" />
     <Content Include="Scripts\jquery.jcarousel.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />

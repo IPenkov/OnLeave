@@ -16,3 +16,7 @@
 /// <reference path="tabs.js" />
 /// <reference path="jquery.validate.js" />
 /// <reference path="additional-methods.js" />
+/// <reference path="jquery.jcarousel-autoscroll.min.js" />
+/// <reference path="jquery.jcarousel-core.min.js" />
+/// <reference path="jquery.jcarousel-pagination.min.js" />
+/// <reference path="jquery.jcarousel-control.min.js" />
