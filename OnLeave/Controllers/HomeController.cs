@@ -99,7 +99,8 @@ namespace OnLeave.Controllers
 
                 ViewBag.RoomTypes = StaticDataProvider.RoomTypes;
                 ViewBag.Cities = StaticDataProvider.Cities;
-                return View(model);
+                //return View(model);
+                return PartialView("GetUtilityBuilding", model); 
             }
         }
 

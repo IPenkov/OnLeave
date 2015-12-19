@@ -14,20 +14,50 @@
                         </span>
                         <span class="price-old"></span>
                         <span class="price-tax">вкл. ДДС</span>
-                        <span class="price-tax">1 нощувка</span>                        
-                        
-                    </div>  <div class="cart"><a onclick="addToCart('43');" class="button"><span>Add to Cart</span></a></div>  <div class="wishlist"><a class="tip" title="Add to Wish List" onclick="addToWishList('43');"></a></div>  <div class="compare"><a class="tip2" title="Add to Compare" onclick="addToCompare('43');"></a></div>
+                        <span class="price-tax">1 нощувка</span>
+
+                    </div>
+                    <div class="cart">
+                        <a class="button" 
+                           data-ajax="true"
+                           data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
+                           data-ajax-method="GET"
+                           data-ajax-mode="replace"
+                           data-ajax-update="#content"
+                           href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})"
+                           data-ajax-complete="$('#reservationTab').click();"> @*Activate Reservation Section*@
+                            <span>Резервация</span>
+                        </a>
+                    </div>
+                    <div class="wishlist">
+                        <a class="tip" title="Add to Wish List" onclick="addToWishList('43');"></a>
+                    </div>
+                    <div class="compare"><a class="tip2" title="Add to Compare" onclick="addToCompare('43');"></a></div>
                 </div>
 
                 <div class="left">
-                    <div class="image">
-                        <a href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})">
+                    <div class="image">                        
+                        <a data-ajax="true"
+                           data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
+                           data-ajax-method="GET"
+                           data-ajax-mode="replace"
+                           data-ajax-update="#content"
+                           href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})"
+                           data-ajax-complete="">
                             <img src="@Url.Action("229/179/" + @Model[i].PhotoIds.FirstOrDefault(), "Account", new { })"
-                                 title="@Model[i].Name" alt="@Model[i].Name">
+                                 title="@Model[i].Name" alt="@Model[i].Name" />
                         </a>
                     </div>
-                    <div class="name">
-                        <a href="">@Model[i].Name</a>
+                    <div class="name">                        
+                        <a data-ajax="true"
+                           data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
+                           data-ajax-method="GET"
+                           data-ajax-mode="replace"
+                           data-ajax-update="#content"
+                           href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})"
+                           data-ajax-complete="">
+                            @Model[i].Name
+                        </a>
                     </div>
                     <div class="description">
                         @Model[i].Description
@@ -48,7 +78,7 @@
                             <input id="@(Model[i].Id)rating1" type="radio" name="@(Model[i].Id)rating" value="1" @if (Model[i].Rating == 1) { <text> checked</text>} disabled>
                             <label for="@(Model[i].Id)rating1">1</label>
                         </span>
-                    </div>                    
+                    </div>
                 </div>
             </li>
         }

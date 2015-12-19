@@ -1,13 +1,13 @@
 ﻿@model OnLeave.Models.UtilityBuildingModel
 
-@{
+@*@{
     ViewBag.Title = "GetUtilityBuilding";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section LeftSideBar{
     @Html.Action("Search", "Home", null)
-}
+}*@
 
 <div class="breadcrumb">
     @Html.ActionLink("Home", "Index", "Home")
@@ -110,7 +110,7 @@
                     <a style="display: inline;" href="#tab-attribute">Услуги</a>
                     <a style="display: inline;" href="#tab-map">Карта</a>
                     <a style="display: inline;" href="#tab-amount">Цени</a>
-                    <a style="display: inline;" href="#tab-reservation">Резервация</a>
+                    <a id="reservationTab" style="display: inline;" href="#tab-reservation">Резервация</a>
                 </div>
             </div>
             <div class="wrapper">
@@ -184,17 +184,38 @@
         </div>
 
     </div>
+    </div>
 
-    @section Scripts {
+    @*@section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
         @Scripts.Render("~/bundles/autosize")
         @Scripts.Render("~/bundles/jquery-ui")
 
-        <script type="text/javascript">
-            this.initialize(false);
-            $('textarea').autosize();
-            $('.datepick').each(function () { $(this).datepicker({ dateFormat: "dd/mm/yy" }) });
-            $('#tabs a').makeTabs();
-        </script>
-    }
+        
+    }*@
+
+<script type="text/javascript">
+    /*
+    *   Init screen
+    */
+    $(function ()
+    {        
+        initialize(false);
+        $('textarea').autosize();
+        $('.datepick').each(function () { $(this).datepicker({ dateFormat: "dd/mm/yy" }) });        
+        $('#tabs a').makeTabs();
+        makeCarousel();
+        $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();
+
+        //allow the validation framework to re-prase the DOM
+        jQuery.validator.unobtrusive.parse();
+
+        //or to give the parser some context, supply it with a selector
+        //jQuery validator will parse all child elements (deep) starting
+        //from the selector element supplied
+        jQuery.validator.unobtrusive.parse("#content");
+    });
+</script>
+
+
 

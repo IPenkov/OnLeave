@@ -122,7 +122,7 @@ namespace OnLeave.Models
         /// <value>
         /// The name of the client.
         /// </value>
-        [Required]        
+        [Required(ErrorMessage="Име липсва")]        
         public string ClientName { get; set; }
 
         /// <summary>
@@ -131,8 +131,8 @@ namespace OnLeave.Models
         /// <value>
         /// The email.
         /// </value>
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage="Поща липсва", AllowEmptyStrings=false)]
+        [EmailAddress(ErrorMessage="Адрес невалиден")]
         public string Email { get; set; }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace OnLeave.Models
         /// <value>
         /// The telephone.
         /// </value>
-        [Required]
+        [Required(ErrorMessage="Телефон липсва")]
         public string Tel { get; set; }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace OnLeave.Models
         /// <value>
         /// The content of the reservation.
         /// </value>
-        [Required]        
+        [Required(ErrorMessage="Описание липсва", AllowEmptyStrings=false)]        
         public string ReservationDescription { get; set; }
 
         // ...existing properties

@@ -1,7 +1,7 @@
 ﻿$(document).ready($.proxy(function () {
     this.addActionConfirmation();
     this.collapseLegend();
-    this.makeCarousel();
+    //this.makeCarousel();
 
     // Correct date validation error in Chrome and Safari.
     jQuery.validator.methods["date"] = function (value, element) {

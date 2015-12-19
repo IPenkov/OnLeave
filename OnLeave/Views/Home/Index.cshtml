@@ -4,10 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-@*@section TopOffers{
-    @{Html.RenderPartial("TopOffers");}
-}*@
-
 @section LeftSideBar{
     @Html.Action("Search", "Home", null) @*Html.RenderPartial("_SearchSection", new OnLeave.Models.SearchViewModel());}*@
 }
@@ -22,15 +18,28 @@
                 {
                     <li class=@(i % 3 == 0 ? "first-in-line" : "")@(i % 3 == 2 ? "last-in-line" : "")>
                         <div class="inner-indent">
-                            <div class="image2">
-                                <a href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})">                                    
-                                    <img 
-                                         src="@Url.Action("GetPhoto", "Account", new { photoId = Model[i].PhotoIds.First(), width= 229, height = 179 })" @*width="229" height="179"*@
-                                         alt="Hotel @Model[i].Name"/>
+                            <div class="image2">                                
+                                <a data-ajax="true"
+                                   data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
+                                   data-ajax-method="GET"
+                                   data-ajax-mode="replace"
+                                   data-ajax-update="#content"
+                                   href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})"
+                                   data-ajax-complete="">
+                                    <img src="@Url.Action("GetPhoto", "Account", new { photoId = Model[i].PhotoIds.First(), width= 229, height = 179 })" @*width="229" height="179"*@
+                                         alt="Hotel @Model[i].Name" />
                                 </a>
+
                             </div>
-                            <div class="name">
-                                <a class="maxheight-feat" style="height: 38px;" href="">
+                            <div class="name">                                
+                                <a class="maxheight-feat" style="height: 38px;"
+                                   data-ajax="true"
+                                   data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
+                                   data-ajax-method="GET"
+                                   data-ajax-mode="replace"
+                                   data-ajax-update="#content"
+                                   href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})"
+                                   data-ajax-complete="">
                                     @(Model[i].Description.Length > 10 ? Model[i].Description.Substring(0, 10) : Model[i].Description)
                                     @if (Model[i].Description.Length > 10)
                                     {<text>...</text>}
@@ -46,6 +55,10 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")    
+    
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/autosize")
+    @Scripts.Render("~/bundles/jquery-ui")
+       
 }
     
