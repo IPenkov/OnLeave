@@ -34,8 +34,16 @@
                                 @*<li>@Html.ActionLink("Checkout", "Contact", "Home")</li>*@
                             </ul>
                             <div id="search">
-                                <div class="button-search"></div>
-                                <input type="text" name="search" placeholder="Search" value="">
+                                <div class="button-search" onclick="$('#top_search').submit();"></div>
+                                @using (Ajax.BeginForm("SearchBuilding", "Home",
+                                    new AjaxOptions { UpdateTargetId = "home_content", OnSuccess = "$('#search_by_name').val($('#search_by_name_top').val())" },
+                                    new { id = "top_search" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="text" name="Name" id="search_by_name_top" placeholder="Search" value="" />
+                                    <input type="hidden" name="Facilities[0].Selected" value="false" />
+                                    <input type="hidden" name="TopFacilities[0].Selected" value="false" />
+                                }
                             </div>                            
                             @*@Html.Partial("_LoginPartial")*@
 

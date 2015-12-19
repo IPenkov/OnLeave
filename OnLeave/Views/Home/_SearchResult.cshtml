@@ -6,9 +6,15 @@
             <li class="@(i == 0 ? "first-in-line" : (i == Model.Length - 1 ? "last-in-line" : ""))">
                 <div class="right">
                     <div class="price">
-                        <span class="price-new">@Model[i].Name</span>
-                        <span class="price-old">$589.50</span>
-                        <span class="price-tax">Ex Tax: $499.00</span>
+                        <span class="price-new">
+                            @if (Model[i].Periods.Any() && Model[i].Periods.Any(p => p.RoomAmounts.Any()))
+                            {
+                                @(string.Format("{0:N2} BGN", @Model[i].Periods.First().RoomAmounts.Min(a => a.Amount)))
+                            }
+                        </span>
+                        <span class="price-old"></span>
+                        <span class="price-tax">вкл. ДДС</span>
+                        <span class="price-tax">1 нощувка</span>                        
                         
                     </div>  <div class="cart"><a onclick="addToCart('43');" class="button"><span>Add to Cart</span></a></div>  <div class="wishlist"><a class="tip" title="Add to Wish List" onclick="addToWishList('43');"></a></div>  <div class="compare"><a class="tip2" title="Add to Compare" onclick="addToCompare('43');"></a></div>
                 </div>
@@ -48,3 +54,7 @@
         }
     </ul>
 </div>
+
+<script type="text/javascript">
+    $('#booking_section').show();
+</script>

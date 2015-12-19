@@ -143,8 +143,11 @@ namespace OnLeave.Controllers
                         Description = b.UtilityBuildingLocales.Where(l => l.LocaleId == (int)LocaleTypes.BG).Select(l => l.Description).FirstOrDefault(),
                         Rating = b.Rating ?? 0,
                         Size = b.Size,
-                        PhotoIds =  new System.Collections.Generic.List<int>(){  b.UtilityBuildingPhotoDetails.First().PhotoId }
+                        PhotoIds =  new System.Collections.Generic.List<int>(){  b.UtilityBuildingPhotoDetails.First().PhotoId },
+                        Periods = b.Periods.OrderBy(p => p.RoomAmounts.Min(a => a.Amount)).Take(1).ToList()
                     }).ToArray();
+
+                
 
                 return PartialView("_SearchResult", buildings.ToArray());
             }            
@@ -168,7 +171,7 @@ namespace OnLeave.Controllers
             using (var db = new OnLeaveContext())
             {
                 building = db.UtilityBuildings
-                    .Include(b => b.UtilityBuildingLocales)
+                    .Include(b => b.UtilityBuildingLocales)                    
                     .FirstOrDefault(b => b.UtilityBuildingId == model.UtilityBuildingId);
             }
 
@@ -183,22 +186,19 @@ namespace OnLeave.Controllers
             if (user == null) return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound, "user not found");
 
             dynamic email = new Email("_Reservation");
-            //email.To = user.Email;
+            
             email.To = ConfigurationManager.AppSettings["email"];
             email.From = ConfigurationManager.AppSettings["email"];
-            //email.CC = model.Email;
             email.Subject = "Резервация от Отпускарче";
             email.ClientName = model.ClientName;
-            email.Email = model.Email;
-            email.Tel = model.Tel;
+            email.Email = model.Email;                    
+            email.BuildingEmail = user.Email;
             email.StartDate = model.StartDate;
             email.EndDate = model.EndDate;
             email.ReservationDescription = model.ReservationDescription;
             email.BuildingId = building.UtilityBuildingId;
             email.Name = string.Join(" / ", building.UtilityBuildingLocales.Select(l => l.Name).ToArray());
-            email.Send();
-
-            
+            email.Send();            
 
             ModelState.Clear();            
             return PartialView("_SendReservation", new SendReservationModel());

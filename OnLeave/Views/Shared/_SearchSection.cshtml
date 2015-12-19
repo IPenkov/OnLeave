@@ -7,6 +7,8 @@
             new { id = "search_building", }))
     {
         @Html.AntiForgeryToken()
+        @*Submit on Enter not working*@
+        <input type="submit" value="Search" style="display:none" />
 
         @*<input type="text" id="search_by_name" autocomplete="off" spellcheck="false" placeholder="Search hotel name" value="" onclick="">*@
 
@@ -18,8 +20,8 @@
         <ul>
             <li style="margin-bottom: 5px">
                 <div style="overflow: hidden">
-                    @Html.TextBoxFor(m => m.Name, new { id = "search_by_name", placeholder = "търси хотел" })
-
+                    @*@Html.TextBoxFor(m => m.Name, new { id = "search_by_name", placeholder = "търси хотел" })*@
+                    <input type="text" name="Name" id="search_by_name" placeholder="търси хотел" value="" />
                     <span class="search_name" onclick="$('#search_building').submit();" title="search by name">
                         <span class="search_name"></span>
                     </span>
@@ -114,12 +116,12 @@
         </ul>
         <div class="clear"></div>
         <p></p>
-    </fieldset>        
-
+    </fieldset> 
+        
     }
 
     <div class="clear"></div>
-    <fieldset class="collapse-section" style="padding: 0">
+    <fieldset id="booking_section" class="collapse-section" style="padding: 0; display: none">
         <legend rel="open" style="padding: 0">Booking</legend>
         <ins class="bookingaff" data-aid="873468" data-target_aid="873411" data-prod="nsb" data-width="250" data-height="250">
             <!-- Anything inside will go away once widget is loaded. -->
