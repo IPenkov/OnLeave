@@ -1,13 +1,13 @@
 ﻿@model OnLeave.Models.UtilityBuildingModel
 
-@{
+@*@{
     ViewBag.Title = "GetUtilityBuilding";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section LeftSideBar{
     @Html.Action("Search", "Home", null)
-}
+}*@
 
 <div class="breadcrumb">
     @Html.ActionLink("Home", "Index", "Home")
@@ -184,17 +184,26 @@
         </div>
 
     </div>
+    </div>
 
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
         @Scripts.Render("~/bundles/autosize")
         @Scripts.Render("~/bundles/jquery-ui")
 
-        <script type="text/javascript">
-            this.initialize(false);
-            $('textarea').autosize();
-            $('.datepick').each(function () { $(this).datepicker({ dateFormat: "dd/mm/yy" }) });
-            $('#tabs a').makeTabs();
-        </script>
+        
     }
+
+<script type="text/javascript">
+    $(function ()
+    {        
+        initialize(false);
+        $('textarea').autosize();
+        $('.datepick').each(function () { $(this).datepicker({ dateFormat: "dd/mm/yy" }) });        
+        $('#tabs a').makeTabs();
+        makeCarousel();
+    });
+</script>
+
+
 

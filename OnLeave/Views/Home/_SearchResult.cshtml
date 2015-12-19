@@ -21,9 +21,19 @@
 
                 <div class="left">
                     <div class="image">
-                        <a href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})">
+                        @*<a href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})">
                             <img src="@Url.Action("229/179/" + @Model[i].PhotoIds.FirstOrDefault(), "Account", new { })"
                                  title="@Model[i].Name" alt="@Model[i].Name">
+                        </a>*@
+                        <a data-ajax="true"
+                           data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
+                           data-ajax-method="GET"
+                           data-ajax-mode="replace"
+                           data-ajax-update="#content"
+                           href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})"
+                           data-ajax-complete="">
+                            <img src="@Url.Action("229/179/" + @Model[i].PhotoIds.FirstOrDefault(), "Account", new { })"
+                                 title="@Model[i].Name" alt="@Model[i].Name" />
                         </a>
                     </div>
                     <div class="name">
