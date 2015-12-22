@@ -14,9 +14,9 @@
                         </span>
                         <span class="price-old"></span>
                         <span class="price-tax">вкл. ДДС</span>
-                        <span class="price-tax">1 нощувка</span>
-
-                    </div>
+                        <span class="price-tax">1 нощувка</span>                        
+                        
+                </div>
                     <div class="cart">
                         <a class="button" 
                            data-ajax="true"
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="left">
-                    <div class="image">                        
+                    <div class="image">
                         <a data-ajax="true"
                            data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
                            data-ajax-method="GET"
@@ -48,7 +48,7 @@
                                  title="@Model[i].Name" alt="@Model[i].Name" />
                         </a>
                     </div>
-                    <div class="name">                        
+                    <div class="name">
                         <a data-ajax="true"
                            data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
                            data-ajax-method="GET"
@@ -78,7 +78,7 @@
                             <input id="@(Model[i].Id)rating1" type="radio" name="@(Model[i].Id)rating" value="1" @if (Model[i].Rating == 1) { <text> checked</text>} disabled>
                             <label for="@(Model[i].Id)rating1">1</label>
                         </span>
-                    </div>
+                    </div>                    
                 </div>
             </li>
         }
