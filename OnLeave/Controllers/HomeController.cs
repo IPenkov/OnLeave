@@ -92,6 +92,20 @@ namespace OnLeave.Controllers
                         }).ToArray(),
                 };
 
+                // sort by room types
+                model.Periods.ForEach(p =>
+                {
+                    p.RoomAmounts = p.RoomAmounts
+                        .Join(StaticDataProvider.RoomTypes, r => r.RoomTypeId, t => t.RoomTypeId, (r, t) => new
+                    {
+                        Room = r,
+                        Order = t.Order
+                    })
+                    .OrderBy(r => r.Order)
+                    .Select(r => r.Room)
+                    .ToList();
+                });
+
                 foreach (var f in model.Facilities)
                 {
                     f.Selected = buildingDB.UtilityBuidingFacilityDetails.Any(ft => ft.UtilityBuildingFacilityTypeId == f.FacilityTypeId);

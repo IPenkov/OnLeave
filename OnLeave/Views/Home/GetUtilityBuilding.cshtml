@@ -140,7 +140,7 @@
                             <tr>
                                 <td></td>
 
-                                @foreach (var roomType in ((OnLeave.Models.RoomType[])ViewBag.RoomTypes).OrderBy(r => r.Description))
+                                @foreach (var roomType in ((OnLeave.Models.RoomType[])ViewBag.RoomTypes))
                                 {
                                     if (Model.Periods.Any(p => p.RoomAmounts.Any(a => a.RoomTypeId == roomType.RoomTypeId && a.Amount != 0M)))
                                     {

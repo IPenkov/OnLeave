@@ -248,8 +248,8 @@ function initialize(isDraggable) {
     
     google.maps.event.addListener(marker, 'dragend', function () {
         var possision = marker.getPosition();
-        $("#longitude").val(possision.K);
-        $("#latitude").val(possision.G);
+        $("#longitude").val(possision.lng());
+        $("#latitude").val(possision.lat());
     });
 
     $("#tab-map").on("TabSelected", function ()
