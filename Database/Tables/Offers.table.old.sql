@@ -6,6 +6,10 @@ IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[
 ALTER TABLE [dbo].[Offers] DROP CONSTRAINT [FK_Offer_OfferType]
 GO
 
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_OfferPhotoDetail_Offer]') AND parent_object_id = OBJECT_ID(N'[dbo].[OfferPhotoDetails]'))
+ALTER TABLE [dbo].[OfferPhotoDetails] DROP CONSTRAINT [FK_OfferPhotoDetail_Offer]
+GO
+
 /****** Object:  Table [dbo].[Offers]    Script Date: 4/9/2016 8:24:01 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Offers]') AND type in (N'U'))
 DROP TABLE [dbo].[Offers]
