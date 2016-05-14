@@ -671,7 +671,7 @@ h2 {
 	color:#000;
 	font-weight:bold
 }
-.price .price-new {
+.price, .price-details .price-new {
 	color:#000;
 }
 .price .price-old {
@@ -1609,7 +1609,7 @@ a.button:hover span {
 .content ul li:first-child {
 	border:none;
 }
-.content ul li {
+.content ul li:not(.validation-summary-errors) {
 	background:url(Images/marker-manuf.png) left 5px no-repeat;
 	padding-left:22px;
 	color:#3f3f3f;
@@ -1638,6 +1638,9 @@ a.button:hover span {
 }
 .wishlist-product td {
 	vertical-align: middle!important;
+}
+.wishlist-product table#offers td {
+	vertical-align: top!important;
 }
 .box-category > ul > li + li {
 }
@@ -2003,10 +2006,10 @@ ul {
 .product-list ul li {
 	padding-bottom:19px;
 }
-.product-list .left {
+.product-list .left, .offer-description {
 	overflow:hidden;
 }
-.product-list .right {
+.product-list .right, .offer-details {
 	float: right;
 	text-align:left;
 	min-height:164px;
@@ -2074,7 +2077,7 @@ ul {
 .product-list .rating {
 	color: #7B7B7B;
 }
-.product-list .price {
+.product-list .price, .price-details {
 	float:left;
 	margin-bottom:20px;
 }
@@ -3230,6 +3233,11 @@ a {
 .cart-info tbody td {
 	vertical-align: middle;
 }
+.cart-info tbody td > textarea {
+    width: 100% !important;   
+    border: 0;
+    padding: 0
+}
 .cart-module {
 }
 .cart-info tbody .remove {
@@ -4191,7 +4199,7 @@ input#sub_category, input#description {
     text-align: center;
     float: left;
 }
-.addhotel-content  ul li {
+.addhotel-content  ul li:not(.validation-summary-errors) {
 	float:left;
 	width:229px;
 	text-align:left;
@@ -4208,7 +4216,7 @@ input#sub_category, input#description {
 }
 
 
-table#rooms td > input {
+table#rooms td > input, table#offers td > input {
     width: 98%
 }
 

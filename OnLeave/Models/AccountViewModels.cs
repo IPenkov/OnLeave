@@ -169,6 +169,7 @@ namespace OnLeave.Models
         public UtilityBuildingModel()
         {
             this.PhotoIds = new List<int>();
+            this.Offers = new List<BusinessEntities.Offer>();
         }
         /// <summary>
         /// Hotel's id.
@@ -302,6 +303,8 @@ namespace OnLeave.Models
         public RoomModel[] Rooms { get; set; }
 
         public List<Period> Periods { get; set; }
+
+        public List<BusinessEntities.Offer> Offers { get; set; }
     }
 
     /// <summary>

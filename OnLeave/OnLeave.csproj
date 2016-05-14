@@ -202,6 +202,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BusinessEntities\Offer.cs" />
     <Compile Include="Models\City.cs">
       <DependentUpon>OnLeave.tt</DependentUpon>
     </Compile>
@@ -473,6 +474,8 @@
     <Content Include="Views\Emails\_Reservation.cshtml" />
     <Content Include="Views\Account\Cities.cshtml" />
     <Content Include="Views\Account\City.cshtml" />
+    <Content Include="Views\Account\_Offers.cshtml" />
+    <Content Include="Views\Home\_Offers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

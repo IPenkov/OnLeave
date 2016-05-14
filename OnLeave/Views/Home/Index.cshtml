@@ -21,7 +21,7 @@
                             <div class="image2">                                
                                 <a data-ajax="true"
                                    data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
-                                   data-ajax-method="GET"
+                                   data-ajax-method="POST"
                                    data-ajax-mode="replace"
                                    data-ajax-update="#content"
                                    href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})"
@@ -35,7 +35,7 @@
                                 <a class="maxheight-feat" style="height: 38px;"
                                    data-ajax="true"
                                    data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
-                                   data-ajax-method="GET"
+                                   data-ajax-method="POST"
                                    data-ajax-mode="replace"
                                    data-ajax-update="#content"
                                    href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})"

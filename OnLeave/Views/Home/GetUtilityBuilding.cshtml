@@ -1,17 +1,16 @@
 ﻿@model OnLeave.Models.UtilityBuildingModel
 
-@*@{
-    ViewBag.Title = "GetUtilityBuilding";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@section LeftSideBar{
-    @Html.Action("Search", "Home", null)
-}*@
-
 <div class="breadcrumb">
     @Html.ActionLink("Home", "Index", "Home")
-    » @Html.ActionLink(@Model.Name, "GetUtilityBuilding", "Home", new { buildingId = @Model.Id }, new { @class = "last" })
+    » 
+    @Ajax.ActionLink(Model.Name, "GetUtilityBuilding", "Home", new { buildingId = @Model.Id },
+       new AjaxOptions
+       {
+           HttpMethod = "POST",
+           InsertionMode = InsertionMode.Replace,
+           UpdateTargetId = "content"            
+       },
+       new { @class = "last" })
 </div>
 
 <div id="home_content">
@@ -54,25 +53,25 @@
                         <div class="jcarousel-next jcarousel-next-horizontal"></div>
                     </div>*@
                 <!-- Controls -->
-                
-                    
-                    <div class="image-additional image-caroucel jcarousel" style="position:relative">
-                        <ul style="width: 20000em; position: relative">
-                            @for (int i = 0; i < Model.PhotoIds.Count; i++)
-                            {
-                                <li id="@i">
-                                    <a title="@Model.Name" class="cloud-zoom-gallery"
-                                       href="@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds[i], width= 600, height = 472 })"
-                                       rel="useZoom: 'zoom1', smallImage: '@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds[i], width= 300, height = 236 })' ">
-                                        <img title="@Model.Name" alt="@Model.Name" src="@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds[i], width= 90, height = 71 })">
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                        <div class="jcarousel-prev"></div>
-                        <div class="jcarousel-next"></div>
-                    </div>
-                
+
+
+                <div class="image-additional image-caroucel jcarousel" style="position:relative">
+                    <ul style="width: 20000em; position: relative">
+                        @for (int i = 0; i < Model.PhotoIds.Count; i++)
+                        {
+                            <li id="@i">
+                                <a title="@Model.Name" class="cloud-zoom-gallery"
+                                   href="@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds[i], width= 600, height = 472 })"
+                                   rel="useZoom: 'zoom1', smallImage: '@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds[i], width= 300, height = 236 })' ">
+                                    <img title="@Model.Name" alt="@Model.Name" src="@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds[i], width= 90, height = 71 })">
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                    <div class="jcarousel-prev"></div>
+                    <div class="jcarousel-next"></div>
+                </div>
+
 
             </div>
             <div class="extra-wrap">
@@ -111,6 +110,7 @@
                     <a style="display: inline;" href="#tab-map">Карта</a>
                     <a style="display: inline;" href="#tab-amount">Цени</a>
                     <a id="reservationTab" style="display: inline;" href="#tab-reservation">Резервация</a>
+                    <a id="offersTab" style="display: inline;" href="#tab-offers">Оферти</a>
                 </div>
             </div>
             <div class="wrapper">
@@ -172,6 +172,9 @@
                 <div class="tab-content" id="tab-reservation" style="display: none">
                     @{Html.RenderPartial("_SendReservation", new OnLeave.Models.SendReservationModel { UtilityBuildingId = Model.Id });}
                 </div>
+                <div class="tab-content" id="tab-offers" style="display: none">
+                    @{Html.RenderPartial("_Offers", Model.Offers);}
+                </div>
                 <div class="tab-content" id="tab-related" style="display: none;">
                     <div class="tags">
                         <b>Tags:</b>
@@ -184,26 +187,26 @@
         </div>
 
     </div>
-    </div>
+</div>
 
-    @*@section Scripts {
+@*@section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
         @Scripts.Render("~/bundles/autosize")
         @Scripts.Render("~/bundles/jquery-ui")
 
-        
+
     }*@
 
-        <script type="text/javascript">
+<script type="text/javascript">
     /*
     *   Init screen
     */
     $(function ()
-    {        
+    {
         initialize(false);
-            $('textarea').autosize();
-            $('.datepick').each(function () { $(this).datepicker({ dateFormat: "dd/mm/yy" }) });
-            $('#tabs a').makeTabs();
+        $('textarea').autosize();
+        $('.datepick').each(function () { $(this).datepicker({ dateFormat: "dd/mm/yy" }) });
+        $('#tabs a').makeTabs();
         makeCarousel();
         $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();
 
@@ -215,7 +218,7 @@
         //from the selector element supplied
         jQuery.validator.unobtrusive.parse("#content");
     });
-        </script>
+</script>
 
 
 

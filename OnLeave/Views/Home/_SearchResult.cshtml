@@ -21,7 +21,7 @@
                         <a class="button" 
                            data-ajax="true"
                            data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
-                           data-ajax-method="GET"
+                           data-ajax-method="POST"
                            data-ajax-mode="replace"
                            data-ajax-update="#content"
                            href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})"
@@ -39,7 +39,7 @@
                     <div class="image">
                         <a data-ajax="true"
                            data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
-                           data-ajax-method="GET"
+                           data-ajax-method="POST"
                            data-ajax-mode="replace"
                            data-ajax-update="#content"
                            href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})"
@@ -51,7 +51,7 @@
                     <div class="name">
                         <a data-ajax="true"
                            data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
-                           data-ajax-method="GET"
+                           data-ajax-method="POST"
                            data-ajax-mode="replace"
                            data-ajax-update="#content"
                            href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})"

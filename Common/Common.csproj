@@ -52,6 +52,7 @@
     <Compile Include="Binders\DateTimeModelBinder.cs" />
     <Compile Include="Constant\FacilityTypes.cs" />
     <Compile Include="Constant\LocaleTypes.cs" />
+    <Compile Include="Constant\OfferType.cs" />
     <Compile Include="Constant\UtilityBuildingTypes.cs" />
     <Compile Include="FileSizeAttribute.cs" />
     <Compile Include="FileTypesAttribute.cs" />

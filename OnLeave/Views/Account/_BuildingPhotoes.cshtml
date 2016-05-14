@@ -1,7 +1,28 @@
 ﻿@model OnLeave.Models.UtilityBuildingModel
-@if (!ViewData.ModelState.IsValid)
+@using Common
+@*@if (!ViewData.ModelState.IsValid)
 {
     @Html.ValidationSummary(false, null, new { id="photoes_validation",  style = "overflow: hidden" })
+}*@
+
+@{
+    var photoErrors = ViewData.ModelState.Where(s => s.Key.Contains(Model.GetPropertyName(() => Model.PhotoFile)) && s.Value.Errors.Any())
+        .Select(s => s.Value);
+
+    if (photoErrors.Count() > 0)
+    {
+        <div id="photoes_validation" class="validation-summary-errors">
+            <ul>
+                @foreach (var er in photoErrors)
+                {
+                    foreach (var error in er.Errors)
+                    {
+                        <li class="validation-summary-errors">@error.ErrorMessage</li>
+                    }
+                }
+            </ul>
+        </div>
+    }
 }
 
 <div id="photoes" style="float:left">
@@ -121,7 +142,9 @@
                     accept: "Невалидна снимка."
                 }
             }
-        })
+        });
+
+        addActionConfirmation();
     });
 
     function sendPicture() {

@@ -16,7 +16,7 @@
         // <typeparam name="T">Type of the property</typeparam>
         // <param name="propertyLambda">lambda expression of the form: '() => Class.Property' or '() => object.Property'</param>
         // <returns>The name of the property</returns>
-        public static string GetPropertyName<T>(Expression<Func<T>> propertyLambda)
+        public static string GetPropertyName<T>(this object obj, Expression<Func<T>> propertyLambda)
         {
             var me = propertyLambda.Body as MemberExpression;
 

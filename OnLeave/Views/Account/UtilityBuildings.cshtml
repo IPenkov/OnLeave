@@ -26,6 +26,7 @@
                             <a data-ajax="true"
                                data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
                                data-ajax-method="GET"
+                               data-ajax-cash="false"
                                data-ajax-mode="replace"
                                data-ajax-update="#content"
                                href="@Url.Action("EditBuilding", "Account", new { buildingId = building.Id })"
@@ -39,7 +40,7 @@
                             new AjaxOptions
                                 {
                                     AllowCache = false,
-                                    HttpMethod = "GET",
+                                    HttpMethod = "GET",                                    
                                     InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
                                     UpdateTargetId = "content",
                                     OnFailure = "handleError('Error. Please contact Administrator.')",

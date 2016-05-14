@@ -1,0 +1,93 @@
+﻿
+@model OnLeave.Models.UtilityBuildingModel
+@using Common
+
+@{    
+        var offersErrors = ViewData.ModelState.Where(s => s.Key.Contains( Model.GetPropertyName(() => Model.Offers)) && s.Value.Errors.Any())
+            .Select(s => s.Value);
+
+        if (offersErrors.Count() > 0)
+        {
+            <div class="validation-summary-errors">
+                <ul>
+                    @foreach (var er in offersErrors)
+                    {
+                        foreach (var error in er.Errors)
+                        {
+                            <li class="validation-summary-errors">@error.ErrorMessage</li>
+                        }
+                    }
+                </ul>
+            </div>
+        }
+}
+
+<div class="wishlist-product" style="float:left">    
+    <table id="offers" style="table-layout: fixed">
+        <thead>
+            <tr>
+                <td style="width: 15%; text-align: center">Начало</td>
+                <td style="width: 15%; text-align: center">Край</td>
+                <td style="width: 15%; text-align: center">Отстъпка</td>
+                <td style="text-align:center">Оферта</td>
+                <td style="width: 30px;"></td>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Offers.Count; i++)
+            {
+
+                <tr>
+                    <td>@Html.EditorFor(m => Model.Offers[i].StartDate)</td>
+                    <td>@Html.EditorFor(m => Model.Offers[i].EndDate)</td>
+                    <td>@Html.EditorFor(m => Model.Offers[i].Discount)</td>
+                    <td style="padding: 0">
+                        <textarea class="resize" placeholder="Описание на офертата ..." name="@string.Format("Offers[{0}].description", i)" >@Model.Offers[i].Description</textarea>
+                    </td>
+                    <td><span><img src="~/Content/Images/delete.png" onclick="$(this).closest('tr').remove();" /></span></td>
+                    @Html.HiddenFor(m => Model.Offers[i].OfferId)
+                    <input type='hidden' name='Offers.Index' value='@i' />
+                </tr>
+            }
+
+            <tr class="add-row" onclick="addOffer()">
+                <td colspan="5">
+                    <a>Добави оферта</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+
+    function addOffer()
+    {
+        var now = Date.now();
+        var newOffer = $("<tr>" +
+            "<td><input type='text' class='datepick' name='Offers[" + now + "].StartDate' /></td>" +
+            "<td><input type='text' class='datepick' name='Offers[" + now + "].EndDate' /></td>" +
+            "<td><input type='text' name='Offers[" + now + "].Discount' /></td>" +
+            "<td style=\"padding: 0\"><textarea class=\"resize\" placeholder=\"Описание на офертата ...\" name='Offers[" + now + "].description'></textarea></td>" +
+            "<td><span><img src=\"../Content/Images/delete.png\" onclick=\"$(this).closest('tr').remove();\" /></span></td>" +           
+            "<input type='hidden' name='Offers[" + now + "].OfferId' value='-1' />" +
+             "<input type='hidden' name='Offers.Index' value='" + now + "' />" +            
+            "</tr>").insertBefore(".add-row");
+
+        newOffer.find('.datepick').each(function () { $(this).datepicker({ dateFormat: "dd/mm/yy" }) });
+        newOffer.find('.resize').autosize();
+    }
+
+    function removeOffer()
+    {
+        console.log(this);
+        $(this).closest('tr').remove();
+    }
+    
+</script>
+
+
+
+
+
+
+

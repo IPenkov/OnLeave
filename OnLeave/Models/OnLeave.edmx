@@ -38,9 +38,12 @@
           </Key>
           <Property Name="OfferId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="KeyWords" Type="nvarchar" MaxLength="255" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="OfferTypeId" Type="int" Nullable="false" />
           <Property Name="UtilityBuildingId" Type="int" Nullable="false" />
+          <Property Name="Discount" Type="tinyint" />
         </EntityType>
         <EntityType Name="OfferTypes">
           <Key>
@@ -459,6 +462,9 @@
           <NavigationProperty Name="OfferType" Relationship="Self.FK_Offer_OfferType" FromRole="Offer" ToRole="OfferType" />
           <NavigationProperty Name="UtilityBuilding" Relationship="Self.FK_Offer_UtilityBuilding" FromRole="Offer" ToRole="UtilityBuilding" />
           <NavigationProperty Name="OfferPhotoDetails" Relationship="Self.FK_OfferPhotoDetail_Offer" FromRole="Offer" ToRole="OfferPhotoDetail" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="Discount" Type="Byte" />
         </EntityType>
         <EntityType Name="OfferPhotoDetail">
           <Key>
@@ -943,7 +949,10 @@
     <EntitySetMapping Name="Offers">
       <EntityTypeMapping TypeName="IsTypeOf(OnLeaveModel.Offer)">
         <MappingFragment StoreEntitySet="Offers">
-          <ScalarProperty Name="OfferId" ColumnName="OfferId" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="OfferId" ColumnName="OfferId" />
           <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="OfferTypeId" ColumnName="OfferTypeId" />

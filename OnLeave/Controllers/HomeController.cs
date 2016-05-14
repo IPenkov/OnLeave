@@ -52,7 +52,7 @@ namespace OnLeave.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpPost]
         public ActionResult GetUtilityBuilding(int buildingId)
         {
             using (var db = new Models.OnLeaveContext())
@@ -63,6 +63,7 @@ namespace OnLeave.Controllers
                     .Include(b => b.Periods)
                     .Include(b => b.Periods.Select(p => p.RoomAmounts))
                     .Include(b => b.UtilityBuildingLocales)
+                    .Include(b => b.Offers)
                     .FirstOrDefault(b => b.UtilityBuildingId == buildingId);
                 if (buildingDB == null)
                 {
@@ -110,6 +111,14 @@ namespace OnLeave.Controllers
                 {
                     f.Selected = buildingDB.UtilityBuidingFacilityDetails.Any(ft => ft.UtilityBuildingFacilityTypeId == f.FacilityTypeId);
                 }
+
+                model.Offers = buildingDB.Offers.Select(o => new OnLeave.Models.BusinessEntities.Offer
+                {
+                    StartDate = o.StartDate,
+                    EndDate = o.EndDate,
+                    Discount = o.Discount,
+                    Description = o.Description
+                }).ToList();
 
                 ViewBag.RoomTypes = StaticDataProvider.RoomTypes;
                 ViewBag.Cities = StaticDataProvider.Cities;

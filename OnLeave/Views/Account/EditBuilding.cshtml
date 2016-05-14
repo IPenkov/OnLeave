@@ -23,19 +23,20 @@
         </div>
         <div class="addhotel-content" style="@(Model.Id != 0 ?  "display:block;" : "display:none")">
 
-            @using (Ajax.BeginForm("EditBuilding", "Account",
+            @using (Ajax.BeginForm("EditBuilding", "Account",                
                 new AjaxOptions
                 {
                     HttpMethod = "POST",
                     InsertionMode = InsertionMode.Replace,
-                    UpdateTargetId = "context",
+                    UpdateTargetId = "content",
                     OnFailure = "handleError('Error. Please contact Administrator.')",
-                    OnSuccess = "init()"
+                    OnSuccess = "init()",
+                    AllowCache = false
                 },
                 new { id = "add" }))
             {
                 @Html.AntiForgeryToken()
-                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.Id)    
 
                 <div class="content" style="padding: 0">
                     <table class="form">
@@ -318,8 +319,20 @@
                         <p></p>
                     </fieldset>
 
+                    <fieldset class="collapse-section">
+                        <legend>Оферти</legend>                        
+                        <p></p>
+                        <div class="clear"></div>
+                        <div class="cart-info">
+                            <div class="shop-cart">
+                                @{Html.RenderPartial("_Offers", Model, Html.ViewData);}
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </fieldset>
+                    
                     <div class="buttons" style="margin-left: 20px; margin-right: 20px;">
-                        <div class="left">                            
+                        <div class="left">
                             <a class="button" data-ajax="true"
                                data-ajax-failure="handleError('Error. Please contact Administrator.')"
                                data-ajax-method="GET"
@@ -381,7 +394,7 @@
                 <div class="buttons" style="margin: 10px 20px 0 20px">
                     <div class="left">
                     </div>
-                    <div class="right">                        
+                    <div class="right">
                         <a class="button" data-ajax="true"
                            data-ajax-failure="handleError('Error. Please contact Administrator.')"
                            data-ajax-method="GET"
@@ -398,7 +411,8 @@
 </div>
 <script type="text/javascript">
     //this code goes in your partialview
-    $(function () {
+    $(function ()
+    {
         //allow the validation framework to re-prase the DOM
         jQuery.validator.unobtrusive.parse();
 

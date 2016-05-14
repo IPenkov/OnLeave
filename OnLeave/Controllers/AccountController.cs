@@ -267,7 +267,7 @@ namespace OnLeave.Controllers
         {
             if (!buildingId.HasValue)
             {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);                
             }
 
             using (var db = new Models.OnLeaveContext())
@@ -278,6 +278,7 @@ namespace OnLeave.Controllers
                     .Include(b => b.Periods)
                     .Include(b => b.Periods.Select(p => p.RoomAmounts))
                     .Include(b => b.UtilityBuildingLocales)
+                    .Include(b => b.Offers)
                     .FirstOrDefault(b => b.UtilityBuildingId == buildingId);
                 if (buildingDB == null)
                 {
@@ -308,7 +309,7 @@ namespace OnLeave.Controllers
                     Latitude = buildingDB.lat ?? 0M,
                     Longitude = buildingDB.lon ?? 0M,                    
                     Size = buildingDB.Size,
-                    PhotoIds = buildingDB.UtilityBuildingPhotoDetails.Select(ph => ph.PhotoId).ToList(),
+                    PhotoIds = buildingDB.UtilityBuildingPhotoDetails.Select(ph => ph.PhotoId).ToList(),                    
                     Facilities = db.UtilityBuildingFacilityTypes.Select(ft =>
                         new FacilityTypeModel
                         {
@@ -335,6 +336,16 @@ namespace OnLeave.Controllers
                         return p; 
                     }).ToList()
                 };
+
+                // get offers
+                model.Offers = buildingDB.Offers.Select(o => new OnLeave.Models.BusinessEntities.Offer
+                {
+                    OfferId = o.OfferId,
+                    Description = o.Description,
+                    StartDate = o.StartDate,
+                    EndDate = o.EndDate,
+                    Discount = o.Discount
+                }).ToList();
 
                 // 5 periods for each hotel
                 while (model.Periods.Count < 5)
@@ -376,14 +387,17 @@ namespace OnLeave.Controllers
         /// <returns>The View.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        
         public ActionResult EditBuilding(UtilityBuildingModel model)
         {
+            
             if (ModelState.IsValid)
             {
                 using (var db = new Models.OnLeaveContext())
                 {
                     var buildingDB = db.UtilityBuildings
                         .Include(b => b.Periods)
+                        .Include(b => b.Offers)
                         .Include(b => b.UtilityBuildingPhotoDetails)
                         .Include(b => b.UtilityBuildingLocales)
                         .FirstOrDefault(b => b.UtilityBuildingId == model.Id);
@@ -529,7 +543,35 @@ namespace OnLeave.Controllers
                             }));
                     });
 
-                    periodsToAdd.ForEach(p => buildingDB.Periods.Add(p));                    
+                    periodsToAdd.ForEach(p => buildingDB.Periods.Add(p));
+                    
+                    // Offers
+                    var offersToDelete = buildingDB.Offers
+                        .Where(o => model.Offers == null ||  !model.Offers.Any(offer => offer.OfferId == o.OfferId));
+                    db.Offers.RemoveRange(offersToDelete);
+                    model.Offers.Where(o => o.OfferId > 0).ToList().ForEach(o =>
+                    {
+                        var offerDB = buildingDB.Offers.FirstOrDefault(oDB => oDB.OfferId == o.OfferId);
+                        if (offerDB != null)
+                        {
+                            offerDB.StartDate = o.StartDate.Value;
+                            offerDB.EndDate = o.EndDate;
+                            offerDB.Discount = o.Discount;
+                            offerDB.Description = o.Description;
+                        }
+                    });
+
+                    model.Offers.Where(o => o.OfferId == -1).ToList().ForEach(o =>
+                    {
+                        buildingDB.Offers.Add(new Offer
+                        {
+                            StartDate = o.StartDate.Value,
+                            EndDate = o.EndDate,
+                            Discount = o.Discount,
+                            Description = o.Description,
+                            OfferTypeId = (int)OfferTypes.Discount
+                        });
+                    });
                     
                     db.SaveChanges();
 
@@ -571,6 +613,22 @@ namespace OnLeave.Controllers
                     model.PhotoIds = buildingDB.UtilityBuildingPhotoDetails.Select(p => p.PhotoId).ToList();
                 }
             }
+            else
+            {
+                using (var db = new Models.OnLeaveContext())
+                {
+                    var buildingDB = db.UtilityBuildings
+                        .Include(b => b.UtilityBuildingPhotoDetails)
+                        .FirstOrDefault(b => b.UtilityBuildingId == model.Id);
+
+                    if (buildingDB != null)
+                    {
+                        model.Latitude = buildingDB.lat ?? 0M;
+                        model.Longitude = buildingDB.lon ?? 0M;
+                        model.PhotoIds = buildingDB.UtilityBuildingPhotoDetails.Select(p => p.PhotoId).ToList();
+                    }
+                }
+            }
 
             var roomTypesIDs = StaticDataProvider.RoomTypes.OrderBy(t => t.RoomTypeId).Select(t => t.RoomTypeId).ToList();
             model.Periods.ForEach(p =>
@@ -592,7 +650,7 @@ namespace OnLeave.Controllers
                 Value = t.UtilityBuildingTypeId.ToString()
             });
 
-            ModelState.Keys.Where(key => key.StartsWith("Periods")).ToList().ForEach(key => ModelState.Remove(key));
+            ModelState.Keys.Where(key => key.StartsWith("Periods")).ToList().ForEach(key => ModelState.Remove(key));            
             return PartialView(model);
         }
 
@@ -774,7 +832,7 @@ namespace OnLeave.Controllers
                 {
                     if (db.Cities.Any(c => c.Name.ToLower() == city.Name.ToLower()))
                     {
-                        ModelState.AddModelError(GenericHelper.GetPropertyName(() => city.Name), "Дублиран град");
+                        ModelState.AddModelError(city.GetPropertyName(() => city.Name), "Дублиран град");
                         return PartialView(city);
                     }
 
@@ -797,7 +855,7 @@ namespace OnLeave.Controllers
 
                     if (db.Cities.Any(cityDB => cityDB.CityId != city.CityId && cityDB.Name.ToLower() == city.Name.ToLower()))
                     {
-                        ModelState.AddModelError(GenericHelper.GetPropertyName(() => city.Name), "Дублиран град");
+                        ModelState.AddModelError(city.GetPropertyName(() => city.Name), "Дублиран град");
                     }
 
                     if (!ModelState.IsValid)
@@ -836,16 +894,16 @@ namespace OnLeave.Controllers
             //ModelState.Clear();
             if (model.Id == 0)
             {
-                ModelState.AddModelError(string.Empty, "hotel missing");
+                ModelState.AddModelError(model.GetPropertyName(() => model.PhotoFile), "hotel missing");
             }
 
             if (model.PhotoFile == null)
             {
-                ModelState.AddModelError(string.Empty, "image missing");
+                ModelState.AddModelError(model.GetPropertyName(() => model.PhotoFile), "image missing");
             }
 
             // take just PhotoFile validation
-            var errors = ModelState.Where(s => s.Key != GenericHelper.GetPropertyName(() => model.PhotoFile));
+            var errors = ModelState.Where(s => s.Key != model.GetPropertyName(() => model.PhotoFile));
             errors.ToList().ForEach(e => ModelState.Remove(e.Key));
 
             if (!ModelState.IsValid)
@@ -1266,7 +1324,7 @@ namespace OnLeave.Controllers
                 if (userExist != null)
                 {
                     ModelState.AddModelError(
-                        GenericHelper.GetPropertyName(() => model.Email),
+                        model.GetPropertyName(() => model.Email),
                         "Email already exists");
 
                     return View(model);
