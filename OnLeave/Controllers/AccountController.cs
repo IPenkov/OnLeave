@@ -710,7 +710,8 @@ namespace OnLeave.Controllers
                     .Include(b => b.UtilityBuildingPhotoDetails.Select(pd => pd.Photo))
                     .Include(b => b.UtilityBuidingFacilityDetails)
                     .Include(b => b.Rooms)
-                    .Include(b => b.Periods.Select(p => p.RoomAmounts))                    
+                    .Include(b => b.Periods.Select(p => p.RoomAmounts))
+                    .Include(b => b.Offers)
                     .FirstOrDefault(b => b.UtilityBuildingId == buildingId);
                 System.Diagnostics.Debug.Assert(building != null, "building not found");
 
@@ -728,6 +729,7 @@ namespace OnLeave.Controllers
                 db.RoomAmounts.RemoveRange(building.Periods.SelectMany(p => p.RoomAmounts));
                 db.Rooms.RemoveRange(building.Rooms);
                 db.Periods.RemoveRange(building.Periods);
+                db.Offers.RemoveRange(building.Offers);
                 db.UtilityBuildings.Remove(building);
 
                 db.SaveChanges();
