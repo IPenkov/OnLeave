@@ -10,8 +10,22 @@
 
 <div class="breadcrumb">
     @Html.ActionLink("Начало", "Index", "Home")
-    » @Html.ActionLink("Профил", "Account", "Account")
-    » @Html.ActionLink("Хотел", "EditBuilding", "Account", new { buildingId = Model.Id }, new { @class = "last" })
+    » @Html.ActionLink("Профил", "Account", "Account")    
+    » @Ajax.ActionLink(
+                linkText: "Хотел",
+                actionName: "GetBuilding",
+                controllerName: "Account",
+                routeValues: new { buildingId = Model.Id },
+                       ajaxOptions: new AjaxOptions
+                       {
+                           HttpMethod = "POST",
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "content",
+                           OnFailure = "handleError('Error. Please contact Administrator.')",
+                           OnSuccess = "init()",
+                           AllowCache = false
+                       },
+                htmlAttributes: new { @class = "last" })
 </div>
 
 <h1>Данни на хотел</h1>
@@ -23,7 +37,7 @@
         </div>
         <div class="addhotel-content" style="@(Model.Id != 0 ?  "display:block;" : "display:none")">
 
-            @using (Ajax.BeginForm("EditBuilding", "Account",                
+            @using (Ajax.BeginForm("EditBuilding", "Account",
                 new AjaxOptions
                 {
                     HttpMethod = "POST",
@@ -36,7 +50,7 @@
                 new { id = "add" }))
             {
                 @Html.AntiForgeryToken()
-                @Html.HiddenFor(m => m.Id)    
+                @Html.HiddenFor(m => m.Id)
 
                 <div class="content" style="padding: 0">
                     <table class="form">
@@ -320,7 +334,7 @@
                     </fieldset>
 
                     <fieldset class="collapse-section">
-                        <legend>Оферти</legend>                        
+                        <legend>Оферти</legend>
                         <p></p>
                         <div class="clear"></div>
                         <div class="cart-info">
@@ -330,12 +344,12 @@
                         </div>
                         <div class="clear"></div>
                     </fieldset>
-                    
+
                     <div class="buttons" style="margin-left: 20px; margin-right: 20px;">
                         <div class="left">
                             <a class="button" data-ajax="true"
                                data-ajax-failure="handleError('Error. Please contact Administrator.')"
-                               data-ajax-method="GET"
+                               data-ajax-method="POST"
                                data-ajax-mode="replace"
                                data-ajax-update="#content"
                                href="@Url.Action("UtilityBuildings", "Account")">
@@ -397,7 +411,7 @@
                     <div class="right">
                         <a class="button" data-ajax="true"
                            data-ajax-failure="handleError('Error. Please contact Administrator.')"
-                           data-ajax-method="GET"
+                           data-ajax-method="POST"
                            data-ajax-mode="replace"
                            data-ajax-update="#content"
                            href="@Url.Action("UtilityBuildings", "Account")">

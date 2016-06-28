@@ -3,7 +3,21 @@
 <div class="breadcrumb">
     @Html.ActionLink("Начало", "Index", "Home")
     » @Html.ActionLink("Профил", "Account", "Account")
-    » @Html.ActionLink("Хотелите ми", "UtilityBuildings", "Account", new { @class = "last" })
+    » @Ajax.ActionLink(
+            linkText: "Хотелите ми",
+            actionName: "UtilityBuildings",
+            controllerName: "Account",
+            routeValues: new object { },
+            ajaxOptions: new AjaxOptions
+            {
+                AllowCache = false,
+                HttpMethod = "POST",
+                InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
+                UpdateTargetId = "content",
+                OnFailure = "handleError('Error. Please contact Administrator.')",
+                OnComplete = "init()"
+            },
+            htmlAttributes: new { @class = "last" })
 </div>
 
 <h2>Хотели</h2>
@@ -22,25 +36,28 @@
                 @foreach (var building in Model)
                 {
                     <tr>
-                        <td>                            
+                        <td>
                             <a data-ajax="true"
                                data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
-                               data-ajax-method="GET"
+                               data-ajax-method="POST"
                                data-ajax-cash="false"
                                data-ajax-mode="replace"
                                data-ajax-update="#content"
-                               href="@Url.Action("EditBuilding", "Account", new { buildingId = building.Id })"
+                               href="@(building.SystemTypeId == (int)Common.Constant.SystemType.Local ? @Url.Action("GetBuilding", "Account", new { buildingId = building.Id }) : Url.Action("GetUtilityBuildingExternal", "Account", new { buildingId = building.Id, edit = true }))"
                                data-ajax-complete="init()">
                                 <img src="@Url.Action("47/37/" + @building.PhotoIds.FirstOrDefault(), "Account", new { })" />
                             </a>
                         </td>
-                        <td class="name">                           
-                            @Ajax.ActionLink(@building.Name, "EditBuilding", "Account",
-                            new { buildingId = building.Id },
-                            new AjaxOptions
+                        <td class="name">
+                            @Ajax.ActionLink(
+                         linkText: string.IsNullOrEmpty(@building.Name) ? " " : @building.Name,
+                            actionName: @building.SystemTypeId == (int)Common.Constant.SystemType.Local ? "GetBuilding" : "GetUtilityBuildingExternal",
+                            controllerName: "Account",
+                            routeValues: new { buildingId = building.Id, edit =  true },
+                            ajaxOptions: new AjaxOptions
                                 {
                                     AllowCache = false,
-                                    HttpMethod = "GET",                                    
+                                    HttpMethod = "POST",
                                     InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
                                     UpdateTargetId = "content",
                                     OnFailure = "handleError('Error. Please contact Administrator.')",
@@ -49,6 +66,10 @@
                             <div></div>
                             <small>@building.Description</small>
                         </td>
+
+
+
+
 
                         <td class="remove">
                             @using (Ajax.BeginForm("DeleteBuilding", "Account",
@@ -74,3 +95,10 @@
         </table>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function ()
+    {
+        addActionConfirmation();
+    });
+</script>

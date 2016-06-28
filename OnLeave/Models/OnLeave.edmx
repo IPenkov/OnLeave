@@ -110,6 +110,13 @@
           <Property Name="Description" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Order" Type="smallint" Nullable="false" />
         </EntityType>
+        <EntityType Name="SystemType">
+          <Key>
+            <PropertyRef Name="SystemTypeId" />
+          </Key>
+          <Property Name="SystemTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="UtilityBuidingFacilityDetail">
           <Key>
             <PropertyRef Name="UtilityBuildingFacilityDetail" />
@@ -162,6 +169,8 @@
           <Property Name="Rating" Type="tinyint" />
           <Property Name="Size" Type="int" />
           <Property Name="SearchRating" Type="int" />
+          <Property Name="SystemTypeId" Type="int" Nullable="false" />
+          <Property Name="ExternalUrl" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="UtilityBuildingTypes">
           <Key>
@@ -367,6 +376,7 @@
           <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoomAmount" EntityType="Self.RoomAmount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoomType" EntityType="Self.RoomType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SystemType" EntityType="Self.SystemType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UtilityBuidingFacilityDetail" EntityType="Self.UtilityBuidingFacilityDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UtilityBuildingFacilityType" EntityType="Self.UtilityBuildingFacilityType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UtilityBuildingLocale" EntityType="Self.UtilityBuildingLocale" Schema="dbo" store:Type="Tables" />
@@ -517,6 +527,8 @@
           <NavigationProperty Name="UtilityBuildingLocales" Relationship="OnLeaveModel.FK_UtilityBuildingLocale_UtilityBuildings" FromRole="UtilityBuilding" ToRole="UtilityBuildingLocale" />
           <Property Name="Size" Type="Int32" />
           <Property Name="SearchRating" Type="Int32" />
+          <Property Name="SystemTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ExternalUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UtilityBuildingPhotoDetail">
           <Key>
@@ -691,6 +703,7 @@
             <End Role="UtilityBuilding" EntitySet="UtilityBuildings" />
             <End Role="UtilityBuildingLocale" EntitySet="UtilityBuildingLocales" />
           </AssociationSet>
+          <EntitySet Name="SystemTypes" EntityType="OnLeaveModel.SystemType" />
         </EntityContainer>
         <EntityType Name="Photo">
           <Key>
@@ -928,6 +941,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SystemType">
+          <Key>
+            <PropertyRef Name="SystemTypeId" />
+          </Key>
+          <Property Name="SystemTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -992,7 +1012,9 @@
     <EntitySetMapping Name="UtilityBuildings">
       <EntityTypeMapping TypeName="IsTypeOf(OnLeaveModel.UtilityBuilding)">
         <MappingFragment StoreEntitySet="UtilityBuildings">
-          <ScalarProperty Name="SearchRating" ColumnName="SearchRating" />
+          <ScalarProperty Name="ExternalUrl" ColumnName="ExternalUrl" />
+                <ScalarProperty Name="SystemTypeId" ColumnName="SystemTypeId" />
+                <ScalarProperty Name="SearchRating" ColumnName="SearchRating" />
                 <ScalarProperty Name="Size" ColumnName="Size" />
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="lon" ColumnName="lon" />
@@ -1125,6 +1147,14 @@
                 <ScalarProperty Name="LocaleId" ColumnName="LocaleId" />
                 <ScalarProperty Name="UtilityBuildingId" ColumnName="UtilityBuildingId" />
                 <ScalarProperty Name="UtilityBuildingLocaleId" ColumnName="UtilityBuildingLocaleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SystemTypes">
+            <EntityTypeMapping TypeName="OnLeaveModel.SystemType">
+              <MappingFragment StoreEntitySet="SystemType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SystemTypeId" ColumnName="SystemTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

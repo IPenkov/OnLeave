@@ -44,6 +44,7 @@ namespace OnLeave.Models
         public virtual DbSet<RoomAmount> RoomAmounts { get; set; }
         public virtual DbSet<Locale> Locales { get; set; }
         public virtual DbSet<UtilityBuildingLocale> UtilityBuildingLocales { get; set; }
+        public virtual DbSet<SystemType> SystemTypes { get; set; }
     
         public virtual int InsertUser(string firstName, string lastName, string email, string telephone, string password)
         {

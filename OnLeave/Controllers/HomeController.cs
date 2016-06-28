@@ -32,6 +32,8 @@ namespace OnLeave.Controllers
                     Id = b.UtilityBuildingId,
                     Name = string.Join(" / ", b.UtilityBuildingLocales.Select(l => l.Name)),
                     Description = string.Join(System.Environment.NewLine, b.UtilityBuildingLocales.Select(l => l.Description)),
+                    SystemTypeId = b.SystemTypeId,
+                    UrlAddress = b.ExternalUrl,
                     PhotoIds = b.UtilityBuildingPhotoDetails.Select(p => p.PhotoId).ToList()
                 })
                 .ToArray();
@@ -77,7 +79,7 @@ namespace OnLeave.Controllers
                     Description = string.Join(" <br /><br /> ", buildingDB.UtilityBuildingLocales.Select(l => l.Description).ToArray()),
                     Address = string.Join(" / ", buildingDB.UtilityBuildingLocales.Select(l => l.Address).ToArray()),
                     ContactPerson = string.Join(" / ", buildingDB.UtilityBuildingLocales.Select(l => l.ContactPerson).ToArray()),
-                    PhoneNumber = buildingDB.PhoneNumber,
+                    PhoneNumber = buildingDB.PhoneNumber,                    
                     PhotoIds = buildingDB.UtilityBuildingPhotoDetails.Select(ph => ph.PhotoId).ToList(),
                     CityId = buildingDB.CityId,
                     Rating = buildingDB.Rating ?? 0,
@@ -154,8 +156,7 @@ namespace OnLeave.Controllers
                     .Where(b => facilitiesIds.All(fID => b.UtilityBuidingFacilityDetails.Any(ft => ft.UtilityBuildingFacilityTypeId == fID)))
                     .Where(b => !model.Rating.HasValue || b.Rating == model.Rating)
                     .Where(b => (!model.MinAmount.HasValue && !model.MaxAmount.HasValue) 
-                        || b.Periods.SelectMany(p => p.RoomAmounts).Any(a => (!model.MinAmount.HasValue || model.MinAmount <= a.Amount) && (!model.MaxAmount.HasValue || model.MaxAmount >= a.Amount)))
-                    // .Select(b => new UtilityBuilding() { Name = b.Name })
+                        || b.Periods.SelectMany(p => p.RoomAmounts).Any(a => (!model.MinAmount.HasValue || model.MinAmount <= a.Amount) && (!model.MaxAmount.HasValue || model.MaxAmount >= a.Amount)))                   
                     .OrderByDescending(b => b.SearchRating)
                     .ToArray();
 
@@ -165,6 +166,7 @@ namespace OnLeave.Controllers
                         Id = b.UtilityBuildingId,
                         Name = b.UtilityBuildingLocales.Where(l => l.LocaleId == (int)LocaleTypes.BG).Select(l => l.Name).FirstOrDefault(),
                         Description = b.UtilityBuildingLocales.Where(l => l.LocaleId == (int)LocaleTypes.BG).Select(l => l.Description).FirstOrDefault(),
+                        UrlAddress = b.ExternalUrl,
                         Rating = b.Rating ?? 0,
                         Size = b.Size,
                         PhotoIds =  new System.Collections.Generic.List<int>(){  b.UtilityBuildingPhotoDetails.First().PhotoId },

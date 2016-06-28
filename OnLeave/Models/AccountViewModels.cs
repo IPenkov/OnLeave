@@ -219,6 +219,8 @@ namespace OnLeave.Models
         [StringLength(255, ErrorMessage = "Maximum {1} characters")]
         public string AddressEN { get; set; }
 
+        public string UrlAddress { get; set; }
+
         [Display(Name = "Лице за контакт")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Лице за контакт липсва")]
         [StringLength(255, ErrorMessage = "Максимален брой {1} символи")]
@@ -262,6 +264,8 @@ namespace OnLeave.Models
         /// </value>
         public decimal Longitude { get; set; }
 
+        public int SystemTypeId { get; set; }
+
         /// <summary>
         /// Gets or sets the size.
         /// </summary>
@@ -304,7 +308,46 @@ namespace OnLeave.Models
 
         public List<Period> Periods { get; set; }
 
-        public List<BusinessEntities.Offer> Offers { get; set; }
+        public List<BusinessEntities.Offer> Offers { get; set; }        
+    }
+
+    public class UtilityBuildingExternalModel
+    {
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        [Display(Name = "Име")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Име липсва")]
+        [StringLength(50, ErrorMessage = "Максимален брой {1} символи")]
+        public string Name { get; set; }
+
+        [Display(Name = "Name")]
+        [StringLength(50, ErrorMessage = "Maximum {1} characters")]
+        public string NameEN { get; set; }
+
+        [Display(Name = "Тип")]
+        [Required(ErrorMessage = "Тип сграда липсва")]
+        public int UtilityBuildingTypeId { get; set; }
+
+        [Display(Name="Адрес")]
+        [Required(AllowEmptyStrings=false, ErrorMessage="Адрес липсва")]
+        public string UrlAddress { get; set; }
+
+        [Display(Name = "Телефон")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Телефон липсва")]
+        [StringLength(50, ErrorMessage = "Максимален брой {1} символи")]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Град")]
+        [Required(ErrorMessage = "Град липсва")]
+        public int? CityId { get; set; }
+        
+        public List<int> PhotoIds { get; set; }
     }
 
     /// <summary>

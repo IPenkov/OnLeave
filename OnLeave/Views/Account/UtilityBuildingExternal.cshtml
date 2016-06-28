@@ -1,0 +1,227 @@
+﻿@model OnLeave.Models.UtilityBuildingExternalModel
+
+<div class="breadcrumb">
+    @Html.ActionLink("Начало", "Index", "Home")
+    » @Html.ActionLink("Профил", "Account", "Account")
+    »
+    @if (Model.Id == 0)
+    {
+        <label>Нов хотел</label>
+    }
+    else
+    {
+        @Ajax.ActionLink(
+                            linkText: @Model.Name,
+                            actionName: "GetUtilityBuildingExternal",
+                            controllerName: "Account",
+                            routeValues: new { buildingId = @Model.Id, edit = true },
+                            ajaxOptions: new AjaxOptions
+                                {
+                                    AllowCache = false,
+                                    HttpMethod = "POST",
+                                    InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
+                                    UpdateTargetId = "content",
+                                    OnFailure = "handleError('Error. Please contact Administrator.')",
+                                    OnComplete = "init()"
+                                })
+    }
+</div>
+
+<h1>Нов Хотел / Къща(Booking) </h1>
+
+<div class="addhotel">
+    <div id="addhotel">
+        <div class="addhotel-heading">
+            <div class="marker-addhotel">Стъпка 1: Данни Хотел</div>
+        </div>
+        <div class="addhotel-content" style="@(Model.Id == 0 || ViewBag.edit ?  "display:block;" : "display:none")">
+
+            @using (@Ajax.BeginForm("SaveUtilityBuildingExternal", "Account",
+                new AjaxOptions
+                {
+                    AllowCache = false,
+                    HttpMethod = "POST",
+                    InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
+                    UpdateTargetId = "content",
+                    OnFailure = "handleError('Error. Please contact Administrator.')",
+                    OnComplete = "init();"
+                },
+                new { id = "add" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
+
+                <div class="content" style="padding: 0">
+                    <table class="form">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="label">
+                                        <span class="required">*</span>
+                                        @Html.LabelFor(m => m.Name):
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="float:left">
+                                        @Html.ValidationMessageFor(m => m.Name)
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div style="float:left">
+                                        @Html.TextBoxFor(m => m.Name, new { @class = "q1" })
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="label">
+                                        <span class="required">*</span>
+                                        @Html.LabelFor(m => m.NameEN):
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="float:left">
+                                        @Html.ValidationMessageFor(m => m.NameEN)
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div style="float:left">
+                                        @Html.TextBoxFor(m => m.NameEN, new { @class = "q1" })
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="label">
+                                        <span class="required">*</span>
+                                        @Html.LabelFor(m => m.UtilityBuildingTypeId):
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="float:left">
+                                        @Html.ValidationMessageFor(m => m.UtilityBuildingTypeId)
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div style="float:left">
+                                        @Html.DropDownListFor(m => m.UtilityBuildingTypeId, ViewBag.UtilityBuildingTypes as IEnumerable<SelectListItem>, new { @class = "q1", style = "background: #ffffff; width: 308px" })
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <span class="required">*</span>
+                                    @Html.LabelFor(m => m.UrlAddress):
+                                </td>
+                                <td>
+                                    <div style="float:left">
+                                        @Html.ValidationMessageFor(m => m.UrlAddress)
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div style="float:left">
+                                        @Html.TextBoxFor(m => m.UrlAddress, new { @class = "q1" })
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="label">
+                                    <span class="required">*</span>
+                                    @Html.LabelFor(m => m.PhoneNumber):
+                                </td>
+                                <td>
+                                    <div style="float:left">
+                                        @Html.ValidationMessageFor(m => m.PhoneNumber)
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div style="float:left">
+                                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "q1" })
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="label">
+                                    <span class="required">*</span>
+                                    @Html.LabelFor(m => m.CityId):
+                                </td>
+                                <td>
+                                    <div style="float:left">
+                                        @Html.ValidationMessageFor(m => m.CityId)
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div style="float:left">
+                                        @Html.DropDownListFor(m => m.CityId, ViewBag.Cities as IEnumerable<SelectListItem>, new { @class = "q1", style = "background: #ffffff; width: 308px" })
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="buttons" style="margin: 0 20px">
+                        <div class="left" style="@(ViewBag.edit ?  "display:none" : "display:block")">
+                            <a class="button"
+                               href="@Url.Action(actionName: (Model.Id != 0 ? "Login" : "UtilityBuildings"), controllerName: "Account")"
+                               data-ajax-update="#content"
+                               data-ajax-mode="replace"
+                               data-ajax="true"
+                               data-ajax-method="POST"
+                               data-ajax-failure="handleError('Error. Please contact Administrator.')">
+                                <span>Назад</span>
+                            </a>
+                        </div>
+                        <div class="right">
+                            <a class="button" onclick="$('#add').submit();"><span>@(ViewBag.edit ? "Запази" : "Продължи")</span></a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>
+
+<div id="payment-address">
+    <div class="addhotel-heading">
+        <div class="marker-chekout"><span>Стъпка 2: Снимки</span></div>
+    </div>
+    <div class="addhotel-content" style="@(Model.Id != 0 ? "display:block;" : "display:none;")">
+
+        <div id="photoes">
+
+            @if (Model.Id != 0)
+            {
+                //Html.RenderPartial("_BuildingPhotoes", new OnLeave.Models.UtilityBuildingModel() { Id = -100, PhotoIds = Model.PhotoIds });
+                Html.RenderPartial("_BuildingPhotoes", null);
+            }
+        </div>
+
+        <div class="clear"></div>
+        <div class="buttons" style="margin: 10px 20px 0 20px">
+            <div class="left">
+            </div>
+            <div class="right">
+                <a class="button"
+                   href="@Url.Action("UtilityBuildings", "Account")"
+                   data-ajax-update="#content"
+                   data-ajax-mode="replace"
+                   data-ajax="true"
+                   data-ajax-method="POST"
+                   data-ajax-failure="handleError('Error. Please contact Administrator.')">
+                    <span>@(ViewBag.edit ? "Назад" : "Край")</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //this code goes in your partialview
+    $(function ()
+    {
+        //allow the validation framework to re-prase the DOM
+        jQuery.validator.unobtrusive.parse();
+
+        //or to give the parser some context, supply it with a selector
+        //jQuery validator will parse all child elements (deep) starting
+        //from the selector element supplied
+        jQuery.validator.unobtrusive.parse("#content");
+    });
+</script>

@@ -11,7 +11,6 @@ namespace OnLeave.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class Offer
     {
@@ -25,7 +24,7 @@ namespace OnLeave.Models
         public string Description { get; set; }
         public int OfferTypeId { get; set; }
         public int UtilityBuildingId { get; set; }
-        public System.DateTime StartDate { get; set; }       
+        public System.DateTime StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
         public Nullable<byte> Discount { get; set; }
     

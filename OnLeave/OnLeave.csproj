@@ -259,6 +259,9 @@
       <DependentUpon>OnLeave.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StaticDataProvider.cs" />
+    <Compile Include="Models\SystemType.cs">
+      <DependentUpon>OnLeave.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UtilityBuidingFacilityDetail.cs">
       <DependentUpon>OnLeave.tt</DependentUpon>
     </Compile>
@@ -476,6 +479,7 @@
     <Content Include="Views\Account\City.cshtml" />
     <Content Include="Views\Account\_Offers.cshtml" />
     <Content Include="Views\Home\_Offers.cshtml" />
+    <Content Include="Views\Account\UtilityBuildingExternal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

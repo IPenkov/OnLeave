@@ -198,8 +198,169 @@ namespace OnLeave.Controllers
             return PartialView(model);
         }
 
-        [HttpGet]
+        [HttpPost]
+        public ActionResult GetUtilityBuildingExternal(int? buildingId, bool? edit)
+        {
+            UtilityBuildingExternalModel utilityBuilding = null;
 
+            if (buildingId.HasValue)
+            {
+                using (var db = new OnLeaveContext())
+                {
+                    var buildingDB = db.UtilityBuildings
+                        .Include(b => b.UtilityBuildingLocales)
+                        .FirstOrDefault(b => b.UtilityBuildingId == buildingId);
+
+                    if (buildingDB == null) new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+                    utilityBuilding = new UtilityBuildingExternalModel
+                    {
+                        Id = buildingDB.UtilityBuildingId,
+                        PhoneNumber = buildingDB.PhoneNumber,
+                        CityId = buildingDB.CityId,
+                        UrlAddress = buildingDB.ExternalUrl,
+                        PhotoIds = buildingDB.UtilityBuildingPhotoDetails.Select(ph => ph.PhotoId).ToList(),
+                    };
+
+                    var bg = buildingDB.UtilityBuildingLocales.FirstOrDefault(l => l.LocaleId == (int)LocaleTypes.BG);
+                    if (bg == null) bg = new UtilityBuildingLocale();
+                    var en = buildingDB.UtilityBuildingLocales.FirstOrDefault(l => l.LocaleId == (int)LocaleTypes.EN);
+                    if (en == null) en = new UtilityBuildingLocale();
+                    utilityBuilding.Name = bg.Name;
+                    utilityBuilding.NameEN = en.Name;
+                }
+            }
+            else
+            {
+                utilityBuilding = new UtilityBuildingExternalModel
+                {
+                    UtilityBuildingTypeId = (int)UtilityBuildingTypes.Hotel,
+                    PhotoIds = new List<int>()
+                };
+            }
+
+            ViewBag.Cities = StaticDataProvider.Cities.Select(c => new SelectListItem { Text = c.Name, Value = c.CityId.ToString() });
+            ViewBag.UtilityBuildingTypes = StaticDataProvider.UtilityBuildingTypes.Select(t => new SelectListItem
+            {
+                Text = t.Description,
+                Value = t.UtilityBuildingTypeId.ToString()
+            });
+            ViewBag.edit = edit ?? false;
+            
+            return PartialView("UtilityBuildingExternal", utilityBuilding);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveUtilityBuildingExternal(UtilityBuildingExternalModel model)
+        {
+            if (!ModelState.IsValid) PartialView("UtilityBuildingExternal", model);
+
+            using (var db = new OnLeaveContext())
+            {
+                UtilityBuilding building = new UtilityBuilding();
+                if (model.Id > 0)
+                {
+                    building = db.UtilityBuildings
+                        .Include(b => b.UtilityBuildingPhotoDetails)
+                        .FirstOrDefault(b => b.UtilityBuildingId == model.Id);
+                    if (building == null || building.UserId != User.Identity.GetUserId())
+                    {
+                        new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+                    }
+
+                    building.KeyWords = model.Name;
+                    building.PhoneNumber = model.PhoneNumber;
+                    building.CityId = model.CityId;
+                    building.ExternalUrl = model.UrlAddress;
+
+                    var buildingLocaleBG = building.UtilityBuildingLocales.FirstOrDefault(l => l.LocaleId == (int)LocaleTypes.BG);
+                    if (buildingLocaleBG != null)
+                    {
+                        buildingLocaleBG.Name = model.Name;                        
+                    }
+                    else
+                    {
+                        building.UtilityBuildingLocales.Add(new UtilityBuildingLocale
+                        {
+                            LocaleId = (int)LocaleTypes.BG,
+                            Name = model.Name                            
+                        });
+                    }
+
+                    var buildingLocaleEN = building.UtilityBuildingLocales.FirstOrDefault(l => l.LocaleId == (int)LocaleTypes.EN);
+                    if (buildingLocaleEN != null)
+                    {
+                        if (string.IsNullOrWhiteSpace(model.NameEN))
+                        {
+                            // remove if no data                             
+                            db.UtilityBuildingLocales.Remove(buildingLocaleEN);
+                        }
+                        else
+                        {
+                            buildingLocaleEN.Name = model.NameEN;                            
+                        }
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrWhiteSpace(model.NameEN))
+                        {
+                            building.UtilityBuildingLocales.Add(new UtilityBuildingLocale
+                            {
+                                LocaleId = (int)LocaleTypes.EN,
+                                Name = model.NameEN                                
+                            });
+                        }
+                    }
+                }
+                else
+                {
+                    building = new UtilityBuilding
+                    {
+                        KeyWords = model.Name,
+                        UtilityBuildingTypeId = model.UtilityBuildingTypeId,
+                        UserId = User.Identity.GetUserId(),
+                        PhoneNumber = model.PhoneNumber,
+                        CityId = model.CityId,
+                        SystemTypeId = (int)Common.Constant.SystemType.Booking,
+                        ExternalUrl = model.UrlAddress
+                    };
+
+                    building.UtilityBuildingLocales.Add(new UtilityBuildingLocale
+                    {
+                        LocaleId = (int)LocaleTypes.BG,
+                        Name = model.Name,
+                    });
+
+                    if (!string.IsNullOrWhiteSpace(model.NameEN))
+                    {
+                        building.UtilityBuildingLocales.Add(new UtilityBuildingLocale
+                        {
+                            LocaleId = (int)LocaleTypes.EN,
+                            Name = model.NameEN,
+                        });
+                    }
+
+                    db.UtilityBuildings.Add(building);
+                }                
+                
+                db.SaveChanges();
+                
+                model.Id = building.UtilityBuildingId;
+                model.PhotoIds = building.UtilityBuildingPhotoDetails.Select(ph => ph.PhotoId).ToList();
+            }
+
+            ViewBag.edit = true;
+            ViewBag.Cities = StaticDataProvider.Cities.Select(c => new SelectListItem { Text = c.Name, Value = c.CityId.ToString() });
+            ViewBag.UtilityBuildingTypes = StaticDataProvider.UtilityBuildingTypes.Select(t => new SelectListItem
+            {
+                Text = t.Description,
+                Value = t.UtilityBuildingTypeId.ToString()
+            });
+
+            return PartialView("UtilityBuildingExternal", model);
+        }
+
+        [HttpPost]
         public ActionResult UtilityBuildings()
         {
             string userId = User.Identity.GetUserId();
@@ -216,6 +377,7 @@ namespace OnLeave.Controllers
                     {
                         Id = b.UtilityBuildingId,
                         Name = string.Join(" / ", b.UtilityBuildingLocales.Where(l => !string.IsNullOrWhiteSpace(l.Name)).Select(l => l.Name).ToArray()),
+                        SystemTypeId = b.SystemTypeId,
                         Description = string.Join(System.Environment.NewLine, b.UtilityBuildingLocales.Where(l => !string.IsNullOrWhiteSpace(l.Description)).Select(l => l.Description).ToArray()),
                         PhotoIds = b.UtilityBuildingPhotoDetails.Select(photo => photo.PhotoId).ToList()                        
                     }).ToArray();
@@ -250,7 +412,8 @@ namespace OnLeave.Controllers
                         Id = b.UtilityBuildingId,
                         Name = string.Join(" / ", b.UtilityBuildingLocales.Where(l => !string.IsNullOrWhiteSpace(l.Name)).Select(l => l.Name).ToArray()),
                         Description = string.Join(System.Environment.NewLine, b.UtilityBuildingLocales.Where(l => !string.IsNullOrWhiteSpace(l.Description)).Select(l => l.Description).ToArray()),
-                        PhotoIds = b.UtilityBuildingPhotoDetails.Select(photo => photo.PhotoId).ToList()                        
+                        PhotoIds = b.UtilityBuildingPhotoDetails.Select(photo => photo.PhotoId).ToList(),
+                        SystemTypeId = b.SystemTypeId
                     }).ToArray();
 
                 return PartialView("UtilityBuildings", photoes);
@@ -262,8 +425,8 @@ namespace OnLeave.Controllers
         /// </summary>
         /// <param name="buildingId">The building id.</param>
         /// <returns>Matched Building</returns>
-        [HttpGet]
-        public ActionResult EditBuilding(int? buildingId)
+        [HttpPost]
+        public ActionResult GetBuilding(int? buildingId)
         {
             if (!buildingId.HasValue)
             {
@@ -376,7 +539,7 @@ namespace OnLeave.Controllers
                     Value = t.UtilityBuildingTypeId.ToString()
                 });
 
-                return PartialView(model);
+                return PartialView("EditBuilding", model);
             }            
         }
 
@@ -919,6 +1082,12 @@ namespace OnLeave.Controllers
                                 
                 //var resizedImage = ImageResizer.ImageBuilder.Current.Build(buffer, rSetting);
                 //resizedImage.Save(@"C:\\Temp\" + Path.GetFileName(model.PhotoFile.FileName));
+
+                int count = db.UtilityBuildingPhotoDetails.Count(pDetail => pDetail.UtilityBuildingId == model.Id);
+                if (count >= 7 - 1)
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden, "maximum number picture exceeded");
+                }
                 
                 using (var ms = new MemoryStream())
                 {

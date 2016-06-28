@@ -17,9 +17,9 @@
             }
 
             <li class="@if (actionName == "Login") {<text>active</text>}">
-                @Html.ActionLink("Моя профил", "Login", "Account")                
+                @Html.ActionLink("Моя профил", "Login", "Account")
             </li>
-            <li class="@if (actionName == "EditAccount"){<text>active</text>}">                
+            <li class="@if (actionName == "EditAccount"){<text>active</text>}">
                 @Ajax.ActionLink("Промяна профил", "EditAccount", "Account",
                     new AjaxOptions
                     {
@@ -35,7 +35,7 @@
             @if (Request.IsAuthenticated)
             {
                 <li class="@if (actionName == "ChangePassword"){<text>active</text>}">
-                    @Html.ActionLink("Промяна парола", "ChangePassword", "Account")                    
+                    @Html.ActionLink("Промяна парола", "ChangePassword", "Account")
                 </li>
                 <li>
                     @Ajax.ActionLink("Добавене хотел", "AddUtilityBuilding", "Account",
@@ -49,13 +49,31 @@
                         OnComplete = "init();"
                     })
 
+                    @if (User.IsInRole("Root"))
+                    {
+                        <ul>
+                            <li>
+                                @Ajax.ActionLink("Booking", "GetUtilityBuildingExternal", "Account",
+                                new AjaxOptions
+                                {
+                                    AllowCache = false,
+                                    HttpMethod = "POST",
+                                    InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
+                                    UpdateTargetId = "content",
+                                    OnFailure = "handleError('Error. Please contact Administrator.')",
+                                    OnComplete = "init();"
+                                })
+                            </li>
+                        </ul>
+                    }
+
                 </li>
                 <li>
                     @Ajax.ActionLink("Моите хотели", "UtilityBuildings", "Account",
                     new AjaxOptions
                     {
                         AllowCache = false,
-                        HttpMethod = "GET",
+                        HttpMethod = "POST",
                         InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
                         UpdateTargetId = "content",
                         OnFailure = "handleError('Error. Please contact Administrator.')",
@@ -66,7 +84,7 @@
 
             @if (User.IsInRole("Root"))
             {
-                <li>                   
+                <li>
                     @Ajax.ActionLink("Система", "Cities", "Account",
                     new AjaxOptions
                     {
@@ -74,7 +92,7 @@
                         HttpMethod = "GET",
                         InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace,
                         UpdateTargetId = "content",
-                        OnFailure = "handleError('Error. Please contact Administrator.')",                        
+                        OnFailure = "handleError('Error. Please contact Administrator.')",
                     })
                 </li>
             }
@@ -90,6 +108,8 @@
             }
 
         </ul>
+
+
 
         @if (User.IsInRole("Root"))
         {

@@ -23,6 +23,11 @@
         private static RoomType[] roomTypes = new RoomType[] { };
 
         /// <summary>
+        /// System types
+        /// </summary>
+        private static SystemType[] systemTypes = new SystemType[] { };
+
+        /// <summary>
         /// The utility building types
         /// </summary>
         private static UtilityBuildingType[] utilityBuildingTypes = new UtilityBuildingType[] { };
@@ -68,6 +73,25 @@
                 }
 
                 return StaticDataProvider.roomTypes;
+            }
+        }
+
+        /// <summary>
+        /// Gets system types
+        /// </summary>
+        public static SystemType[] SystemTypes
+        {
+            get
+            {
+                if (StaticDataProvider.systemTypes.Length == 0)
+                {
+                    using (var db = new OnLeaveContext())
+                    {
+                        StaticDataProvider.systemTypes = db.SystemTypes.OrderBy(s => s.SystemTypeId).ToArray();
+                    }
+                }
+
+                return StaticDataProvider.systemTypes;
             }
         }
 
