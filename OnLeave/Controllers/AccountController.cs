@@ -255,6 +255,12 @@ namespace OnLeave.Controllers
         {
             if (!ModelState.IsValid) PartialView("UtilityBuildingExternal", model);
 
+            if (model.UrlAddress != null && !model.UrlAddress.ToLowerInvariant().Contains("http"))
+            {
+                // make it absolute
+                model.UrlAddress = string.Format("http://{0}", model.UrlAddress);
+            }
+            
             using (var db = new OnLeaveContext())
             {
                 UtilityBuilding building = new UtilityBuilding();
@@ -357,6 +363,7 @@ namespace OnLeave.Controllers
                 Value = t.UtilityBuildingTypeId.ToString()
             });
 
+            ModelState.Clear();
             return PartialView("UtilityBuildingExternal", model);
         }
 

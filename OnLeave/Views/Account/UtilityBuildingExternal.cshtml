@@ -189,8 +189,7 @@
 
             @if (Model.Id != 0)
             {
-                //Html.RenderPartial("_BuildingPhotoes", new OnLeave.Models.UtilityBuildingModel() { Id = -100, PhotoIds = Model.PhotoIds });
-                Html.RenderPartial("_BuildingPhotoes", null);
+                Html.RenderPartial("_BuildingPhotoes", new OnLeave.Models.UtilityBuildingModel() { Id = Model.Id, PhotoIds = Model.PhotoIds });                
             }
         </div>
 
