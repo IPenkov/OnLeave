@@ -1,5 +1,14 @@
 ﻿@model OnLeave.Models.UtilityBuildingModel
 
+@{
+    ViewBag.Title = "GetUtilityBuilding";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftSideBar{
+    @Html.Action("Search", "Home", null)
+}
+
 <div class="breadcrumb">
     @Html.ActionLink("Home", "Index", "Home")
     » 
@@ -31,29 +40,6 @@
                         <img id="image" title="@Model.Name" alt="@Model.Name" src="@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds.First(), width= 300, height = 236 })" />
                     </a>
                 </div>
-                @*<div class="image-additional @if (Model.PhotoIds.Count > 0) {<text>image-caroucel</text>}"
-                    style="display: block; position: relative;">*@
-                @*<div class="jcarousel-clip jcarousel-clip-horizontal" style="position: relative;">*@
-                @*<ul class="jcarousel-list">
-
-                        @for (int i = 0; i < Model.PhotoIds.Count; i++)
-                        {
-                            <li class="@if (Model.PhotoIds.Count < 4 && i == 3){<text>last</text>}">
-                                <a title="@Model.Name" class="cloud-zoom-gallery"
-                                   href="@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds[i], width= 600, height = 472 })"
-                                   rel="useZoom: 'zoom1', smallImage: '@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds[i], width= 300, height = 236 })' ">
-                                    <img title="@Model.Name" alt="@Model.Name" src="@Url.Action("GetPhoto", "Account", new { photoId = Model.PhotoIds[i], width= 90, height = 71 })">
-                                </a>
-                            </li>
-                        }
-                    </ul>*@
-                @*</div>*@
-                <!-- Controls -->
-                @*<div class="jcarousel-prev jcarousel-prev-horizontal"></div>
-                        <div class="jcarousel-next jcarousel-next-horizontal"></div>
-                    </div>*@
-                <!-- Controls -->
-
 
                 <div class="image-additional image-caroucel jcarousel" style="position:relative">
                     <ul style="width: 20000em; position: relative">
@@ -189,41 +175,22 @@
     </div>
 </div>
 
-@*@section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-        @Scripts.Render("~/bundles/autosize")
-        @Scripts.Render("~/bundles/jquery-ui")
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/autosize")
+    @Scripts.Render("~/bundles/jquery-ui")
 
-
-    }*@
-
-<script type="text/javascript">
-    /*
-    *   Init screen
-    */
-    $(function ()
-    {
+    <script type="text/javascript">
         initialize(false);
         $('textarea').autosize();
         $('.datepick').each(function () { $(this).datepicker({ dateFormat: "dd/mm/yy" }) });
         $('#tabs a').makeTabs();
+
         makeCarousel();
         $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();
-
-        //allow the validation framework to re-prase the DOM
-        jQuery.validator.unobtrusive.parse();
-
-        //or to give the parser some context, supply it with a selector
-        //jQuery validator will parse all child elements (deep) starting
-        //from the selector element supplied
-        jQuery.validator.unobtrusive.parse("#content");
-
-        window.history.replaceState(
-            null, // any object, that can be retrieved
-            null, // new page title
-            '@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model.Id})');
-            });
-</script>
+    </script>
+}
 
 
 

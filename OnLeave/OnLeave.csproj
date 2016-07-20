@@ -480,6 +480,7 @@
     <Content Include="Views\Account\_Offers.cshtml" />
     <Content Include="Views\Home\_Offers.cshtml" />
     <Content Include="Views\Account\UtilityBuildingExternal.cshtml" />
+    <Content Include="Views\Home\UtilityBuilding.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

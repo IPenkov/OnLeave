@@ -129,6 +129,81 @@ namespace OnLeave.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult GetUtilityBuilding(int buildingId, bool? overload)
+        {
+            using (var db = new Models.OnLeaveContext())
+            {
+                var buildingDB = db.UtilityBuildings
+                    .Include(b => b.UtilityBuildingPhotoDetails)
+                    .Include(b => b.UtilityBuidingFacilityDetails)
+                    .Include(b => b.Periods)
+                    .Include(b => b.Periods.Select(p => p.RoomAmounts))
+                    .Include(b => b.UtilityBuildingLocales)
+                    .Include(b => b.Offers)
+                    .FirstOrDefault(b => b.UtilityBuildingId == buildingId);
+                if (buildingDB == null)
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound);
+                }
+
+                var model = new UtilityBuildingModel
+                {
+                    Id = buildingDB.UtilityBuildingId,
+                    Name = string.Join(" / ", buildingDB.UtilityBuildingLocales.Select(l => l.Name).ToArray()),
+                    Description = string.Join(" <br /><br /> ", buildingDB.UtilityBuildingLocales.Select(l => l.Description).ToArray()),
+                    Address = string.Join(" / ", buildingDB.UtilityBuildingLocales.Select(l => l.Address).ToArray()),
+                    ContactPerson = string.Join(" / ", buildingDB.UtilityBuildingLocales.Select(l => l.ContactPerson).ToArray()),
+                    PhoneNumber = buildingDB.PhoneNumber,
+                    PhotoIds = buildingDB.UtilityBuildingPhotoDetails.Select(ph => ph.PhotoId).ToList(),
+                    CityId = buildingDB.CityId,
+                    Rating = buildingDB.Rating ?? 0,
+                    Latitude = buildingDB.lat ?? 0M,
+                    Longitude = buildingDB.lon ?? 0M,
+                    Size = buildingDB.Size,
+                    Periods = buildingDB.Periods.ToList(),
+                    Facilities = db.UtilityBuildingFacilityTypes.Select(ft =>
+                        new FacilityTypeModel
+                        {
+                            FacilityTypeId = ft.UtilityBuildingFacilityTypeId,
+                            FacilityTypeName = ft.Name
+                        }).ToArray(),
+                };
+
+                // sort by room types
+                model.Periods.ForEach(p =>
+                {
+                    p.RoomAmounts = p.RoomAmounts
+                        .Join(StaticDataProvider.RoomTypes, r => r.RoomTypeId, t => t.RoomTypeId, (r, t) => new
+                        {
+                            Room = r,
+                            Order = t.Order
+                        })
+                    .OrderBy(r => r.Order)
+                    .Select(r => r.Room)
+                    .ToList();
+                });
+
+                foreach (var f in model.Facilities)
+                {
+                    f.Selected = buildingDB.UtilityBuidingFacilityDetails.Any(ft => ft.UtilityBuildingFacilityTypeId == f.FacilityTypeId);
+                }
+
+                model.Offers = buildingDB.Offers.Select(o => new OnLeave.Models.BusinessEntities.Offer
+                {
+                    StartDate = o.StartDate,
+                    EndDate = o.EndDate,
+                    Discount = o.Discount,
+                    Description = o.Description
+                }).ToList();
+
+                ViewBag.RoomTypes = StaticDataProvider.RoomTypes;
+                ViewBag.Cities = StaticDataProvider.Cities;
+                return View("UtilityBuilding",  model);
+                //return PartialView("UtilityBuilding", model);
+            }
+        }
+
         /// <summary>
         /// Searches buildings to match criterias.
         /// </summary>
@@ -168,6 +243,7 @@ namespace OnLeave.Controllers
                         Description = b.UtilityBuildingLocales.Where(l => l.LocaleId == (int)LocaleTypes.BG).Select(l => l.Description).FirstOrDefault(),
                         UrlAddress = b.ExternalUrl,
                         Rating = b.Rating ?? 0,
+                        SystemTypeId = b.SystemTypeId,
                         Size = b.Size,
                         PhotoIds =  new System.Collections.Generic.List<int>(){  b.UtilityBuildingPhotoDetails.First().PhotoId },
                         Periods = b.Periods.OrderBy(p => p.RoomAmounts.Min(a => a.Amount)).Take(1).ToList()
