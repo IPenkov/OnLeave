@@ -34,7 +34,7 @@
                         }
                         else
                         {
-                            <a class="button" href="@Model[i].UrlAddress" target="_blank">
+                            <a class="button" href="@(!string.IsNullOrEmpty(Model[i].UrlAddress) ? Url.Content(Model[i].UrlAddress) : "")" target="_blank">
                                 <span>Резервация</span>
                             </a>
                         }

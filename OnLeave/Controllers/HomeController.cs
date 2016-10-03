@@ -16,8 +16,6 @@ namespace OnLeave.Controllers
 
         public ActionResult Index()
         {
-            //var offers = db.Offers.Include(o => o.OfferType).Include(o => o.UtilityBuilding).ToList();
-
             // take  9 buildings with photos
             var buildings = db.UtilityBuildings
                 .Include(p => p.UtilityBuildingPhotoDetails)

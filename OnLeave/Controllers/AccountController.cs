@@ -253,7 +253,15 @@ namespace OnLeave.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SaveUtilityBuildingExternal(UtilityBuildingExternalModel model)
         {
-            if (!ModelState.IsValid) PartialView("UtilityBuildingExternal", model);
+            ViewBag.Cities = StaticDataProvider.Cities.Select(c => new SelectListItem { Text = c.Name, Value = c.CityId.ToString() });
+            ViewBag.UtilityBuildingTypes = StaticDataProvider.UtilityBuildingTypes.Select(t => new SelectListItem
+            {
+                Text = t.Description,
+                Value = t.UtilityBuildingTypeId.ToString()
+            });
+            ViewBag.edit = ViewBag.edit ?? false;
+
+            if (!ModelState.IsValid) return PartialView("UtilityBuildingExternal", model);
 
             if (model.UrlAddress != null && !model.UrlAddress.ToLowerInvariant().Contains("http"))
             {
@@ -355,13 +363,7 @@ namespace OnLeave.Controllers
                 model.PhotoIds = building.UtilityBuildingPhotoDetails.Select(ph => ph.PhotoId).ToList();
             }
 
-            ViewBag.edit = true;
-            ViewBag.Cities = StaticDataProvider.Cities.Select(c => new SelectListItem { Text = c.Name, Value = c.CityId.ToString() });
-            ViewBag.UtilityBuildingTypes = StaticDataProvider.UtilityBuildingTypes.Select(t => new SelectListItem
-            {
-                Text = t.Description,
-                Value = t.UtilityBuildingTypeId.ToString()
-            });
+            ViewBag.edit = true;            
 
             ModelState.Clear();
             return PartialView("UtilityBuildingExternal", model);

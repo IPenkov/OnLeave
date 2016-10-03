@@ -35,7 +35,7 @@
                                 }
                                 else
                                 {
-                                    <a class="maxheight-feat" style="height: 38px;" href="@Url.Content(Model[i].UrlAddress)" target="_blank">
+                                    <a class="maxheight-feat" style="height: 38px;" href="@(!string.IsNullOrEmpty(Model[i].UrlAddress) ? Url.Content(Model[i].UrlAddress) : "")" target="_blank">
                                         <img src="@Url.Action("GetPhoto", "Account", new { photoId = Model[i].PhotoIds.First(), width= 229, height = 179 })"
                                              alt="Hotel @Model[i].Name" />
                                     </a>
