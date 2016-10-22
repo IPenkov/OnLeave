@@ -36,7 +36,12 @@
                             <div id="search">
                                 <div class="button-search" onclick="$('#top_search').submit();"></div>
                                 @using (Ajax.BeginForm("SearchBuilding", "Home",
-                                    new AjaxOptions { UpdateTargetId = "home_content", OnSuccess = "$('#search_by_name').val($('#search_by_name_top').val())" },
+                                    new AjaxOptions
+                                    {
+                                        UpdateTargetId = "content",
+                                        OnBegin = "$('#content').empty().css('min-height', '100px').css('background', 'url(Content/Images/loading.gif) no-repeat center');",                                        
+                                        OnSuccess = "$('#search_by_name').val($('#search_by_name_top').val()); $('#content').css('background', '');"
+                                    },
                                     new { id = "top_search" }))
                                 {
                                     @Html.AntiForgeryToken()
@@ -44,7 +49,7 @@
                                     <input type="hidden" name="Facilities[0].Selected" value="false" />
                                     <input type="hidden" name="TopFacilities[0].Selected" value="false" />
                                 }
-                            </div>                            
+                            </div>
                             @*@Html.Partial("_LoginPartial")*@
 
                             <div class="clear"></div>
@@ -94,10 +99,10 @@
                                     </ul>
                                     <h3>Помощ</h3>
                                     <ul>
-                                        <li><a href="">Контакти</a></li>                                        
-                                        
+                                        <li><a href="">Контакти</a></li>
+
                                     </ul>
-                                </div>                                
+                                </div>
                                 <div class="column col-3">
                                     <h3>Адрес</h3>
                                     8901 Marmora Road, Glasgow,<br>
@@ -110,7 +115,7 @@
                                 <div class="column col-4">
                                     <h3>Може да ни намерите</h3>
                                     <ul>
-                                        <li><a class="fb" href="http://facebook.com"> - Facebook</a></li>
+                                        <li><a class="fb" href="https://www.facebook.com/Otpuskarchecom-1133787196680196/"> - Facebook</a></li>
                                         <li><a class="twi" href="http://twitter.com"> - Twitter</a></li>
                                         <li><a class="rss" href="#"> - RSS</a></li>
                                     </ul>
@@ -123,7 +128,6 @@
 
         </div>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @*@Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)

@@ -3,7 +3,12 @@
 <div>
 
     @using (Ajax.BeginForm("SearchBuilding", "Home",
-            new AjaxOptions { UpdateTargetId = "home_content" },
+            new AjaxOptions
+            {
+                UpdateTargetId = "content",
+                OnBegin = "$('#content').empty().css('min-height', '100px').css('background', 'url(Content/Images/loading.gif) no-repeat center');",
+                OnSuccess = "$('#search_by_name').val($('#search_by_name_top').val()); $('#content').css('background', '');"
+            },
             new { id = "search_building", }))
     {
         @Html.AntiForgeryToken()
@@ -12,112 +17,112 @@
 
         @*<input type="text" id="search_by_name" autocomplete="off" spellcheck="false" placeholder="Search hotel name" value="" onclick="">*@
 
-    <fieldset class="collapse-section">
-        <legend rel="open">Хотел</legend>
-        <p></p>
-        <div class="clear"></div>
+        <fieldset class="collapse-section">
+            <legend rel="open">Хотел</legend>
+            <p></p>
+            <div class="clear"></div>
 
-        <ul>
-            <li style="margin-bottom: 5px">
-                <div style="overflow: hidden">
-                    @*@Html.TextBoxFor(m => m.Name, new { id = "search_by_name", placeholder = "търси хотел" })*@
-                    <input type="text" name="Name" id="search_by_name" placeholder="търси хотел" value="" />
-                    <span class="search_name" onclick="$('#search_building').submit();" title="search by name">
-                        <span class="search_name"></span>
-                    </span>
-                </div>
-            </li>
-            <li style="margin-bottom: 5px">
-                <div>
-                    @Html.DropDownListFor(
+            <ul>
+                <li style="margin-bottom: 5px">
+                    <div style="overflow: hidden">
+                        @*@Html.TextBoxFor(m => m.Name, new { id = "search_by_name", placeholder = "търси хотел" })*@
+                        <input type="text" name="Name" id="search_by_name" placeholder="търси хотел" value="" />
+                        <span class="search_name" onclick="$('#search_building').submit();" title="search by name">
+                            <span class="search_name"></span>
+                        </span>
+                    </div>
+                </li>
+                <li style="margin-bottom: 5px">
+                    <div>
+                        @Html.DropDownListFor(
                     m => m.CityId,
                     ViewBag.Cities as IEnumerable<SelectListItem>,
                     "-- Избери град --",
                     new { @class = "q1", style = "background: #ffffff; width: 210px" })
-                </div>
-            </li>
-            <li style="margin-bottom: 5px">
-                <div>
-                    @Html.DropDownListFor(
+                    </div>
+                </li>
+                <li style="margin-bottom: 5px">
+                    <div>
+                        @Html.DropDownListFor(
                     m => m.UtilityBuildingTypeId,
                     ViewBag.UtilityBuildingTypes as IEnumerable<SelectListItem>,
                     "-- Избери тип --",
                     new { @class = "q1", style = "background: #ffffff; width: 210px" })
-                </div>
-            </li>
-            <li style="margin-bottom: 5px">
-                <div style="overflow:hidden">
-                    <label for="prize" style="float:left">Минимална Цена</label>
-                    @Html.TextBoxFor(m => m.MinAmount, new { placeholder = "минимална цена", @class = "q1", style = "clear:both; float: left; width:204px" })
-                </div>
-            </li>
-            <li style="margin-bottom: 5px">
-                <div style="overflow:hidden">
-                    <label for="prize1" style="float:left; clear: both">Махимална Цена</label>
-                    @Html.TextBoxFor(m => m.MaxAmount, new { placeholder = "махимална цена", @class = "q1", style = "clear:both; float: left; width:204px" })
-                </div>
-            </li>
-            <li>
-                <div style="overflow: hidden">
-                    <span class="starRating">
-                        <input id="rating5" type="radio" name="Rating" value="5" />
-                        <label for="rating5">5</label> 
-                        <input id="rating4" type="radio" name="Rating" value="4" />
-                        <label for="rating4">4</label>
-                        <input id="rating3" type="radio" name="Rating" value="3" />
-                        <label for="rating3">3</label>
-                        <input id="rating2" type="radio" name="Rating" value="2" />
-                        <label for="rating2">2</label>
-                        <input id="rating1" type="radio" name="Rating" value="1" />
-                        <label for="rating1">1</label>
-                    </span>
-
-                    <span class="remove" onclick="$(this).prev().children().removeAttr('checked')" title="Премахни">                        
-                    </span>
-                </div>                
-            </li>
-        </ul>
-
-        <div class="clear"></div>
-        <p></p>
-    </fieldset>
-
-    <div class="clear"></div>
-
-    <fieldset class="collapse-section">
-        <legend rel="open">Топ Услуги</legend>
-        <p></p>
-        <div class="clear"></div>
-        <ul>
-            @for (int i = 0; i < Model.TopFacilities.Length; i++)
-            {
-                <li>
-                    @Html.EditorFor(m => m.TopFacilities[i])
+                    </div>
                 </li>
-            }
-        </ul>
-        <div class="clear"></div>
-        <p></p>
-    </fieldset>
-
-    <div class="clear"></div>
-
-    <fieldset class="collapse-section closed">
-        <legend rel="closed">Допълнителни Услуги</legend>
-        <p></p>
-        <div class="clear"></div>
-        <ul>
-            @for (int i = 0; i < Model.Facilities.Length; i++)
-            {
-                <li>
-                    @Html.EditorFor(m => m.Facilities[i])
+                <li style="margin-bottom: 5px">
+                    <div style="overflow:hidden">
+                        <label for="prize" style="float:left">Минимална Цена</label>
+                        @Html.TextBoxFor(m => m.MinAmount, new { placeholder = "минимална цена", @class = "q1", style = "clear:both; float: left; width:204px" })
+                    </div>
                 </li>
-            }
-        </ul>
+                <li style="margin-bottom: 5px">
+                    <div style="overflow:hidden">
+                        <label for="prize1" style="float:left; clear: both">Махимална Цена</label>
+                        @Html.TextBoxFor(m => m.MaxAmount, new { placeholder = "махимална цена", @class = "q1", style = "clear:both; float: left; width:204px" })
+                    </div>
+                </li>
+                <li>
+                    <div style="overflow: hidden">
+                        <span class="starRating">
+                            <input id="rating5" type="radio" name="Rating" value="5" />
+                            <label for="rating5">5</label>
+                            <input id="rating4" type="radio" name="Rating" value="4" />
+                            <label for="rating4">4</label>
+                            <input id="rating3" type="radio" name="Rating" value="3" />
+                            <label for="rating3">3</label>
+                            <input id="rating2" type="radio" name="Rating" value="2" />
+                            <label for="rating2">2</label>
+                            <input id="rating1" type="radio" name="Rating" value="1" />
+                            <label for="rating1">1</label>
+                        </span>
+
+                        <span class="remove" onclick="$(this).prev().children().removeAttr('checked')" title="Премахни">
+                        </span>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="clear"></div>
+            <p></p>
+        </fieldset>
+
         <div class="clear"></div>
-        <p></p>
-    </fieldset> 
-        
+
+        <fieldset class="collapse-section">
+            <legend rel="open">Топ Услуги</legend>
+            <p></p>
+            <div class="clear"></div>
+            <ul>
+                @for (int i = 0; i < Model.TopFacilities.Length; i++)
+                {
+                    <li>
+                        @Html.EditorFor(m => m.TopFacilities[i])
+                    </li>
+                }
+            </ul>
+            <div class="clear"></div>
+            <p></p>
+        </fieldset>
+
+        <div class="clear"></div>
+
+        <fieldset class="collapse-section closed">
+            <legend rel="closed">Допълнителни Услуги</legend>
+            <p></p>
+            <div class="clear"></div>
+            <ul>
+                @for (int i = 0; i < Model.Facilities.Length; i++)
+                {
+                    <li>
+                        @Html.EditorFor(m => m.Facilities[i])
+                    </li>
+                }
+            </ul>
+            <div class="clear"></div>
+            <p></p>
+        </fieldset>
+
     }
 
     <div class="clear"></div>
@@ -131,7 +136,8 @@
 </div>
 
 <script type="text/javascript">
-    (function (d, sc, u) {
+    (function (d, sc, u)
+    {
         var s = d.createElement(sc), p = d.getElementsByTagName(sc)[0];
         s.type = 'text/javascript';
         s.async = true;

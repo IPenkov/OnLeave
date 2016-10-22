@@ -292,6 +292,7 @@
     <Content Include="Content\Images\FoldUp.png" />
     <Content Include="Content\Images\image-caroucel-next.png" />
     <Content Include="Content\Images\image-caroucel-prev.png" />
+    <Content Include="Content\Images\loading.gif" />
     <Content Include="Content\Images\login-content-left.gif" />
     <Content Include="Content\Images\login-content-right.gif" />
     <Content Include="Content\Images\marker-1.png" />
