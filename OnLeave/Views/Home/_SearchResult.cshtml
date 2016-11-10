@@ -1,9 +1,12 @@
 ﻿@model OnLeave.Models.UtilityBuildingModel[]
+<div class="validation-summary-errors" style="@(Model.Length <= 50 ? "display:none" : "" )">
+    Резултаите от търсенето са ограничени, моля добавете допълнителни критерий за търсене ако не намирате желаната информация
+</div>
 <div class="product-list">
     <ul>
         @for (int i = 0; i < Model.Length; i++)
         {
-            <li class="@(i == 0 ? "first-in-line" : (i == Model.Length - 1 ? "last-in-line" : ""))">
+            <li class="@(i % 10 == 0 ? "first-in-line" : (i == Model.Length - 1 || i % 10 == 9  ? "last-in-line" : ""))" style="@(i / 10 > 0 ? "display:none" : "")">
                 <div class="right">
                     <div class="price">
                         <span class="price-new">
@@ -42,7 +45,7 @@
                     <div class="wishlist">
                         <a class="tip" title="Add to Wish List" onclick="addToWishList('43');"></a>
                     </div>
-                    <div class="compare"><a class="tip2" title="Add to Compare" onclick="addToCompare('43');"></a></div>
+                    <div class="compare"><a class="tip2" title="Add to Compare" onclick="addToCompare('43')"></a></div>
                 </div>
 
                 <div class="left">
@@ -56,15 +59,18 @@
                                data-ajax-update="#content"
                                href="@Url.Action("GetUtilityBuilding", "Home", new { buildingId = Model[i].Id})"
                                data-ajax-complete="">
-                                <img src="@Url.Action("229/179/" + @Model[i].PhotoIds.FirstOrDefault(), "Account", new { })"
-                                     title="@Model[i].Name" alt="@Model[i].Name" />
+                                <img 
+                                     src="@(i / 10 == 0 ? Url.Action("229/179/" + @Model[i].PhotoIds.FirstOrDefault(), "Account", new { }) : "")" 
+                                     title="@Model[i].Name" alt="@Model[i].Name"
+                                     data-src="@Url.Action("229/179/" + @Model[i].PhotoIds.FirstOrDefault(), "Account", new { })" />
                             </a>
                         }
                         else
                         {
                             <a href="@Model[i].UrlAddress" target="_blank">
-                                <img src="@Url.Action("229/179/" + @Model[i].PhotoIds.FirstOrDefault(), "Account", new { })"
-                                     title="@Model[i].Name" alt="@Model[i].Name" />
+                                <img src="@(i / 10 == 0 ? Url.Action("229/179/" + @Model[i].PhotoIds.FirstOrDefault(), "Account", new { }) : "")"
+                                     title="@Model[i].Name" alt="@Model[i].Name"
+                                     data-src="@Url.Action("229/179/" + @Model[i].PhotoIds.FirstOrDefault(), "Account", new { })" />
                             </a>
                         }
                     </div>
@@ -113,7 +119,40 @@
         }
     </ul>
 </div>
+<div class="pagination" style="text-align:center;@(Model.Length < 10 ? "display:none" : "")">
+    <div class="links" style="float:none">
+        @for (int i = 1;  i <= Math.Ceiling(Model.Length / 10.0); i++)
+        {
+            <a href="#content" onclick="goToPage(@i)" style="@(i == 1 ? "font-weight:bold" : "")">@i</a>
+        }
+    </div>    
+</div>
 
 <script type="text/javascript">
     $('#booking_section').show();
+
+    function goToPage(page)
+    {
+        
+        $('div.links a').css('font-weight', '');
+        $('div.links a').eq(page - 1).css('font-weight', 'bold');
+
+        $('div.product-list li').hide();
+        $('div.product-list li').each(function (index)
+        {            
+            if (Math.ceil((index + 1) / 10) === page)
+            {
+                $(this).show();
+                $(this).find('div.image img').each(function ()
+                {
+                    if ($(this).attr('src')) return;
+
+                    if ($(this).attr('data-src'))
+                    {
+                        $(this).attr('src', $(this).attr('data-src'));
+                    }
+                });
+            }
+        });
+    }
 </script>

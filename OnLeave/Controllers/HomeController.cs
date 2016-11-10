@@ -231,6 +231,7 @@ namespace OnLeave.Controllers
                     .Where(b => (!model.MinAmount.HasValue && !model.MaxAmount.HasValue) 
                         || b.Periods.SelectMany(p => p.RoomAmounts).Any(a => (!model.MinAmount.HasValue || model.MinAmount <= a.Amount) && (!model.MaxAmount.HasValue || model.MaxAmount >= a.Amount)))                   
                     .OrderByDescending(b => b.SearchRating)
+                    .Take(51)
                     .ToArray();
 
                 var buildings = result
@@ -247,9 +248,7 @@ namespace OnLeave.Controllers
                         Periods = b.Periods.OrderBy(p => p.RoomAmounts.Min(a => a.Amount)).Take(1).ToList()
                     }).ToArray();
 
-                
-
-                return PartialView("_SearchResult", buildings.ToArray());
+                return PartialView("_SearchResult", buildings);
             }            
         }
 
