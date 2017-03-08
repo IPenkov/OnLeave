@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE,chrome=1">
+    <!--<title>@ViewBag.Title - My ASP.NET Application</title>-->
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAq49l-0xwYhjPdOSb-LvLlt_yfcU87Vjs">
+    </script>
+    <!--@Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")-->
+
+</head>
+<body class="common-home">
+    <div class="bg-1">
+        <div class="main-shining">
+            <div class="row-1">
+                <div id="header">
+                    <div class="outer">
+                        <!--@Html.Partial("_LoginPartial")-->
+                        <div class="clear"></div>
+                        <div class="header-top1">
+                            <div id="logo">
+                                <!--<a href=@Url.Action("Index", "Home" )>
+                                    <img src="~/Content/Images/logo1.png" />
+                                </a>-->
+                            </div>
+                            <ul class="links">
+                                <!--<li>@Html.ActionLink("Хотели", "Index", "Home")</li>
+                                @*
+                                <li>@Html.ActionLink("Hish list (0)", "Index", "Home")</li>*@
+                                <li>@Html.ActionLink("Вход за хотелиери", "Login", "Account")</li>
+                                @*
+                                <li>@Html.ActionLink("Shopping Cart", "Contact", "Home")</li>*@
+                                @*
+                                <li>@Html.ActionLink("Checkout", "Contact", "Home")</li>*@-->
+                            </ul>
+                            <div id="search">
+                                <div class="button-search" onclick="$('#top_search').submit();"></div>
+                                <!--@using (Ajax.BeginForm("SearchBuilding", "Home",
+                                new AjaxOptions
+                                {
+                                UpdateTargetId = "content",
+                                OnBegin = "$('#content').empty().css('min-height', '100px').css('background', 'url(Content/Images/loading.gif) no-repeat center');",
+                                OnSuccess = "$('#search_by_name').val($('#search_by_name_top').val()); $('#content').css('background', '');"
+                                },
+                                new { id = "top_search" }))
+                                {
+                                @Html.AntiForgeryToken()
+                                <input type="text" name="Name" id="search_by_name_top" placeholder="Search" value="" />
+                                <input type="hidden" name="Facilities[0].Selected" value="false" />
+                                <input type="hidden" name="TopFacilities[0].Selected" value="false" />
+                                }-->
+                            </div>
+                            <!--@*@Html.Partial("_LoginPartial")*@-->
+
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+                <div id="menu"></div>
+            </div>
+            <div class="clear"></div>
+
+            <!--@RenderSection("TopOffers", false)-->
+
+            <div class="clear"></div>
+            <div class="main-container">
+                <p id="back-top" style="display: block">
+                    <a href="#top">
+                        <span></span>
+                    </a>
+                </p>
+                <div id="container">
+
+                    <!--@Html.ValidationSummary(true)-->
+
+                    <div class="clear"></div>
+                    <div id="notification"></div>
+                    <div id="column-left">
+                        <!--@RenderSection("LeftSideBar", false)-->
+                    </div>
+                    <div id="content">@RenderBody()</div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+                
+                <app-footer></app-footer>
+                
+            </div>
+
+        </div>
+    </div>
+    <!--@Scripts.Render("~/bundles/jquery")-->
+    <!--@*@Scripts.Render("~/bundles/bootstrap")*@-->
+    <!--@RenderSection("scripts", required: false)-->
+</body>
+</html>
+
