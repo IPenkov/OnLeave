@@ -69,6 +69,85 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.component.html" />
+    <Content Include="app\home\home.component.html" />
+    <Content Include="app\shared\login\login.component.html" />
+    <Content Include="Content\cloud-zoom.css" />
+    <Content Include="Content\Images\1.jpg" />
+    <Content Include="Content\Images\2.jpg" />
+    <Content Include="Content\Images\2014-fifa-world-cup-brazil.jpg" />
+    <Content Include="Content\Images\banner-1-230x320.jpg" />
+    <Content Include="Content\Images\banner-2-230x320.jpg" />
+    <Content Include="Content\Images\banner-3-230x123.jpg" />
+    <Content Include="Content\Images\banner-4-230x123.jpg" />
+    <Content Include="Content\Images\banner-5-230x123.jpg" />
+    <Content Include="Content\Images\bg.png" />
+    <Content Include="Content\Images\button-search.png" />
+    <Content Include="Content\Images\content-bg.png" />
+    <Content Include="Content\Images\delete.png" />
+    <Content Include="Content\Images\facebook-230x63.jpg" />
+    <Content Include="Content\Images\FoldDown.png" />
+    <Content Include="Content\Images\FoldUp.png" />
+    <Content Include="Content\Images\image-caroucel-next.png" />
+    <Content Include="Content\Images\image-caroucel-prev.png" />
+    <Content Include="Content\Images\loading.gif" />
+    <Content Include="Content\Images\login-content-left.gif" />
+    <Content Include="Content\Images\login-content-right.gif" />
+    <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\logo1.png" />
+    <Content Include="Content\Images\marker-1.png" />
+    <Content Include="Content\Images\marker-chekout.png" />
+    <Content Include="Content\Images\marker-manuf.png" />
+    <Content Include="Content\Images\menu.png" />
+    <Content Include="Content\Images\plus.png" />
+    <Content Include="Content\Images\q6EkjImnA-O.png" />
+    <Content Include="Content\Images\Remove.png" />
+    <Content Include="Content\Images\search-input.png" />
+    <Content Include="Content\Images\star-off.svg" />
+    <Content Include="Content\Images\star-on.svg" />
+    <Content Include="Content\Images\stars-0.png" />
+    <Content Include="Content\Images\stars-1.png" />
+    <Content Include="Content\Images\stars-2.png" />
+    <Content Include="Content\Images\stars-3.png" />
+    <Content Include="Content\Images\stars-4.png" />
+    <Content Include="Content\Images\stars-5.png" />
+    <Content Include="Content\Images\twitter-230x60.jpg" />
+    <Content Include="Content\Images\up-arrow.png" />
+    <Content Include="Content\Images\warning.png" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\slideshow.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="packages.config" />
     <Content Include="package.json" />
     <Content Include="app\shared\footer\footer.component.html" />
@@ -93,14 +172,15 @@
     <TypeScriptCompile Include="app\app.component.spec.ts" />
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\home\home.component.ts" />
+    <TypeScriptCompile Include="app\home\UtilityBuilding.ts" />
     <TypeScriptCompile Include="app\shared\footer\footer.component.ts" />
+    <TypeScriptCompile Include="app\shared\login\login.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="app\shared\header\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

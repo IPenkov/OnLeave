@@ -8,12 +8,12 @@
     "experimentalDecorators": true,
     "lib": [ "es2015", "dom" ],
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "baseUrl": ".",
-    "paths": {
-      "*": [
-        "app/*"
-      ]
-    }
+    "suppressImplicitAnyIndexErrors": true
+    //"baseUrl": ".",
+    //"paths": {
+    //  "*": [
+    //    "app/*"
+    //  ]
+    //}
   }
 }

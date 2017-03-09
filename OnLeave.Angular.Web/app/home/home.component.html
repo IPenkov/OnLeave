@@ -1,0 +1,59 @@
+﻿<div id="home_content" class="box featured">
+    <div class="box-heading"><span>Продукти</span></div>
+    <div class="box-content">
+        <div class="box-product">
+            <ul>
+                <!--@for (int i = 0; i < Model.Count(); i++)
+                {-->
+                <li *ngFor="let building of UtilityBuildings; let i=index">
+                    <div class="inner-indent">
+                        <div class="image2">
+                            <!--@if (Model[i].SystemTypeId == (int)Common.Constant.SystemType.Local)
+                            {-->
+                            <a data-ajax="true"
+                               data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
+                               data-ajax-method="POST"
+                               data-ajax-mode="replace"
+                               data-ajax-update="#content"                               
+                               data-ajax-complete="">
+                                <!--<img src="@Url.Action(" GetPhoto", "Account" , new { photoId=Model[i].PhotoIds.First(), width=229, height=179 })"
+                                     alt="Hotel @Model[i].Name" />-->
+                            </a>
+                            <!--}
+                            else
+                            {-->
+                            <!--<a class="maxheight-feat" style="height: 38px;" href="@(!string.IsNullOrEmpty(Model[i].UrlAddress) ? Url.Content(Model[i].UrlAddress) : " ")" target="_blank">
+                                <img src="@Url.Action(" GetPhoto", "Account" , new { photoId=Model[i].PhotoIds.First(), width=229, height=179 })"
+                                     alt="Hotel @Model[i].Name" />
+                            </a>-->
+                            <!--}-->
+
+                        </div>
+                        <div class="name">
+                            <!--@if (Model[i].SystemTypeId == (int)Common.Constant.SystemType.Local)
+                            {-->
+                            <a class="maxheight-feat" style="height: 38px;"
+                               data-ajax="true"
+                               data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
+                               data-ajax-method="POST"
+                               data-ajax-mode="replace"
+                               data-ajax-update="#content"                               
+                               data-ajax-complete="">
+                                <!--@(Model[i].Description.Length > 10 ? Model[i].Description.Substring(0, 10) : Model[i].Description)
+                                @if (Model[i].Description.Length > 10)-->
+                                Some Text
+                            </a>
+                            <!--}
+                            else
+                            {-->
+                            <a class="maxheight-feat" style="height: 38px;" href="@Model[i].UrlAddress" target="_blank">@Model[i].Name</a>
+                            <!--}-->
+                        </div>
+                    </div>
+                </li>
+                }
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

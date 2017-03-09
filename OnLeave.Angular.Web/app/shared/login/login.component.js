@@ -9,23 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var app_component_1 = require('./app.component');
-var footer_component_1 = require('./shared/footer/footer.component');
-var login_component_1 = require('./shared/login/login.component');
-var home_component_1 = require('./home/home.component');
-var AppModule = (function () {
-    function AppModule() {
+var LoginComponent = (function () {
+    function LoginComponent() {
+        this.userName = 'Ivanp';
     }
-    AppModule = __decorate([
-        core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule],
-            declarations: [app_component_1.AppComponent, footer_component_1.FooterComponent, login_component_1.LoginComponent, home_component_1.HomeComponent],
-            bootstrap: [app_component_1.AppComponent]
+    LoginComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'app-login',
+            templateUrl: './login.component.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
+    ], LoginComponent);
+    return LoginComponent;
 }());
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+exports.LoginComponent = LoginComponent;
+//# sourceMappingURL=login.component.js.map

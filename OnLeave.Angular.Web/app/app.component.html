@@ -1,41 +1,26 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=EDGE,chrome=1">
-    <!--<title>@ViewBag.Title - My ASP.NET Application</title>-->
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAq49l-0xwYhjPdOSb-LvLlt_yfcU87Vjs">
-    </script>
-    <!--@Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")-->
+﻿
 
-</head>
-<body class="common-home">
     <div class="bg-1">
         <div class="main-shining">
             <div class="row-1">
                 <div id="header">
                     <div class="outer">
                         <!--@Html.Partial("_LoginPartial")-->
+                        <app-login></app-login>
                         <div class="clear"></div>
                         <div class="header-top1">
                             <div id="logo">
                                 <!--<a href=@Url.Action("Index", "Home" )>
                                     <img src="~/Content/Images/logo1.png" />
                                 </a>-->
+                                <a href="/index.html"><img src="/Content/Images/logo1.png" /></a>
                             </div>
                             <ul class="links">
-                                <!--<li>@Html.ActionLink("Хотели", "Index", "Home")</li>
-                                @*
-                                <li>@Html.ActionLink("Hish list (0)", "Index", "Home")</li>*@
-                                <li>@Html.ActionLink("Вход за хотелиери", "Login", "Account")</li>
-                                @*
-                                <li>@Html.ActionLink("Shopping Cart", "Contact", "Home")</li>*@
-                                @*
-                                <li>@Html.ActionLink("Checkout", "Contact", "Home")</li>*@-->
+                                <li><a href="">Home</a>  <!--@Html.ActionLink("Хотели", "Index", "Home")--></li>                                
+                                <li><a href="">Account</a> <!--@Html.ActionLink("Вход за хотелиери", "Login", "Account")--></li>
+                                
                             </ul>
+                                    <!--
                             <div id="search">
                                 <div class="button-search" onclick="$('#top_search').submit();"></div>
                                 <!--@using (Ajax.BeginForm("SearchBuilding", "Home",
@@ -51,8 +36,8 @@
                                 <input type="text" name="Name" id="search_by_name_top" placeholder="Search" value="" />
                                 <input type="hidden" name="Facilities[0].Selected" value="false" />
                                 <input type="hidden" name="TopFacilities[0].Selected" value="false" />
-                                }-->
-                            </div>
+                                }
+                            </div>-->
                             <!--@*@Html.Partial("_LoginPartial")*@-->
 
                             <div class="clear"></div>
@@ -84,7 +69,9 @@
                     <div id="column-left">
                         <!--@RenderSection("LeftSideBar", false)-->
                     </div>
-                    <div id="content">@RenderBody()</div>
+                    <div id="content">
+                        <!--<app-home></app-home>-->
+                    </div>
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
@@ -98,6 +85,6 @@
     <!--@Scripts.Render("~/bundles/jquery")-->
     <!--@*@Scripts.Render("~/bundles/bootstrap")*@-->
     <!--@RenderSection("scripts", required: false)-->
-</body>
-</html>
+
+
 

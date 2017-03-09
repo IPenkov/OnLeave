@@ -1,0 +1,21 @@
+﻿<!--@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+<div id="welcome">
+    Потребител @Html.ActionLink(@User.Identity.GetUserName(), "Login", "Account")
+    <b>(</b>  <a href="javascript:$('#logoutForm').submit()">Излез от профил</a> <b>)</b>
+</div>
+    }
+
+}-->
+
+<form action="post">
+    <div id="welcome">
+        Потребител {{userName}}
+        <b></b>  <a href="javascript:$('#logoutForm').submit()">Излез от профил</a> <b></b>
+    </div>
+</form>
