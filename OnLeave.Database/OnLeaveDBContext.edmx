@@ -1,0 +1,1593 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OnLeaveDBContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+          <Property Name="User_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KeyWords" Type="varchar" MaxLength="255" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="lat" Type="decimal" Precision="9" Scale="6" Nullable="false" />
+          <Property Name="lon" Type="decimal" Precision="9" Scale="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ELMAH_Error">
+          <Key>
+            <PropertyRef Name="ErrorId" />
+          </Key>
+          <Property Name="ErrorId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Application" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Host" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Source" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="User" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StatusCode" Type="int" Nullable="false" />
+          <Property Name="TimeUtc" Type="datetime" Nullable="false" />
+          <Property Name="Sequence" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AllXml" Type="ntext" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Locale">
+          <Key>
+            <PropertyRef Name="LocaleId" />
+          </Key>
+          <Property Name="LocaleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OfferPhotoDetails">
+          <Key>
+            <PropertyRef Name="OfferPhotoDetailId" />
+          </Key>
+          <Property Name="OfferPhotoDetailId" Type="int" Nullable="false" />
+          <Property Name="KeyWords" Type="nvarchar" MaxLength="255" />
+          <Property Name="OfferId" Type="int" Nullable="false" />
+          <Property Name="PhotoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Offers">
+          <Key>
+            <PropertyRef Name="OfferId" />
+          </Key>
+          <Property Name="OfferId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KeyWords" Type="nvarchar" MaxLength="255" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="OfferTypeId" Type="int" Nullable="false" />
+          <Property Name="UtilityBuildingId" Type="int" Nullable="false" />
+          <Property Name="Discount" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="OfferTypes">
+          <Key>
+            <PropertyRef Name="OfferTypeId" />
+          </Key>
+          <Property Name="OfferTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KeyWords" Type="nvarchar" MaxLength="255" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2550" />
+        </EntityType>
+        <EntityType Name="Period">
+          <Key>
+            <PropertyRef Name="PeriodId" />
+          </Key>
+          <Property Name="PeriodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DBC_KEYWORDS" Type="nvarchar" MaxLength="255" />
+          <Property Name="UtilityBuildingId" Type="int" Nullable="false" />
+          <Property Name="FromDate" Type="date" />
+          <Property Name="ToDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Photo">
+          <Key>
+            <PropertyRef Name="PhotoId" />
+          </Key>
+          <Property Name="PhotoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KeyWords" Type="nvarchar" MaxLength="255" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Image" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Regions">
+          <Key>
+            <PropertyRef Name="RegionID" />
+          </Key>
+          <Property Name="RegionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="nchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="RoomId" />
+          </Key>
+          <Property Name="RoomId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DBC_KEYWORDS" Type="nvarchar" MaxLength="255" />
+          <Property Name="RoomTypeId" Type="int" Nullable="false" />
+          <Property Name="UtilityBuildingId" Type="int" Nullable="false" />
+          <Property Name="TotalNumber" Type="smallint" Nullable="false" />
+          <Property Name="FreeNumber" Type="smallint" />
+        </EntityType>
+        <EntityType Name="RoomAmount">
+          <Key>
+            <PropertyRef Name="RoomAmountId" />
+          </Key>
+          <Property Name="RoomAmountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PeriodId" Type="int" Nullable="false" />
+          <Property Name="RoomTypeId" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="9" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoomType">
+          <Key>
+            <PropertyRef Name="RoomTypeId" />
+          </Key>
+          <Property Name="RoomTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DBC_KEYWORDS" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Order" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SystemType">
+          <Key>
+            <PropertyRef Name="SystemTypeId" />
+          </Key>
+          <Property Name="SystemTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telephone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UtilityBuidingFacilityDetail">
+          <Key>
+            <PropertyRef Name="UtilityBuildingFacilityDetail" />
+          </Key>
+          <Property Name="UtilityBuildingFacilityDetail" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KeyWords" Type="nvarchar" MaxLength="255" />
+          <Property Name="UtilityBuildingId" Type="int" Nullable="false" />
+          <Property Name="UtilityBuildingFacilityTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UtilityBuildingFacilityType">
+          <Key>
+            <PropertyRef Name="UtilityBuildingFacilityTypeId" />
+          </Key>
+          <Property Name="UtilityBuildingFacilityTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UtilityBuildingLocale">
+          <Key>
+            <PropertyRef Name="UtilityBuildingLocaleId" />
+          </Key>
+          <Property Name="UtilityBuildingLocaleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UtilityBuildingId" Type="int" Nullable="false" />
+          <Property Name="LocaleId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="ContactPerson" Type="nvarchar" MaxLength="255" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="UtilityBuildingPhotoDetails">
+          <Key>
+            <PropertyRef Name="UtilityBuildingPhotoDetailId" />
+          </Key>
+          <Property Name="UtilityBuildingPhotoDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KeyWords" Type="nvarchar" MaxLength="255" />
+          <Property Name="UtilityBuildingId" Type="int" Nullable="false" />
+          <Property Name="PhotoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UtilityBuildings">
+          <Key>
+            <PropertyRef Name="UtilityBuildingId" />
+          </Key>
+          <Property Name="UtilityBuildingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KeyWords" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="UtilityBuildingTypeId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="lat" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="lon" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="Rating" Type="tinyint" />
+          <Property Name="Size" Type="int" />
+          <Property Name="SearchRating" Type="int" />
+          <Property Name="SystemTypeId" Type="int" Nullable="false" />
+          <Property Name="ExternalUrl" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="UtilityBuildingTypes">
+          <Key>
+            <PropertyRef Name="UtilityBuildingTypeId" />
+          </Key>
+          <Property Name="UtilityBuildingTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KeyWords" Type="varchar" MaxLength="255" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_Users_User_Id">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_Users_UserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_Users_UserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offer_OfferType">
+          <End Role="OfferTypes" Type="Self.OfferTypes" Multiplicity="1" />
+          <End Role="Offers" Type="Self.Offers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfferTypes">
+              <PropertyRef Name="OfferTypeId" />
+            </Principal>
+            <Dependent Role="Offers">
+              <PropertyRef Name="OfferTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offer_UtilityBuilding">
+          <End Role="UtilityBuildings" Type="Self.UtilityBuildings" Multiplicity="1" />
+          <End Role="Offers" Type="Self.Offers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UtilityBuildings">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Principal>
+            <Dependent Role="Offers">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfferPhotoDetail_Offer">
+          <End Role="Offers" Type="Self.Offers" Multiplicity="1" />
+          <End Role="OfferPhotoDetails" Type="Self.OfferPhotoDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Offers">
+              <PropertyRef Name="OfferId" />
+            </Principal>
+            <Dependent Role="OfferPhotoDetails">
+              <PropertyRef Name="OfferId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Period_UtilityBuildings">
+          <End Role="UtilityBuildings" Type="Self.UtilityBuildings" Multiplicity="1" />
+          <End Role="Period" Type="Self.Period" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UtilityBuildings">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Principal>
+            <Dependent Role="Period">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_RoomType">
+          <End Role="RoomType" Type="Self.RoomType" Multiplicity="1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoomType">
+              <PropertyRef Name="RoomTypeId" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="RoomTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_UtilityBuildings">
+          <End Role="UtilityBuildings" Type="Self.UtilityBuildings" Multiplicity="1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UtilityBuildings">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomAmount_Period">
+          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+          <End Role="RoomAmount" Type="Self.RoomAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Period">
+              <PropertyRef Name="PeriodId" />
+            </Principal>
+            <Dependent Role="RoomAmount">
+              <PropertyRef Name="PeriodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomAmount_RoomType">
+          <End Role="RoomType" Type="Self.RoomType" Multiplicity="1" />
+          <End Role="RoomAmount" Type="Self.RoomAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoomType">
+              <PropertyRef Name="RoomTypeId" />
+            </Principal>
+            <Dependent Role="RoomAmount">
+              <PropertyRef Name="RoomTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilityBuidingFacilityDetail_UtilityBuildingFacilityType">
+          <End Role="UtilityBuildingFacilityType" Type="Self.UtilityBuildingFacilityType" Multiplicity="1" />
+          <End Role="UtilityBuidingFacilityDetail" Type="Self.UtilityBuidingFacilityDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UtilityBuildingFacilityType">
+              <PropertyRef Name="UtilityBuildingFacilityTypeId" />
+            </Principal>
+            <Dependent Role="UtilityBuidingFacilityDetail">
+              <PropertyRef Name="UtilityBuildingFacilityTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilityBuidingFacilityDetail_UtilityBuildings">
+          <End Role="UtilityBuildings" Type="Self.UtilityBuildings" Multiplicity="1" />
+          <End Role="UtilityBuidingFacilityDetail" Type="Self.UtilityBuidingFacilityDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UtilityBuildings">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Principal>
+            <Dependent Role="UtilityBuidingFacilityDetail">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilityBuilding_UtilityBuildingType">
+          <End Role="UtilityBuildingTypes" Type="Self.UtilityBuildingTypes" Multiplicity="1" />
+          <End Role="UtilityBuildings" Type="Self.UtilityBuildings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UtilityBuildingTypes">
+              <PropertyRef Name="UtilityBuildingTypeId" />
+            </Principal>
+            <Dependent Role="UtilityBuildings">
+              <PropertyRef Name="UtilityBuildingTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilityBuildingLocale_UtilityBuildingLocale">
+          <End Role="Locale" Type="Self.Locale" Multiplicity="1" />
+          <End Role="UtilityBuildingLocale" Type="Self.UtilityBuildingLocale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locale">
+              <PropertyRef Name="LocaleId" />
+            </Principal>
+            <Dependent Role="UtilityBuildingLocale">
+              <PropertyRef Name="LocaleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilityBuildingLocale_UtilityBuildings">
+          <End Role="UtilityBuildings" Type="Self.UtilityBuildings" Multiplicity="1" />
+          <End Role="UtilityBuildingLocale" Type="Self.UtilityBuildingLocale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UtilityBuildings">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Principal>
+            <Dependent Role="UtilityBuildingLocale">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilityBuildingPhotoDetails_UtilityBuildings">
+          <End Role="UtilityBuildings" Type="Self.UtilityBuildings" Multiplicity="1" />
+          <End Role="UtilityBuildingPhotoDetails" Type="Self.UtilityBuildingPhotoDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UtilityBuildings">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Principal>
+            <Dependent Role="UtilityBuildingPhotoDetails">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilityBuildings_Cities">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
+          <End Role="UtilityBuildings" Type="Self.UtilityBuildings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="UtilityBuildings">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilityBuildings_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UtilityBuildings" Type="Self.UtilityBuildings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UtilityBuildings">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ELMAH_GetErrorsXml" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Application" Type="nvarchar" Mode="In" />
+          <Parameter Name="PageIndex" Type="int" Mode="In" />
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="TotalCount" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="ELMAH_GetErrorXml" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Application" Type="nvarchar" Mode="In" />
+          <Parameter Name="ErrorId" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="ELMAH_LogError" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ErrorId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Application" Type="nvarchar" Mode="In" />
+          <Parameter Name="Host" Type="nvarchar" Mode="In" />
+          <Parameter Name="Type" Type="nvarchar" Mode="In" />
+          <Parameter Name="Source" Type="nvarchar" Mode="In" />
+          <Parameter Name="Message" Type="nvarchar" Mode="In" />
+          <Parameter Name="User" Type="nvarchar" Mode="In" />
+          <Parameter Name="AllXml" Type="ntext" Mode="In" />
+          <Parameter Name="StatusCode" Type="int" Mode="In" />
+          <Parameter Name="TimeUtc" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="GetHotelRooms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UtilityBuildingId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="OnLeaveDBContextStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ELMAH_Error" EntityType="Self.ELMAH_Error" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Locale" EntityType="Self.Locale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OfferPhotoDetails" EntityType="Self.OfferPhotoDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Offers" EntityType="Self.Offers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OfferTypes" EntityType="Self.OfferTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Period" EntityType="Self.Period" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Photo" EntityType="Self.Photo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Regions" EntityType="Self.Regions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomAmount" EntityType="Self.RoomAmount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomType" EntityType="Self.RoomType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SystemType" EntityType="Self.SystemType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UtilityBuidingFacilityDetail" EntityType="Self.UtilityBuidingFacilityDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UtilityBuildingFacilityType" EntityType="Self.UtilityBuildingFacilityType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UtilityBuildingLocale" EntityType="Self.UtilityBuildingLocale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UtilityBuildingPhotoDetails" EntityType="Self.UtilityBuildingPhotoDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UtilityBuildings" EntityType="Self.UtilityBuildings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UtilityBuildingTypes" EntityType="Self.UtilityBuildingTypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_Users_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_Users_User_Id">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_Users_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_Users_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_Users_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_Users_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offer_OfferType" Association="Self.FK_Offer_OfferType">
+            <End Role="OfferTypes" EntitySet="OfferTypes" />
+            <End Role="Offers" EntitySet="Offers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offer_UtilityBuilding" Association="Self.FK_Offer_UtilityBuilding">
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+            <End Role="Offers" EntitySet="Offers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfferPhotoDetail_Offer" Association="Self.FK_OfferPhotoDetail_Offer">
+            <End Role="Offers" EntitySet="Offers" />
+            <End Role="OfferPhotoDetails" EntitySet="OfferPhotoDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Period_UtilityBuildings" Association="Self.FK_Period_UtilityBuildings">
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+            <End Role="Period" EntitySet="Period" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_RoomType" Association="Self.FK_Room_RoomType">
+            <End Role="RoomType" EntitySet="RoomType" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_UtilityBuildings" Association="Self.FK_Room_UtilityBuildings">
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomAmount_Period" Association="Self.FK_RoomAmount_Period">
+            <End Role="Period" EntitySet="Period" />
+            <End Role="RoomAmount" EntitySet="RoomAmount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomAmount_RoomType" Association="Self.FK_RoomAmount_RoomType">
+            <End Role="RoomType" EntitySet="RoomType" />
+            <End Role="RoomAmount" EntitySet="RoomAmount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilityBuidingFacilityDetail_UtilityBuildingFacilityType" Association="Self.FK_UtilityBuidingFacilityDetail_UtilityBuildingFacilityType">
+            <End Role="UtilityBuildingFacilityType" EntitySet="UtilityBuildingFacilityType" />
+            <End Role="UtilityBuidingFacilityDetail" EntitySet="UtilityBuidingFacilityDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilityBuidingFacilityDetail_UtilityBuildings" Association="Self.FK_UtilityBuidingFacilityDetail_UtilityBuildings">
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+            <End Role="UtilityBuidingFacilityDetail" EntitySet="UtilityBuidingFacilityDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilityBuilding_UtilityBuildingType" Association="Self.FK_UtilityBuilding_UtilityBuildingType">
+            <End Role="UtilityBuildingTypes" EntitySet="UtilityBuildingTypes" />
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilityBuildingLocale_UtilityBuildingLocale" Association="Self.FK_UtilityBuildingLocale_UtilityBuildingLocale">
+            <End Role="Locale" EntitySet="Locale" />
+            <End Role="UtilityBuildingLocale" EntitySet="UtilityBuildingLocale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilityBuildingLocale_UtilityBuildings" Association="Self.FK_UtilityBuildingLocale_UtilityBuildings">
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+            <End Role="UtilityBuildingLocale" EntitySet="UtilityBuildingLocale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilityBuildingPhotoDetails_UtilityBuildings" Association="Self.FK_UtilityBuildingPhotoDetails_UtilityBuildings">
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+            <End Role="UtilityBuildingPhotoDetails" EntitySet="UtilityBuildingPhotoDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilityBuildings_Cities" Association="Self.FK_UtilityBuildings_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilityBuildings_Users" Association="Self.FK_UtilityBuildings_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OnLeaveDBContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_Users_User_Id" FromRole="AspNetUserClaims" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_Users_UserId" FromRole="AspNetUserLogins" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KeyWords" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="lat" Type="Decimal" Precision="9" Scale="6" Nullable="false" />
+          <Property Name="lon" Type="Decimal" Precision="9" Scale="6" Nullable="false" />
+          <NavigationProperty Name="UtilityBuildings" Relationship="Self.FK_UtilityBuildings_Cities" FromRole="Cities" ToRole="UtilityBuildings" />
+        </EntityType>
+        <EntityType Name="ELMAH_Error">
+          <Key>
+            <PropertyRef Name="ErrorId" />
+          </Key>
+          <Property Name="ErrorId" Type="Guid" Nullable="false" />
+          <Property Name="Application" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Host" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Source" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StatusCode" Type="Int32" Nullable="false" />
+          <Property Name="TimeUtc" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AllXml" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Locale">
+          <Key>
+            <PropertyRef Name="LocaleId" />
+          </Key>
+          <Property Name="LocaleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UtilityBuildingLocales" Relationship="Self.FK_UtilityBuildingLocale_UtilityBuildingLocale" FromRole="Locale" ToRole="UtilityBuildingLocale" />
+        </EntityType>
+        <EntityType Name="OfferPhotoDetail">
+          <Key>
+            <PropertyRef Name="OfferPhotoDetailId" />
+          </Key>
+          <Property Name="OfferPhotoDetailId" Type="Int32" Nullable="false" />
+          <Property Name="KeyWords" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OfferId" Type="Int32" Nullable="false" />
+          <Property Name="PhotoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Offer" Relationship="Self.FK_OfferPhotoDetail_Offer" FromRole="OfferPhotoDetails" ToRole="Offers" />
+        </EntityType>
+        <EntityType Name="Offer">
+          <Key>
+            <PropertyRef Name="OfferId" />
+          </Key>
+          <Property Name="OfferId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KeyWords" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OfferTypeId" Type="Int32" Nullable="false" />
+          <Property Name="UtilityBuildingId" Type="Int32" Nullable="false" />
+          <Property Name="Discount" Type="Byte" />
+          <NavigationProperty Name="OfferPhotoDetails" Relationship="Self.FK_OfferPhotoDetail_Offer" FromRole="Offers" ToRole="OfferPhotoDetails" />
+          <NavigationProperty Name="OfferType" Relationship="Self.FK_Offer_OfferType" FromRole="Offers" ToRole="OfferTypes" />
+          <NavigationProperty Name="UtilityBuilding" Relationship="Self.FK_Offer_UtilityBuilding" FromRole="Offers" ToRole="UtilityBuildings" />
+        </EntityType>
+        <EntityType Name="OfferType">
+          <Key>
+            <PropertyRef Name="OfferTypeId" />
+          </Key>
+          <Property Name="OfferTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KeyWords" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="2550" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Offers" Relationship="Self.FK_Offer_OfferType" FromRole="OfferTypes" ToRole="Offers" />
+        </EntityType>
+        <EntityType Name="Period">
+          <Key>
+            <PropertyRef Name="PeriodId" />
+          </Key>
+          <Property Name="PeriodId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DBC_KEYWORDS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UtilityBuildingId" Type="Int32" Nullable="false" />
+          <Property Name="FromDate" Type="DateTime" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="UtilityBuilding" Relationship="Self.FK_Period_UtilityBuildings" FromRole="Period" ToRole="UtilityBuildings" />
+          <NavigationProperty Name="RoomAmounts" Relationship="Self.FK_RoomAmount_Period" FromRole="Period" ToRole="RoomAmount" />
+        </EntityType>
+        <EntityType Name="Photo">
+          <Key>
+            <PropertyRef Name="PhotoId" />
+          </Key>
+          <Property Name="PhotoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KeyWords" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="RegionID" />
+          </Key>
+          <Property Name="RegionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="RoomId" />
+          </Key>
+          <Property Name="RoomId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DBC_KEYWORDS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RoomTypeId" Type="Int32" Nullable="false" />
+          <Property Name="UtilityBuildingId" Type="Int32" Nullable="false" />
+          <Property Name="TotalNumber" Type="Int16" Nullable="false" />
+          <Property Name="FreeNumber" Type="Int16" />
+          <NavigationProperty Name="RoomType" Relationship="Self.FK_Room_RoomType" FromRole="Room" ToRole="RoomType" />
+          <NavigationProperty Name="UtilityBuilding" Relationship="Self.FK_Room_UtilityBuildings" FromRole="Room" ToRole="UtilityBuildings" />
+        </EntityType>
+        <EntityType Name="RoomAmount">
+          <Key>
+            <PropertyRef Name="RoomAmountId" />
+          </Key>
+          <Property Name="RoomAmountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PeriodId" Type="Int32" Nullable="false" />
+          <Property Name="RoomTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="9" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Period" Relationship="Self.FK_RoomAmount_Period" FromRole="RoomAmount" ToRole="Period" />
+          <NavigationProperty Name="RoomType" Relationship="Self.FK_RoomAmount_RoomType" FromRole="RoomAmount" ToRole="RoomType" />
+        </EntityType>
+        <EntityType Name="RoomType">
+          <Key>
+            <PropertyRef Name="RoomTypeId" />
+          </Key>
+          <Property Name="RoomTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DBC_KEYWORDS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Rooms" Relationship="Self.FK_Room_RoomType" FromRole="RoomType" ToRole="Room" />
+          <NavigationProperty Name="RoomAmounts" Relationship="Self.FK_RoomAmount_RoomType" FromRole="RoomType" ToRole="RoomAmount" />
+        </EntityType>
+        <EntityType Name="SystemType">
+          <Key>
+            <PropertyRef Name="SystemTypeId" />
+          </Key>
+          <Property Name="SystemTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Discriminator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_Users_User_Id" FromRole="Users" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_Users_UserId" FromRole="Users" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="UtilityBuildings" Relationship="Self.FK_UtilityBuildings_Users" FromRole="Users" ToRole="UtilityBuildings" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="Users" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="UtilityBuidingFacilityDetail">
+          <Key>
+            <PropertyRef Name="UtilityBuildingFacilityDetail" />
+          </Key>
+          <Property Name="UtilityBuildingFacilityDetail" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KeyWords" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UtilityBuildingId" Type="Int32" Nullable="false" />
+          <Property Name="UtilityBuildingFacilityTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UtilityBuildingFacilityType" Relationship="Self.FK_UtilityBuidingFacilityDetail_UtilityBuildingFacilityType" FromRole="UtilityBuidingFacilityDetail" ToRole="UtilityBuildingFacilityType" />
+          <NavigationProperty Name="UtilityBuilding" Relationship="Self.FK_UtilityBuidingFacilityDetail_UtilityBuildings" FromRole="UtilityBuidingFacilityDetail" ToRole="UtilityBuildings" />
+        </EntityType>
+        <EntityType Name="UtilityBuildingFacilityType">
+          <Key>
+            <PropertyRef Name="UtilityBuildingFacilityTypeId" />
+          </Key>
+          <Property Name="UtilityBuildingFacilityTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UtilityBuidingFacilityDetails" Relationship="Self.FK_UtilityBuidingFacilityDetail_UtilityBuildingFacilityType" FromRole="UtilityBuildingFacilityType" ToRole="UtilityBuidingFacilityDetail" />
+        </EntityType>
+        <EntityType Name="UtilityBuildingLocale">
+          <Key>
+            <PropertyRef Name="UtilityBuildingLocaleId" />
+          </Key>
+          <Property Name="UtilityBuildingLocaleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UtilityBuildingId" Type="Int32" Nullable="false" />
+          <Property Name="LocaleId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPerson" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Locale" Relationship="Self.FK_UtilityBuildingLocale_UtilityBuildingLocale" FromRole="UtilityBuildingLocale" ToRole="Locale" />
+          <NavigationProperty Name="UtilityBuilding" Relationship="Self.FK_UtilityBuildingLocale_UtilityBuildings" FromRole="UtilityBuildingLocale" ToRole="UtilityBuildings" />
+        </EntityType>
+        <EntityType Name="UtilityBuildingPhotoDetail">
+          <Key>
+            <PropertyRef Name="UtilityBuildingPhotoDetailId" />
+          </Key>
+          <Property Name="UtilityBuildingPhotoDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KeyWords" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UtilityBuildingId" Type="Int32" Nullable="false" />
+          <Property Name="PhotoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UtilityBuilding" Relationship="Self.FK_UtilityBuildingPhotoDetails_UtilityBuildings" FromRole="UtilityBuildingPhotoDetails" ToRole="UtilityBuildings" />
+        </EntityType>
+        <EntityType Name="UtilityBuilding">
+          <Key>
+            <PropertyRef Name="UtilityBuildingId" />
+          </Key>
+          <Property Name="UtilityBuildingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KeyWords" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UtilityBuildingTypeId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="lat" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="lon" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="Rating" Type="Byte" />
+          <Property Name="Size" Type="Int32" />
+          <Property Name="SearchRating" Type="Int32" />
+          <Property Name="SystemTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ExternalUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="City" Relationship="Self.FK_UtilityBuildings_Cities" FromRole="UtilityBuildings" ToRole="Cities" />
+          <NavigationProperty Name="Offers" Relationship="Self.FK_Offer_UtilityBuilding" FromRole="UtilityBuildings" ToRole="Offers" />
+          <NavigationProperty Name="Periods" Relationship="Self.FK_Period_UtilityBuildings" FromRole="UtilityBuildings" ToRole="Period" />
+          <NavigationProperty Name="Rooms" Relationship="Self.FK_Room_UtilityBuildings" FromRole="UtilityBuildings" ToRole="Room" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UtilityBuildings_Users" FromRole="UtilityBuildings" ToRole="Users" />
+          <NavigationProperty Name="UtilityBuidingFacilityDetails" Relationship="Self.FK_UtilityBuidingFacilityDetail_UtilityBuildings" FromRole="UtilityBuildings" ToRole="UtilityBuidingFacilityDetail" />
+          <NavigationProperty Name="UtilityBuildingLocales" Relationship="Self.FK_UtilityBuildingLocale_UtilityBuildings" FromRole="UtilityBuildings" ToRole="UtilityBuildingLocale" />
+          <NavigationProperty Name="UtilityBuildingPhotoDetails" Relationship="Self.FK_UtilityBuildingPhotoDetails_UtilityBuildings" FromRole="UtilityBuildings" ToRole="UtilityBuildingPhotoDetails" />
+          <NavigationProperty Name="UtilityBuildingType" Relationship="Self.FK_UtilityBuilding_UtilityBuildingType" FromRole="UtilityBuildings" ToRole="UtilityBuildingTypes" />
+        </EntityType>
+        <EntityType Name="UtilityBuildingType">
+          <Key>
+            <PropertyRef Name="UtilityBuildingTypeId" />
+          </Key>
+          <Property Name="UtilityBuildingTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KeyWords" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UtilityBuildings" Relationship="Self.FK_UtilityBuilding_UtilityBuildingType" FromRole="UtilityBuildingTypes" ToRole="UtilityBuildings" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_Users_User_Id">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_Users_UserId">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilityBuildings_Cities">
+          <End Role="Cities" Type="Self.City" Multiplicity="0..1" />
+          <End Role="UtilityBuildings" Type="Self.UtilityBuilding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="UtilityBuildings">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilityBuildingLocale_UtilityBuildingLocale">
+          <End Role="Locale" Type="Self.Locale" Multiplicity="1" />
+          <End Role="UtilityBuildingLocale" Type="Self.UtilityBuildingLocale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locale">
+              <PropertyRef Name="LocaleId" />
+            </Principal>
+            <Dependent Role="UtilityBuildingLocale">
+              <PropertyRef Name="LocaleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfferPhotoDetail_Offer">
+          <End Role="Offers" Type="Self.Offer" Multiplicity="1" />
+          <End Role="OfferPhotoDetails" Type="Self.OfferPhotoDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Offers">
+              <PropertyRef Name="OfferId" />
+            </Principal>
+            <Dependent Role="OfferPhotoDetails">
+              <PropertyRef Name="OfferId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offer_OfferType">
+          <End Role="OfferTypes" Type="Self.OfferType" Multiplicity="1" />
+          <End Role="Offers" Type="Self.Offer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfferTypes">
+              <PropertyRef Name="OfferTypeId" />
+            </Principal>
+            <Dependent Role="Offers">
+              <PropertyRef Name="OfferTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offer_UtilityBuilding">
+          <End Role="UtilityBuildings" Type="Self.UtilityBuilding" Multiplicity="1" />
+          <End Role="Offers" Type="Self.Offer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UtilityBuildings">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Principal>
+            <Dependent Role="Offers">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Period_UtilityBuildings">
+          <End Role="UtilityBuildings" Type="Self.UtilityBuilding" Multiplicity="1" />
+          <End Role="Period" Type="Self.Period" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UtilityBuildings">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Principal>
+            <Dependent Role="Period">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomAmount_Period">
+          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+          <End Role="RoomAmount" Type="Self.RoomAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Period">
+              <PropertyRef Name="PeriodId" />
+            </Principal>
+            <Dependent Role="RoomAmount">
+              <PropertyRef Name="PeriodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_RoomType">
+          <End Role="RoomType" Type="Self.RoomType" Multiplicity="1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoomType">
+              <PropertyRef Name="RoomTypeId" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="RoomTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_UtilityBuildings">
+          <End Role="UtilityBuildings" Type="Self.UtilityBuilding" Multiplicity="1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UtilityBuildings">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomAmount_RoomType">
+          <End Role="RoomType" Type="Self.RoomType" Multiplicity="1" />
+          <End Role="RoomAmount" Type="Self.RoomAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoomType">
+              <PropertyRef Name="RoomTypeId" />
+            </Principal>
+            <Dependent Role="RoomAmount">
+              <PropertyRef Name="RoomTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilityBuildings_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="UtilityBuildings" Type="Self.UtilityBuilding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UtilityBuildings">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilityBuidingFacilityDetail_UtilityBuildingFacilityType">
+          <End Role="UtilityBuildingFacilityType" Type="Self.UtilityBuildingFacilityType" Multiplicity="1" />
+          <End Role="UtilityBuidingFacilityDetail" Type="Self.UtilityBuidingFacilityDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UtilityBuildingFacilityType">
+              <PropertyRef Name="UtilityBuildingFacilityTypeId" />
+            </Principal>
+            <Dependent Role="UtilityBuidingFacilityDetail">
+              <PropertyRef Name="UtilityBuildingFacilityTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilityBuidingFacilityDetail_UtilityBuildings">
+          <End Role="UtilityBuildings" Type="Self.UtilityBuilding" Multiplicity="1" />
+          <End Role="UtilityBuidingFacilityDetail" Type="Self.UtilityBuidingFacilityDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UtilityBuildings">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Principal>
+            <Dependent Role="UtilityBuidingFacilityDetail">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilityBuildingLocale_UtilityBuildings">
+          <End Role="UtilityBuildings" Type="Self.UtilityBuilding" Multiplicity="1" />
+          <End Role="UtilityBuildingLocale" Type="Self.UtilityBuildingLocale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UtilityBuildings">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Principal>
+            <Dependent Role="UtilityBuildingLocale">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilityBuildingPhotoDetails_UtilityBuildings">
+          <End Role="UtilityBuildings" Type="Self.UtilityBuilding" Multiplicity="1" />
+          <End Role="UtilityBuildingPhotoDetails" Type="Self.UtilityBuildingPhotoDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UtilityBuildings">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Principal>
+            <Dependent Role="UtilityBuildingPhotoDetails">
+              <PropertyRef Name="UtilityBuildingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilityBuilding_UtilityBuildingType">
+          <End Role="UtilityBuildingTypes" Type="Self.UtilityBuildingType" Multiplicity="1" />
+          <End Role="UtilityBuildings" Type="Self.UtilityBuilding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UtilityBuildingTypes">
+              <PropertyRef Name="UtilityBuildingTypeId" />
+            </Principal>
+            <Dependent Role="UtilityBuildings">
+              <PropertyRef Name="UtilityBuildingTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="OnLeave" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="ELMAH_Error" EntityType="Self.ELMAH_Error" />
+          <EntitySet Name="Locales" EntityType="Self.Locale" />
+          <EntitySet Name="OfferPhotoDetails" EntityType="Self.OfferPhotoDetail" />
+          <EntitySet Name="Offers" EntityType="Self.Offer" />
+          <EntitySet Name="OfferTypes" EntityType="Self.OfferType" />
+          <EntitySet Name="Periods" EntityType="Self.Period" />
+          <EntitySet Name="Photos" EntityType="Self.Photo" />
+          <EntitySet Name="Regions" EntityType="Self.Region" />
+          <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <EntitySet Name="RoomAmounts" EntityType="Self.RoomAmount" />
+          <EntitySet Name="RoomTypes" EntityType="Self.RoomType" />
+          <EntitySet Name="SystemTypes" EntityType="Self.SystemType" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UtilityBuidingFacilityDetails" EntityType="Self.UtilityBuidingFacilityDetail" />
+          <EntitySet Name="UtilityBuildingFacilityTypes" EntityType="Self.UtilityBuildingFacilityType" />
+          <EntitySet Name="UtilityBuildingLocales" EntityType="Self.UtilityBuildingLocale" />
+          <EntitySet Name="UtilityBuildingPhotoDetails" EntityType="Self.UtilityBuildingPhotoDetail" />
+          <EntitySet Name="UtilityBuildings" EntityType="Self.UtilityBuilding" />
+          <EntitySet Name="UtilityBuildingTypes" EntityType="Self.UtilityBuildingType" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_Users_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_Users_User_Id">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_Users_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_Users_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilityBuildings_Cities" Association="Self.FK_UtilityBuildings_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilityBuildingLocale_UtilityBuildingLocale" Association="Self.FK_UtilityBuildingLocale_UtilityBuildingLocale">
+            <End Role="Locale" EntitySet="Locales" />
+            <End Role="UtilityBuildingLocale" EntitySet="UtilityBuildingLocales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfferPhotoDetail_Offer" Association="Self.FK_OfferPhotoDetail_Offer">
+            <End Role="Offers" EntitySet="Offers" />
+            <End Role="OfferPhotoDetails" EntitySet="OfferPhotoDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offer_OfferType" Association="Self.FK_Offer_OfferType">
+            <End Role="OfferTypes" EntitySet="OfferTypes" />
+            <End Role="Offers" EntitySet="Offers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offer_UtilityBuilding" Association="Self.FK_Offer_UtilityBuilding">
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+            <End Role="Offers" EntitySet="Offers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Period_UtilityBuildings" Association="Self.FK_Period_UtilityBuildings">
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+            <End Role="Period" EntitySet="Periods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomAmount_Period" Association="Self.FK_RoomAmount_Period">
+            <End Role="Period" EntitySet="Periods" />
+            <End Role="RoomAmount" EntitySet="RoomAmounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_RoomType" Association="Self.FK_Room_RoomType">
+            <End Role="RoomType" EntitySet="RoomTypes" />
+            <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_UtilityBuildings" Association="Self.FK_Room_UtilityBuildings">
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+            <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomAmount_RoomType" Association="Self.FK_RoomAmount_RoomType">
+            <End Role="RoomType" EntitySet="RoomTypes" />
+            <End Role="RoomAmount" EntitySet="RoomAmounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilityBuildings_Users" Association="Self.FK_UtilityBuildings_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilityBuidingFacilityDetail_UtilityBuildingFacilityType" Association="Self.FK_UtilityBuidingFacilityDetail_UtilityBuildingFacilityType">
+            <End Role="UtilityBuildingFacilityType" EntitySet="UtilityBuildingFacilityTypes" />
+            <End Role="UtilityBuidingFacilityDetail" EntitySet="UtilityBuidingFacilityDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilityBuidingFacilityDetail_UtilityBuildings" Association="Self.FK_UtilityBuidingFacilityDetail_UtilityBuildings">
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+            <End Role="UtilityBuidingFacilityDetail" EntitySet="UtilityBuidingFacilityDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilityBuildingLocale_UtilityBuildings" Association="Self.FK_UtilityBuildingLocale_UtilityBuildings">
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+            <End Role="UtilityBuildingLocale" EntitySet="UtilityBuildingLocales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilityBuildingPhotoDetails_UtilityBuildings" Association="Self.FK_UtilityBuildingPhotoDetails_UtilityBuildings">
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+            <End Role="UtilityBuildingPhotoDetails" EntitySet="UtilityBuildingPhotoDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilityBuilding_UtilityBuildingType" Association="Self.FK_UtilityBuilding_UtilityBuildingType">
+            <End Role="UtilityBuildingTypes" EntitySet="UtilityBuildingTypes" />
+            <End Role="UtilityBuildings" EntitySet="UtilityBuildings" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <FunctionImport Name="ELMAH_GetErrorsXml" ReturnType="Collection(String)">
+            <Parameter Name="Application" Mode="In" Type="String" />
+            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="TotalCount" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ELMAH_GetErrorXml" ReturnType="Collection(String)">
+            <Parameter Name="Application" Mode="In" Type="String" />
+            <Parameter Name="ErrorId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="ELMAH_LogError">
+            <Parameter Name="ErrorId" Mode="In" Type="Guid" />
+            <Parameter Name="Application" Mode="In" Type="String" />
+            <Parameter Name="Host" Mode="In" Type="String" />
+            <Parameter Name="Type" Mode="In" Type="String" />
+            <Parameter Name="Source" Mode="In" Type="String" />
+            <Parameter Name="Message" Mode="In" Type="String" />
+            <Parameter Name="User" Mode="In" Type="String" />
+            <Parameter Name="AllXml" Mode="In" Type="String" />
+            <Parameter Name="StatusCode" Mode="In" Type="Int32" />
+            <Parameter Name="TimeUtc" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetHotelRooms" ReturnType="Collection(OnLeaveDBContext.GetHotelRooms_Result)">
+            <Parameter Name="UtilityBuildingId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetHotelRooms_Result">
+          <Property Type="Int32" Name="RoomTypeId" Nullable="false" />
+          <Property Type="String" Name="TypeName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="TotalNumber" Nullable="true" />
+          <Property Type="Int32" Name="FreeNumber" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OnLeaveDBContextStoreContainer" CdmEntityContainer="OnLeave">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.City">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="lon" ColumnName="lon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ELMAH_Error">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.ELMAH_Error">
+              <MappingFragment StoreEntitySet="ELMAH_Error">
+                <ScalarProperty Name="ErrorId" ColumnName="ErrorId" />
+                <ScalarProperty Name="Application" ColumnName="Application" />
+                <ScalarProperty Name="Host" ColumnName="Host" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="TimeUtc" ColumnName="TimeUtc" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="AllXml" ColumnName="AllXml" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locales">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.Locale">
+              <MappingFragment StoreEntitySet="Locale">
+                <ScalarProperty Name="LocaleId" ColumnName="LocaleId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OfferPhotoDetails">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.OfferPhotoDetail">
+              <MappingFragment StoreEntitySet="OfferPhotoDetails">
+                <ScalarProperty Name="OfferPhotoDetailId" ColumnName="OfferPhotoDetailId" />
+                <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+                <ScalarProperty Name="OfferId" ColumnName="OfferId" />
+                <ScalarProperty Name="PhotoId" ColumnName="PhotoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Offers">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.Offer">
+              <MappingFragment StoreEntitySet="Offers">
+                <ScalarProperty Name="OfferId" ColumnName="OfferId" />
+                <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OfferTypeId" ColumnName="OfferTypeId" />
+                <ScalarProperty Name="UtilityBuildingId" ColumnName="UtilityBuildingId" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OfferTypes">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.OfferType">
+              <MappingFragment StoreEntitySet="OfferTypes">
+                <ScalarProperty Name="OfferTypeId" ColumnName="OfferTypeId" />
+                <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Periods">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.Period">
+              <MappingFragment StoreEntitySet="Period">
+                <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
+                <ScalarProperty Name="DBC_KEYWORDS" ColumnName="DBC_KEYWORDS" />
+                <ScalarProperty Name="UtilityBuildingId" ColumnName="UtilityBuildingId" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Photos">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.Photo">
+              <MappingFragment StoreEntitySet="Photo">
+                <ScalarProperty Name="PhotoId" ColumnName="PhotoId" />
+                <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.Region">
+              <MappingFragment StoreEntitySet="Regions">
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+                <ScalarProperty Name="DBC_KEYWORDS" ColumnName="DBC_KEYWORDS" />
+                <ScalarProperty Name="RoomTypeId" ColumnName="RoomTypeId" />
+                <ScalarProperty Name="UtilityBuildingId" ColumnName="UtilityBuildingId" />
+                <ScalarProperty Name="TotalNumber" ColumnName="TotalNumber" />
+                <ScalarProperty Name="FreeNumber" ColumnName="FreeNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomAmounts">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.RoomAmount">
+              <MappingFragment StoreEntitySet="RoomAmount">
+                <ScalarProperty Name="RoomAmountId" ColumnName="RoomAmountId" />
+                <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
+                <ScalarProperty Name="RoomTypeId" ColumnName="RoomTypeId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomTypes">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.RoomType">
+              <MappingFragment StoreEntitySet="RoomType">
+                <ScalarProperty Name="RoomTypeId" ColumnName="RoomTypeId" />
+                <ScalarProperty Name="DBC_KEYWORDS" ColumnName="DBC_KEYWORDS" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SystemTypes">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.SystemType">
+              <MappingFragment StoreEntitySet="SystemType">
+                <ScalarProperty Name="SystemTypeId" ColumnName="SystemTypeId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UtilityBuidingFacilityDetails">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.UtilityBuidingFacilityDetail">
+              <MappingFragment StoreEntitySet="UtilityBuidingFacilityDetail">
+                <ScalarProperty Name="UtilityBuildingFacilityDetail" ColumnName="UtilityBuildingFacilityDetail" />
+                <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+                <ScalarProperty Name="UtilityBuildingId" ColumnName="UtilityBuildingId" />
+                <ScalarProperty Name="UtilityBuildingFacilityTypeId" ColumnName="UtilityBuildingFacilityTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UtilityBuildingFacilityTypes">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.UtilityBuildingFacilityType">
+              <MappingFragment StoreEntitySet="UtilityBuildingFacilityType">
+                <ScalarProperty Name="UtilityBuildingFacilityTypeId" ColumnName="UtilityBuildingFacilityTypeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UtilityBuildingLocales">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.UtilityBuildingLocale">
+              <MappingFragment StoreEntitySet="UtilityBuildingLocale">
+                <ScalarProperty Name="UtilityBuildingLocaleId" ColumnName="UtilityBuildingLocaleId" />
+                <ScalarProperty Name="UtilityBuildingId" ColumnName="UtilityBuildingId" />
+                <ScalarProperty Name="LocaleId" ColumnName="LocaleId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UtilityBuildingPhotoDetails">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.UtilityBuildingPhotoDetail">
+              <MappingFragment StoreEntitySet="UtilityBuildingPhotoDetails">
+                <ScalarProperty Name="UtilityBuildingPhotoDetailId" ColumnName="UtilityBuildingPhotoDetailId" />
+                <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+                <ScalarProperty Name="UtilityBuildingId" ColumnName="UtilityBuildingId" />
+                <ScalarProperty Name="PhotoId" ColumnName="PhotoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UtilityBuildings">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.UtilityBuilding">
+              <MappingFragment StoreEntitySet="UtilityBuildings">
+                <ScalarProperty Name="UtilityBuildingId" ColumnName="UtilityBuildingId" />
+                <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+                <ScalarProperty Name="UtilityBuildingTypeId" ColumnName="UtilityBuildingTypeId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="lon" ColumnName="lon" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="SearchRating" ColumnName="SearchRating" />
+                <ScalarProperty Name="SystemTypeId" ColumnName="SystemTypeId" />
+                <ScalarProperty Name="ExternalUrl" ColumnName="ExternalUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UtilityBuildingTypes">
+            <EntityTypeMapping TypeName="OnLeaveDBContext.UtilityBuildingType">
+              <MappingFragment StoreEntitySet="UtilityBuildingTypes">
+                <ScalarProperty Name="UtilityBuildingTypeId" ColumnName="UtilityBuildingTypeId" />
+                <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="OnLeaveDBContext.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="ELMAH_GetErrorsXml" FunctionName="OnLeaveDBContext.Store.ELMAH_GetErrorsXml" />
+          <FunctionImportMapping FunctionImportName="ELMAH_GetErrorXml" FunctionName="OnLeaveDBContext.Store.ELMAH_GetErrorXml" />
+          <FunctionImportMapping FunctionImportName="ELMAH_LogError" FunctionName="OnLeaveDBContext.Store.ELMAH_LogError" />
+          <FunctionImportMapping FunctionImportName="GetHotelRooms" FunctionName="OnLeaveDBContext.Store.GetHotelRooms">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnLeaveDBContext.GetHotelRooms_Result">
+                <ScalarProperty Name="RoomTypeId" ColumnName="RoomTypeId" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="TotalNumber" ColumnName="TotalNumber" />
+                <ScalarProperty Name="FreeNumber" ColumnName="FreeNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ac34359228a34aeea06bd7051c59e9ed" Name="Diagram1">
+        <EntityTypeShape EntityType="OnLeaveDBContext.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.AspNetRole" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.City" Width="1.5" PointX="6" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.ELMAH_Error" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.Locale" Width="1.5" PointX="11.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.OfferPhotoDetail" Width="1.5" PointX="12.75" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.Offer" Width="1.5" PointX="10.5" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.OfferType" Width="1.5" PointX="8.25" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.Period" Width="1.5" PointX="10.5" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.Photo" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.Region" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.Room" Width="1.5" PointX="13.5" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.RoomAmount" Width="1.5" PointX="12.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.RoomType" Width="1.5" PointX="11.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.SystemType" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.User" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.UtilityBuidingFacilityDetail" Width="1.5" PointX="10.5" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.UtilityBuildingFacilityType" Width="1.5" PointX="8.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.UtilityBuildingLocale" Width="1.5" PointX="13.5" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.UtilityBuildingPhotoDetail" Width="1.5" PointX="10.5" PointY="28.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.UtilityBuilding" Width="1.5" PointX="8.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnLeaveDBContext.UtilityBuildingType" Width="1.5" PointX="6" PointY="17.625" IsExpanded="true" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_dbo_AspNetUserClaims_dbo_Users_User_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_dbo_AspNetUserLogins_dbo_Users_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_UtilityBuildings_Cities" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_UtilityBuildingLocale_UtilityBuildingLocale" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_OfferPhotoDetail_Offer" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_Offer_OfferType" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_Offer_UtilityBuilding" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_Period_UtilityBuildings" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_RoomAmount_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_Room_RoomType" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_Room_UtilityBuildings" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_RoomAmount_RoomType" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_UtilityBuildings_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_UtilityBuidingFacilityDetail_UtilityBuildingFacilityType" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_UtilityBuidingFacilityDetail_UtilityBuildings" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_UtilityBuildingLocale_UtilityBuildings" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_UtilityBuildingPhotoDetails_UtilityBuildings" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.FK_UtilityBuilding_UtilityBuildingType" ManuallyRouted="false" />
+        <AssociationConnector Association="OnLeaveDBContext.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
