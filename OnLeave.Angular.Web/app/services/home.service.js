@@ -10,27 +10,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var home_service_1 = require("../services/home.service");
-var HomeComponent = (function () {
-    //buildings: UtilityBuilding[] = [new UtilityBuilding(-1, "Angular")]
-    function HomeComponent(homeService) {
-        this.homeService = homeService;
+var http_1 = require("@angular/http");
+require("rxjs/add/operator/toPromise");
+var HomeService = (function () {
+    function HomeService(http) {
+        this.http = http;
+        this.homeServiceUrl = 'api/home/offers'; // URL to web api
     }
-    HomeComponent.prototype.ngOnInit = function () {
-        //let offers = this.homeService.getTopOffers();
-        console.log("Start");
-        this.homeService.getTopOffers().then(function (data) { return console.log(data); });
-        console.log("End");
+    HomeService.prototype.getTopOffers = function () {
+        var result = this.http.get(this.homeServiceUrl)
+            .toPromise().then(function (response) { return response.json(); });
+        return result;
     };
-    return HomeComponent;
+    return HomeService;
 }());
-HomeComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'app-home',
-        templateUrl: './home.component.html'
-    }),
-    __metadata("design:paramtypes", [home_service_1.HomeService])
-], HomeComponent);
-exports.HomeComponent = HomeComponent;
-//# sourceMappingURL=home.component.js.map
+HomeService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], HomeService);
+exports.HomeService = HomeService;
+//# sourceMappingURL=home.service.js.map

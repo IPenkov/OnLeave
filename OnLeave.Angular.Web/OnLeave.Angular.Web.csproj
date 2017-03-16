@@ -17,7 +17,7 @@
     <RootNamespace>OnLeave.Angular.Web</RootNamespace>
     <AssemblyName>OnLeave.Angular.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -209,8 +209,10 @@
     <TypeScriptCompile Include="app\app.component.spec.ts" />
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\home\home.module.ts" />
     <TypeScriptCompile Include="app\home\home.component.ts" />
     <TypeScriptCompile Include="app\home\UtilityBuilding.ts" />
+    <TypeScriptCompile Include="app\services\home.service.ts" />
     <TypeScriptCompile Include="app\shared\footer\footer.component.ts" />
     <TypeScriptCompile Include="app\shared\login\login.component.ts" />
   </ItemGroup>
@@ -243,7 +245,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>3171</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:3171/</IISUrl>
+          <IISUrl>http://localhost/OnLeave.Angular.Web</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
