@@ -13,7 +13,7 @@ var common_1 = require("@angular/common");
 //import { FooterComponent } from './shared/footer/footer.component';
 //import { LoginComponent } from './shared/login/login.component'
 var home_component_1 = require("./home.component");
-var home_service_1 = require("../services/home.service");
+var home_service_1 = require("app/services/home.service");
 var HomeModule = (function () {
     function HomeModule() {
     }

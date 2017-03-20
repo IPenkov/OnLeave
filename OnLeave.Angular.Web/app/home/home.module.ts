@@ -7,10 +7,10 @@ import { CommonModule }       from '@angular/common';
 //import { LoginComponent } from './shared/login/login.component'
 import { HomeComponent } from './home.component'
 
-import { HomeService } from '../services/home.service'
+import { HomeService } from 'app/services/home.service'
 
-@NgModule({
-    imports: [CommonModule ],
+@NgModule({    
+    imports: [CommonModule],
     declarations: [HomeComponent],
     exports: [HomeComponent],
     providers: [HomeService],  

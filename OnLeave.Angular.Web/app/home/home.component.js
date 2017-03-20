@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var home_service_1 = require("../services/home.service");
+var home_service_1 = require("app/services/home.service");
 var HomeComponent = (function () {
     //buildings: UtilityBuilding[] = [new UtilityBuilding(-1, "Angular")]
     function HomeComponent(homeService) {
