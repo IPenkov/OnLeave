@@ -12,14 +12,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var home_service_1 = require("app/services/home.service");
 var HomeComponent = (function () {
-    //buildings: UtilityBuilding[] = [new UtilityBuilding(-1, "Angular")]
     function HomeComponent(homeService) {
         this.homeService = homeService;
+        this.buildings = [];
     }
     HomeComponent.prototype.ngOnInit = function () {
-        //let offers = this.homeService.getTopOffers();
+        var _this = this;
         console.log("Start");
-        this.homeService.getTopOffers().then(function (data) { return console.log(data); });
+        this.homeService.getTopOffers()
+            .then(function (data) {
+            _this.buildings = data;
+            console.log("End of promise");
+        });
         console.log("End");
     };
     return HomeComponent;

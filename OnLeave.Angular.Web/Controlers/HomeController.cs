@@ -2,18 +2,39 @@
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
+using System.Web.Mvc;
 
 namespace OnLeave.Angular.Web
 {
     public class HomeController : ApiController
     {
+        /// <summary>
+        /// Gets the photo.
+        /// </summary>
+        /// <param name="photoId">The photo id.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>        
+        [System.Web.Http.HttpGet]
+        public HttpResponseMessage GetPhoto(int photoId, int? width, int? height)
+        {
+            var photo = HomeManager.GetPhoto(photoId, width, height);
+            HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
+            result.Content = new ByteArrayContent(photo.Image);
+            result.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(MimeMapping.GetMimeMapping(photo.Name));
+            return result;
+        }
+
+
+
         // GET api/<controller>
         [Route("api/home/offers")]
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         public object TopOffers()
         {
             var buildings = HomeManager.TopOffers();

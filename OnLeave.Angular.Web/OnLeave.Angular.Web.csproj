@@ -209,6 +209,7 @@
     <TypeScriptCompile Include="app\app.component.spec.ts" />
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\business.entities\utility.building.ts" />
     <TypeScriptCompile Include="app\home\home.module.ts" />
     <TypeScriptCompile Include="app\home\home.component.ts" />
     <TypeScriptCompile Include="app\home\UtilityBuilding.ts" />
@@ -220,6 +221,10 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessEntities\BusinessEntities.csproj">
+      <Project>{b2013a87-7e70-4d74-a635-ef7de64d770e}</Project>
+      <Name>BusinessEntities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Onleave.BusinessLogic\Onleave.BusinessLogic.csproj">
       <Project>{8331135b-fce1-4a18-b2a8-9a09d48a2a9d}</Project>
       <Name>Onleave.BusinessLogic</Name>

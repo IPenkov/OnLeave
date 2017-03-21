@@ -16,6 +16,7 @@ var HomeService = (function () {
     function HomeService(http) {
         this.http = http;
         this.homeServiceUrl = 'api/home/offers'; // URL to web api
+        this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
     HomeService.prototype.getTopOffers = function () {
         var result = this.http.get(this.homeServiceUrl)
