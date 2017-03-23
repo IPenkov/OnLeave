@@ -169,6 +169,11 @@
       <LastGenOutput>OnLeaveDBContext.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="UtilityBuildingFacilityType.cs.d.ts">
+      <DependentUpon>UtilityBuildingFacilityType.cs</DependentUpon>
+    </TypeScriptCompile>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -50,6 +50,46 @@ namespace OnLeave.Angular.Web
             });            
         }
 
+        // GET api/<controller>
+        [Route("api/home/cities")]
+        [System.Web.Http.HttpGet]
+        public object GetCities()
+        {
+            return StaticDataProvider.Cities.Select(city => new
+            {
+                CityId = city.CityId,
+                KeyWords = city.KeyWords,
+                Name = city.Name,
+                Description = city.Description,
+                lat = city.lat,
+                lon = city.lon
+            });
+        }
+
+        // GET api/<controller>
+        [Route("api/home/buildingtypes")]
+        [System.Web.Http.HttpGet]
+        public object GetUtilityBuildings()
+        {
+            return StaticDataProvider.UtilityBuildingTypes.Select(type => new
+            {
+                UtilityBuildingTypeId = type.UtilityBuildingTypeId,
+                Description = type.Description
+            });
+        }
+
+        // GET api/<controller>
+        [Route("api/home/facilitytypes")]
+        [System.Web.Http.HttpGet]
+        public object GetFacilityTypes()
+        {
+            return StaticDataProvider.FacilityTypes.Select(type => new
+            {
+                UtilityBuildingFacilityTypeId = type.UtilityBuildingFacilityTypeId,
+                Name = type.Name
+            });
+        }
+
         // GET api/<controller>/5
         public string Get(int id)
         {

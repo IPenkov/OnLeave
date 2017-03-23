@@ -13,7 +13,7 @@
                                 <!--<a href=@Url.Action("Index", "Home" )>
                                     <img src="~/Content/Images/logo1.png" />
                                 </a>-->
-                                <a href="/index.html"><img src="/Content/Images/logo1.png" /></a>
+                                <a href="/index.html"><img src="Content/Images/logo1.png" /></a>
                             </div>
                             <ul class="links">
                                 <li><a href="">Home</a>  <!--@Html.ActionLink("Хотели", "Index", "Home")--></li>                                
@@ -68,6 +68,7 @@
                     <div id="notification"></div>
                     <div id="column-left">
                         <!--@RenderSection("LeftSideBar", false)-->
+                        <app-search></app-search>
                     </div>
                     <div id="content">
                         <app-home></app-home>

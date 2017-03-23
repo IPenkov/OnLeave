@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LoginComponent } from './shared/login/login.component'
+import { SearchComponent } from 'app/shared/search/search.component'
+
 //import { HomeComponent } from './home/home.component'
 
 //import { HomeService } from '../app/services/home.service'
@@ -14,7 +16,7 @@ import { HomeModule } from './home/home.module';
 
 @NgModule({
     imports: [BrowserModule, HttpModule, HomeModule],
-    declarations: [AppComponent, FooterComponent, LoginComponent],
+    declarations: [AppComponent, FooterComponent, LoginComponent, SearchComponent],
     //providers: [HomeService],
   bootstrap:    [ AppComponent ]
 })

@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="HomeManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StaticDataProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessEntities\BusinessEntities.csproj">
