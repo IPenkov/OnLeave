@@ -20,6 +20,7 @@ var SearchComponent = (function () {
         this.facilityTypes = [];
         this.topFacilityTypes = [];
         this.additionalFacilityTypes = [];
+        this.facilities = [];
     }
     SearchComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -40,6 +41,10 @@ var SearchComponent = (function () {
                 return [constants_1.FacilityTypes.BREAKFASET, constants_1.FacilityTypes.SPA, constants_1.FacilityTypes.SWIMMING_POOL, constants_1.FacilityTypes.WI_FI].indexOf(fType.UtilityBuildingFacilityTypeId) === -1;
             });
         });
+    };
+    SearchComponent.prototype.showSelection = function (obj, isChecked) {
+        console.log(obj);
+        console.log(isChecked);
     };
     return SearchComponent;
 }());

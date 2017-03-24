@@ -23,6 +23,8 @@ export class SearchComponent implements OnInit
 
     additionalFacilityTypes: UtilityBuildingFacilityType[] = []
 
+    facilities: number[] = []
+
     constructor(private homeService: HomeService) { }
 
     ngOnInit(): void
@@ -48,5 +50,11 @@ export class SearchComponent implements OnInit
                     [FacilityTypes.BREAKFASET, FacilityTypes.SPA, FacilityTypes.SWIMMING_POOL, FacilityTypes.WI_FI].indexOf(fType.UtilityBuildingFacilityTypeId) === -1);
 
             });
+    }
+
+    showSelection(obj: object, isChecked: boolean): void
+    {
+        console.log(obj);
+        console.log(isChecked);
     }    
 }

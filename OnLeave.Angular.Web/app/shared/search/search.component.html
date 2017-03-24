@@ -24,7 +24,7 @@
             <li style="margin-bottom: 5px">
                 <div style="overflow: hidden">
                     <!--@*@Html.TextBoxFor(m => m.Name, new { id = "search_by_name", placeholder = "търси хотел" })*@-->
-                    <input type="text" name="Name" id="search_by_name" placeholder="търси хотел" class="q1" value="" />
+                    <input type="text" name="Name" id="search_by_name" placeholder="търси хотел" class="q1" value="" (click)="showSelection()" />
                     <span class="search_name" onclick="$('#search_building').submit();" title="search by name">
                         <span class="search_name"></span>
                     </span>
@@ -100,7 +100,7 @@
             {-->
             <li *ngFor="let fType of topFacilityTypes">
                 <!--@Html.EditorFor(m => m.TopFacilities[i])-->
-                <input type="checkbox" id="{{fType.Name}}" />
+                <input type="checkbox" id="{{fType.Name}}" (change)="showSelection(fType, $event.target.checked)" />
                 <label for="{{fType.Name}}" >{{fType.Name}}</label>
             </li>
             <!--}-->
@@ -120,7 +120,7 @@
             {-->
             <li *ngFor="let fType of additionalFacilityTypes">
                 <!--@Html.EditorFor(m => m.Facilities[i])-->
-                <input type="checkbox" id="{{fType.Name}}" />
+                <input type="checkbox" id="{{fType.Name}}" (change)="showSelection(fType, $event.target.checked)" />
                 <label for="{{fType.Name}}">{{fType.Name}}</label>
             </li>
             <!--}-->

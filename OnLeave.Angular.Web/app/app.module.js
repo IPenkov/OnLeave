@@ -9,6 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
+var forms_1 = require("@angular/forms"); // <--- JavaScript import from Angular
 var app_component_1 = require("./app.component");
 var footer_component_1 = require("./shared/footer/footer.component");
 var login_component_1 = require("./shared/login/login.component");
@@ -24,7 +25,7 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, home_module_1.HomeModule],
+        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, home_module_1.HomeModule, forms_1.FormsModule],
         declarations: [app_component_1.AppComponent, footer_component_1.FooterComponent, login_component_1.LoginComponent, search_component_1.SearchComponent],
         //providers: [HomeService],
         bootstrap: [app_component_1.AppComponent]
