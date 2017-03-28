@@ -56,5 +56,12 @@ export class SearchComponent implements OnInit
     {
         console.log(obj);
         console.log(isChecked);
+    }
+
+    onSearch(): void
+    {
+        this.homeService
+            .search({ id: 1, Name: 'Test' })
+            .then((data) => console.log(data));
     }    
 }

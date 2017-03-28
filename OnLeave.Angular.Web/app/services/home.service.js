@@ -37,6 +37,11 @@ var HomeService = (function () {
             .toPromise()
             .then(function (response) { return response.json(); });
     };
+    HomeService.prototype.search = function (search) {
+        return this.http.post(this.homeServiceUrl + 'search', search)
+            .toPromise()
+            .then(function (response) { return response.json(); });
+    };
     return HomeService;
 }());
 HomeService = __decorate([

@@ -46,6 +46,11 @@ var SearchComponent = (function () {
         console.log(obj);
         console.log(isChecked);
     };
+    SearchComponent.prototype.onSearch = function () {
+        this.homeService
+            .search({ id: 1, Name: 'Test' })
+            .then(function (data) { return console.log(data); });
+    };
     return SearchComponent;
 }());
 SearchComponent = __decorate([

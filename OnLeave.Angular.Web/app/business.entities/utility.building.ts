@@ -1,18 +1,18 @@
 ﻿export class UtilityBuilding
 {
-    utilityBuildingId: number;
-    keyWords: string;
-    utilityBuildingTypeId: number;
-    userId: string;
-    phoneNumber: string;
-    cityId: number;
-    lat: number;
-    lon: number;
-    rating: any;
-    size: number;
-    searchRating: number;
-    systemTypeId: number;
-    externalUrl: string;
+    UtilityBuildingId: number;
+    KeyWords: string;
+    UtilityBuildingTypeId: number;
+    UserId: string;
+    PhoneNumber: string;
+    CityId: number;
+    Lat: number;
+    Lon: number;
+    Rating: any;
+    Size: number;
+    SearchRating: number;
+    SystemTypeId: number;
+    ExternalUrl: string;
     //city: {
     //    cityId: number;
     //    keyWords: string;

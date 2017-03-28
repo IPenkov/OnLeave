@@ -43,4 +43,11 @@ export class HomeService {
             .toPromise()
             .then(response => response.json() as UtilityBuildingFacilityType[]);
     }
+
+    search(search: object): Promise<object>
+    {
+        return this.http.post(this.homeServiceUrl + 'search', search)
+            .toPromise()
+            .then(response => response.json() as object[]);
+    }
 }

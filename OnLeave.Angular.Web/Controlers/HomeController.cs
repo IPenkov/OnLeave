@@ -1,4 +1,5 @@
-﻿using Onleave.BusinessLogic;
+﻿using BusinessEntities;
+using Onleave.BusinessLogic;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -88,6 +89,14 @@ namespace OnLeave.Angular.Web
                 UtilityBuildingFacilityTypeId = type.UtilityBuildingFacilityTypeId,
                 Name = type.Name
             });
+        }
+
+        // GET api/<controller>
+        [Route("api/home/search")]
+        [System.Web.Http.HttpPost]
+        public BusinessEntities.UtilityBuildingDTO[] Search(SearchBuilding data)
+        {
+            return HomeManager.SearchBuilding(data);
         }
 
         // GET api/<controller>/5

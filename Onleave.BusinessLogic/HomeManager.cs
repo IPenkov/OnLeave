@@ -2,6 +2,7 @@
 {
     using BusinessEntities;
     using Common;
+    using Common.Constant;
     using OnLeave.Database;
     using System.Data.Entity;
     using System.Linq;
@@ -56,6 +57,56 @@
             }
             
             return null;
+        }
+
+        /// <summary>
+        /// Searches buildings to match criterias.
+        /// </summary>
+        /// <param name="model">The Search model.</param>
+        /// <returns>The result</returns>
+        public static BusinessEntities.UtilityBuildingDTO[] SearchBuilding(SearchBuilding search)
+        {
+            //int[] facilitiesIds = model.Facilities.Concat(model.TopFacilities).Where(f => f.Selected)
+            //    .Select(f => f.FacilityTypeId).ToArray();
+
+            if (search.TopFacilities == null) search.TopFacilities = new int[] { };
+
+            using (var db = new OnLeave())
+            {
+                var result = db.UtilityBuildings
+                    .Include(b => b.UtilityBuildingPhotoDetails)
+                    .Include(b => b.Periods)
+                    .Include(b => b.Periods.Select(p => p.RoomAmounts))
+                    .Include(b => b.UtilityBuildingLocales)
+                    .Where(b =>
+                        (search.Name == null || search.Name.Trim().Length == 0 || b.UtilityBuildingLocales.Any(l => l.Name.ToLower().Contains(search.Name.ToLower())))
+                        && b.UtilityBuildingPhotoDetails.Count > 0)
+                    .Where(b => !search.CityId.HasValue || b.CityId == search.CityId)
+                    .Where(b => !search.UtilityBuildingTypeId.HasValue || b.UtilityBuildingTypeId == search.UtilityBuildingTypeId) // UtilityBuildingTypeId
+                    .Where(b => search.TopFacilities.All(fID => b.UtilityBuidingFacilityDetails.Any(ft => ft.UtilityBuildingFacilityTypeId == fID)))
+                    .Where(b => !search.Rating.HasValue || b.Rating == search.Rating)
+                    .Where(b => (!search.MinAmount.HasValue && !search.MaxAmount.HasValue)
+                        || b.Periods.SelectMany(p => p.RoomAmounts).Any(a => (!search.MinAmount.HasValue || search.MinAmount <= a.Amount) && (!search.MaxAmount.HasValue || search.MaxAmount >= a.Amount)))
+                    .OrderByDescending(b => b.SearchRating)
+                    .Take(51)
+                    .ToArray();
+
+                var buildings = result
+                    .Select(b => new BusinessEntities.UtilityBuildingDTO
+                    {
+                        Id = b.UtilityBuildingId,
+                        Name = b.UtilityBuildingLocales.Where(l => l.LocaleId == (int)LocaleTypes.BG).Select(l => l.Name).FirstOrDefault(),
+                        Description = b.UtilityBuildingLocales.Where(l => l.LocaleId == (int)LocaleTypes.BG).Select(l => l.Description).FirstOrDefault(),
+                        UrlAddress = b.ExternalUrl,
+                        Rating = b.Rating ?? 0,
+                        SystemTypeId = b.SystemTypeId,
+                        Size = b.Size,
+                        PhotoIds = new System.Collections.Generic.List<int>() { b.UtilityBuildingPhotoDetails.First().PhotoId }.ToArray(),
+                        //Periods = b.Periods.OrderBy(p => p.RoomAmounts.Min(a => a.Amount)).Take(1).ToList()
+                    }).ToArray();
+
+                return buildings;
+            }
         }
     }
 }

@@ -1,0 +1,164 @@
+﻿<div class="validation-summary-errors" *ngIf="buildings.Lenght <= 50">
+    Резултаите от търсенето са ограничени, моля добавете допълнителни критерий за търсене ако не намирате желаната информация
+</div>
+<div class="product-list">
+    <ul>
+        @for (int i = 0; i < Model.Length; i++)
+        {
+        <li *ngFor="let building of buildings; let i=index"  [class.first-in-line]="i % 10 === 0" [class.last-in-line]="(i === buildings.lenght - 1 || i % 10 === 9)"  [style.display]="i / 10 > 0 ? 'none' : ''">
+            <div class="right">
+                <div class="price">
+                    <span class="price-new">
+                        <!--@if (Model[i].Periods.Any() && Model[i].Periods.Any(p => p.RoomAmounts.Any()))
+                        {
+                        @(string.Format("{0:N2} BGN", @Model[i].Periods.First().RoomAmounts.Min(a => a.Amount)))
+                        }-->
+                    </span>
+                    <span class="price-old"></span>
+                    <span class="price-tax">вкл. ДДС</span>
+                    <span class="price-tax">1 нощувка</span>
+
+                </div>
+                <div class="cart" [ngSwitch]="buildings[i].SystemTypeId>
+                    <!--@if (Model[i].SystemTypeId == (int)Common.Constant.SystemType.Local)
+                    {-->
+                    <a *ngSwitchCase="1"
+                       class="button"
+                       data-ajax="true"
+                       data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
+                       data-ajax-method="POST"
+                       data-ajax-mode="replace"
+                       data-ajax-update="#content"
+                       href="@Url.Action(" GetUtilityBuilding", "Home" , new { buildingId=Model[i].Id})"
+                       data-ajax-complete="$('#reservationTab').click();">
+                        @*Activate Reservation Section*@
+                        <span>Резервация</span>
+                    </a>
+                    <!--}
+                    else
+                    {-->
+                    <a *ngSwitchCase="2" class="button" href="@(!string.IsNullOrEmpty(Model[i].UrlAddress) ? Url.Content(Model[i].UrlAddress) : " ")" target="_blank">
+                        <span>Резервация</span>
+                    </a>
+                    <!--}-->
+                </div>
+                <div class="wishlist">
+                    <a class="tip" title="Add to Wish List" onclick="addToWishList('43');"></a>
+                </div>
+                <div class="compare"><a class="tip2" title="Add to Compare" onclick="addToCompare('43')"></a></div>
+            </div>
+
+            <div class="left">
+                <div class="image" [ngSwitch]="building.SystemTypeId">
+                    @if (Model[i].SystemTypeId == (int)Common.Constant.SystemType.Local)
+                    {
+                    <a *ngSwitchCase="1"
+                       data-ajax="true"
+                       data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
+                       data-ajax-method="POST"
+                       data-ajax-mode="replace"
+                       data-ajax-update="#content"
+                       href="@Url.Action(" GetUtilityBuilding", "Home" , new { buildingId=Model[i].Id})"
+                       data-ajax-complete="">
+                        <!--<img src="@(i / 10 == 0 ? Url.Action(" 229/179/" + @Model[i].PhotoIds.FirstOrDefault(), "Account", new { }) : "")"
+                        title="@Model[i].Name" alt="@Model[i].Name"
+                        data-src="@Url.Action("229/179/" + @Model[i].PhotoIds.FirstOrDefault(), "Account", new { })" />-->
+                        <img src="i / 10 === 0 ?  api/home/GetPhoto?photoId={{buildings[0].PhotoIds[0]}}&width=229&height=179 : ''" alt="Hotel {{buildings[i].Name}}" />
+                    </a>
+                    <!--}
+                    else
+                    {-->
+                    <a *ngSwitchCase="2" href="@Model[i].UrlAddress" target="_blank">
+                        <!--<img src="@(i / 10 == 0 ? Url.Action(" 229/179/" + @Model[i].PhotoIds.FirstOrDefault(), "Account", new { }) : "")"
+                        title="@Model[i].Name" alt="@Model[i].Name"
+                        data-src="@Url.Action("229/179/" + @Model[i].PhotoIds.FirstOrDefault(), "Account", new { })" />-->
+                        <img src="i / 10 === 0 ?  api/home/GetPhoto?photoId={{buildings[0].PhotoIds[0]}}&width=229&height=179 : ''"
+                              title="buildings[0].Name"
+                              alt="Hotel {{buildings[i].Name}}"
+                             data-src="api/home/GetPhoto?photoId={{buildings[0].PhotoIds[0]}}&width=229&height=179" />
+                    </a>
+                    <!--}-->
+                </div>
+                <div class="name" [ngSwitch]="building.SystemTypeId">
+                    <!--@if (Model[i].SystemTypeId == (int)Common.Constant.SystemType.Local)
+                    {-->
+                    <a *ngSwitchCase="1"
+                       data-ajax="true"
+                       data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
+                       data-ajax-method="POST"
+                       data-ajax-mode="replace"
+                       data-ajax-update="#content"
+                       href="@Url.Action(" GetUtilityBuilding", "Home" , new { buildingId=Model[i].Id})"
+                       data-ajax-complete="">
+                        buildings[i].Name
+                    </a>
+                    <!--}
+                    else
+                    {-->
+                    <a *ngSwitchCase="2" href="{{buildings[i].UrlAddress}}" target="_blank">
+                        {{buildings[i].Name}}
+                    </a>
+                    <!--}-->
+                </div>
+                <div class="description">
+                    {{buildings[i].Description}}
+                </div>
+                <div class="description">
+                    <!--<span>@Html.DisplayNameFor(m => m[i].Size)  :&nbsp;</span>@Model[i].Size-->
+                </div>
+                <div class="rating">
+                    <span class="starRating" disabled>
+                        <input id="{{buildings[i].Id}}rating5" type="radio" name="{{buildings[i]}}rating" value="5" [checked]="buildings[i].Rating === 5" disabled>
+                        <label for="{{buildings[i].Id}}rating5">5</label>
+                        <input id="{{buildings[i].Id}}rating4" type="radio" name="{{buildings[i]}}rating" value="4" [checked]="buildings[i].Rating === 4" disabled>
+                        <label for="{{buildings[i].Id}}rating4">4</label>
+                        <input id="{{buildings[i].Id}}rating3" type="radio" name="{{buildings[i]}}rating" value="3" [checked]="buildings[i].Rating === 3" disabled>
+                        <label for="{{buildings[i].Id}}rating3">3</label>
+                        <input id="{{buildings[i].Id}}rating2" type="radio" name="{{buildings[i]}}rating" value="2" [checked]="buildings[i].Rating === 2" disabled>
+                        <label for="{{buildings[i].Id}}rating2">2</label>
+                        <input id="{{buildings[i].Id}}rating1" type="radio" name="{{buildings[i]}}rating" value="1" [checked]="buildings[i].Rating === 1" disabled>
+                        <label for="{{buildings[i].Id}}rating1">1</label>
+                    </span>
+                </div>
+            </div>
+        </li>
+        }
+    </ul>
+</div>
+<div *ngIf="buildings.lenght > 10" class="pagination" style="text-align:center;">
+    <div class="links" style="float:none">
+        <!--@for (int i = 1;  i <= Math.Ceiling(Model.Length / 10.0); i++)
+        {-->
+        <a *ngFor="let building of getPageCount(); let i=index" href="#content" onclick="goToPage(i)" [style.font-weight.bold]="i == 1">i</a>
+        <!--}-->
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#booking_section').show();
+
+    function goToPage(page)
+    {
+
+        $('div.links a').css('font-weight', '');
+        $('div.links a').eq(page - 1).css('font-weight', 'bold');
+
+        $('div.product-list li').hide();
+        $('div.product-list li').each(function (index)
+        {
+            if (Math.ceil((index + 1) / 10) === page)
+            {
+                $(this).show();
+                $(this).find('div.image img').each(function ()
+                {
+                    if ($(this).attr('src')) return;
+
+                    if ($(this).attr('data-src'))
+                    {
+                        $(this).attr('src', $(this).attr('data-src'));
+                    }
+                });
+            }
+        });
+    }
+</script>

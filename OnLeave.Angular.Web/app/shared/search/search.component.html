@@ -25,7 +25,7 @@
                 <div style="overflow: hidden">
                     <!--@*@Html.TextBoxFor(m => m.Name, new { id = "search_by_name", placeholder = "търси хотел" })*@-->
                     <input type="text" name="Name" id="search_by_name" placeholder="търси хотел" class="q1" value="" (click)="showSelection()" />
-                    <span class="search_name" onclick="$('#search_building').submit();" title="search by name">
+                    <span class="search_name" title="search by name" (click)="onSearch()">
                         <span class="search_name"></span>
                     </span>
                 </div>
