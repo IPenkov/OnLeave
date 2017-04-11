@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.component.html" />
+    <Content Include="app\home\index.component.html" />
     <Content Include="app\home\home.component.html" />
     <Content Include="app\home\search\search.component.html" />
     <Content Include="app\shared\login\login.component.html" />
@@ -208,6 +209,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\app-routing.module.ts" />
     <TypeScriptCompile Include="app\app.component.spec.ts" />
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
@@ -215,6 +217,8 @@
     <TypeScriptCompile Include="app\business.entities\constants.ts" />
     <TypeScriptCompile Include="app\business.entities\entity.contracts.ts" />
     <TypeScriptCompile Include="app\business.entities\utility.building.ts" />
+    <TypeScriptCompile Include="app\home\home-routing.module.ts" />
+    <TypeScriptCompile Include="app\home\index.component.ts" />
     <TypeScriptCompile Include="app\home\home.module.ts" />
     <TypeScriptCompile Include="app\home\home.component.ts" />
     <TypeScriptCompile Include="app\home\search\search.component.ts" />

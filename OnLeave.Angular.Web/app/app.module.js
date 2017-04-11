@@ -10,12 +10,18 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms"); // <--- JavaScript import from Angular
-var app_component_1 = require("./app.component");
-var footer_component_1 = require("./shared/footer/footer.component");
-var login_component_1 = require("./shared/login/login.component");
-var search_component_1 = require("app/shared/search/search.component");
+var app_routing_module_1 = require("./app-routing.module");
+var index_component_1 = require("app/home/index.component");
+//import { HomeComponent } from 'app/home/home.component'
+//import { FooterComponent } from './shared/footer/footer.component';
+//import { LoginComponent } from './shared/login/login.component'
+//import { SearchComponent } from 'app/shared/search/search.component'
 //import { HomeComponent } from './home/home.component'
 //import { HomeService } from '../app/services/home.service'
+//const appRoutes: Routes = [
+//    { path: 'home', component: IndexComponent },    
+//    { path: '', redirectTo: '/home', pathMatch: 'full' }    
+//];
 /* Contact Imports */
 var home_module_1 = require("./home/home.module");
 var AppModule = (function () {
@@ -25,10 +31,10 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, home_module_1.HomeModule, forms_1.FormsModule],
-        declarations: [app_component_1.AppComponent, footer_component_1.FooterComponent, login_component_1.LoginComponent, search_component_1.SearchComponent],
+        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, home_module_1.HomeModule, forms_1.FormsModule, app_routing_module_1.AppRoutingModule],
+        declarations: [],
         //providers: [HomeService],
-        bootstrap: [app_component_1.AppComponent]
+        bootstrap: [index_component_1.IndexComponent]
     })
 ], AppModule);
 exports.AppModule = AppModule;
