@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core'
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { HomeService } from 'app/services/home.service'
 import { UtilityBuilding } from 'app/business.entities/utility.building'
@@ -9,9 +10,9 @@ import { UtilityBuilding } from 'app/business.entities/utility.building'
 @Component({
     moduleId: module.id,
     selector: 'app-search-result',
-    templateUrl: './search.component.html'
+    templateUrl: './search.result.component.html'
 })
-export class SearchComponent implements OnInit {
+export class SearchResultComponent implements OnInit {
     buildings: UtilityBuilding[] = []
 
     //buildingTypes: UtilityBuildingType[] = []
@@ -24,9 +25,12 @@ export class SearchComponent implements OnInit {
 
     //buildings: number[] = []
 
-    constructor(private homeService: HomeService) { }
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private homeService: HomeService) { }
 
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
         //this.homeService
         //    .getCities()
         //    .then((data) => this.cities = data);
@@ -47,6 +51,11 @@ export class SearchComponent implements OnInit {
         //            [FacilityTypes.BREAKFASET, FacilityTypes.SPA, FacilityTypes.SWIMMING_POOL, FacilityTypes.WI_FI].indexOf(fType.UtilityBuildingFacilityTypeId) === -1);
 
         //    });
+
+        let data = await this.homeService.search(this.route.params['value']);
+
+        this.buildings = data;
+        console.log(data);
     }
 
     showSelection(obj: object, isChecked: boolean): void {

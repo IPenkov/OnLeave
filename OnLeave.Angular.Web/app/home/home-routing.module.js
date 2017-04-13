@@ -9,9 +9,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var home_component_1 = require("./home.component");
+var search_result_component_1 = require("app/home/search/search.result.component");
 //import { HeroDetailComponent } from './hero-detail.component';
 var heroesRoutes = [
-    { path: 'home', component: home_component_1.HomeComponent },
+    {
+        path: 'home', component: home_component_1.HomeComponent,
+    },
+    { path: 'search', component: search_result_component_1.SearchResultComponent }
+    //{ path: 'hero/:id', component: HeroDetailComponent }
 ];
 var HomeRoutingModule = (function () {
     function HomeRoutingModule() {

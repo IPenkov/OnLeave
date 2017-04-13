@@ -12,9 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var home_service_1 = require("app/services/home.service");
 var constants_1 = require("app/business.entities/constants");
+var router_1 = require("@angular/router");
 var SearchComponent = (function () {
-    function SearchComponent(homeService) {
+    function SearchComponent(homeService, router) {
         this.homeService = homeService;
+        this.router = router;
         this.cities = [];
         this.buildingTypes = [];
         this.facilityTypes = [];
@@ -47,9 +49,14 @@ var SearchComponent = (function () {
         console.log(isChecked);
     };
     SearchComponent.prototype.onSearch = function () {
-        this.homeService
-            .search({ id: 1, Name: 'Test' })
-            .then(function (data) { return console.log(data); });
+        //this.homeService
+        //    .search({ id: 1, Name: 'Test' })
+        //    .then((data) => console.log(data));
+        //let data = await this.homeService.search({ id: 1, Name: 'Dream' });
+        //console.log(data);
+        //this.router.navigate(['/search', { d: data }]);
+        this.router.navigate(['/search', { id: 1, Name: 'Dream' }]);
+        //this.router.navigate(['/hero', hero.id]);
     };
     return SearchComponent;
 }());
@@ -59,7 +66,7 @@ SearchComponent = __decorate([
         selector: 'app-search',
         templateUrl: './search.component.html'
     }),
-    __metadata("design:paramtypes", [home_service_1.HomeService])
+    __metadata("design:paramtypes", [home_service_1.HomeService, router_1.Router])
 ], SearchComponent);
 exports.SearchComponent = SearchComponent;
 //# sourceMappingURL=search.component.js.map

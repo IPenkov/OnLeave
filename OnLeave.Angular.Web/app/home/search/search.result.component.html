@@ -3,62 +3,40 @@
 </div>
 <div class="product-list">
     <ul>
-        @for (int i = 0; i < Model.Length; i++)
-        {
-        <li *ngFor="let building of buildings; let i=index"  [class.first-in-line]="i % 10 === 0" [class.last-in-line]="(i === buildings.lenght - 1 || i % 10 === 9)"  [style.display]="i / 10 > 0 ? 'none' : ''">
+        <!--@for (int i = 0; i < Model.Length; i++)
+        {-->
+        <li *ngFor="let building of buildings; let i=index" [class.first-in-line]="i % 10 === 0" [class.last-in-line]="(i === buildings.lenght - 1 || i % 10 === 9)" [style.display]="i / 10 > 0 ? 'none' : ''">
             <div class="right">
                 <div class="price">
-                    <span class="price-new">
-                        <!--@if (Model[i].Periods.Any() && Model[i].Periods.Any(p => p.RoomAmounts.Any()))
-                        {
-                        @(string.Format("{0:N2} BGN", @Model[i].Periods.First().RoomAmounts.Min(a => a.Amount)))
-                        }-->
+                    <span class="price-new">                       
                     </span>
                     <span class="price-old"></span>
                     <span class="price-tax">вкл. ДДС</span>
                     <span class="price-tax">1 нощувка</span>
 
                 </div>
-                <div class="cart" [ngSwitch]="buildings[i].SystemTypeId>
-                    <!--@if (Model[i].SystemTypeId == (int)Common.Constant.SystemType.Local)
-                    {-->
-                    <a *ngSwitchCase="1"
-                       class="button"
-                       data-ajax="true"
-                       data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
-                       data-ajax-method="POST"
-                       data-ajax-mode="replace"
-                       data-ajax-update="#content"
-                       href="@Url.Action(" GetUtilityBuilding", "Home" , new { buildingId=Model[i].Id})"
-                       data-ajax-complete="$('#reservationTab').click();">
-                        @*Activate Reservation Section*@
+                <div class="cart" [ngSwitch]="buildings[i].SystemTypeId">                    
+                    <a *ngSwitchCase="1" class="button">
                         <span>Резервация</span>
                     </a>
-                    <!--}
-                    else
-                    {-->
-                    <a *ngSwitchCase="2" class="button" href="@(!string.IsNullOrEmpty(Model[i].UrlAddress) ? Url.Content(Model[i].UrlAddress) : " ")" target="_blank">
+                    
+                    <a *ngSwitchCase="2" class="button" href="" target="_blank">
                         <span>Резервация</span>
                     </a>
-                    <!--}-->
-                </div>
-                <div class="wishlist">
-                    <a class="tip" title="Add to Wish List" onclick="addToWishList('43');"></a>
-                </div>
-                <div class="compare"><a class="tip2" title="Add to Compare" onclick="addToCompare('43')"></a></div>
+                    
+                </div>                                
             </div>
 
             <div class="left">
                 <div class="image" [ngSwitch]="building.SystemTypeId">
-                    @if (Model[i].SystemTypeId == (int)Common.Constant.SystemType.Local)
-                    {
+                    <!--@if (Model[i].SystemTypeId == (int)Common.Constant.SystemType.Local)
+                    {-->
                     <a *ngSwitchCase="1"
                        data-ajax="true"
                        data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
                        data-ajax-method="POST"
                        data-ajax-mode="replace"
                        data-ajax-update="#content"
-                       href="@Url.Action(" GetUtilityBuilding", "Home" , new { buildingId=Model[i].Id})"
                        data-ajax-complete="">
                         <!--<img src="@(i / 10 == 0 ? Url.Action(" 229/179/" + @Model[i].PhotoIds.FirstOrDefault(), "Account", new { }) : "")"
                         title="@Model[i].Name" alt="@Model[i].Name"
@@ -73,8 +51,8 @@
                         title="@Model[i].Name" alt="@Model[i].Name"
                         data-src="@Url.Action("229/179/" + @Model[i].PhotoIds.FirstOrDefault(), "Account", new { })" />-->
                         <img src="i / 10 === 0 ?  api/home/GetPhoto?photoId={{buildings[0].PhotoIds[0]}}&width=229&height=179 : ''"
-                              title="buildings[0].Name"
-                              alt="Hotel {{buildings[i].Name}}"
+                             title="buildings[0].Name"
+                             alt="Hotel {{buildings[i].Name}}"
                              data-src="api/home/GetPhoto?photoId={{buildings[0].PhotoIds[0]}}&width=229&height=179" />
                     </a>
                     <!--}-->
@@ -88,7 +66,6 @@
                        data-ajax-method="POST"
                        data-ajax-mode="replace"
                        data-ajax-update="#content"
-                       href="@Url.Action(" GetUtilityBuilding", "Home" , new { buildingId=Model[i].Id})"
                        data-ajax-complete="">
                         buildings[i].Name
                     </a>
@@ -122,7 +99,7 @@
                 </div>
             </div>
         </li>
-        }
+        <!--}-->
     </ul>
 </div>
 <div *ngIf="buildings.lenght > 10" class="pagination" style="text-align:center;">
@@ -134,7 +111,7 @@
     </div>
 </div>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
     $('#booking_section').show();
 
     function goToPage(page)
@@ -161,4 +138,4 @@
             }
         });
     }
-</script>
+</script>-->

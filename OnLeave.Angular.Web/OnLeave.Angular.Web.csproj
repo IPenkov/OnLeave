@@ -97,7 +97,7 @@
     <Content Include="app\app.component.html" />
     <Content Include="app\home\index.component.html" />
     <Content Include="app\home\home.component.html" />
-    <Content Include="app\home\search\search.component.html" />
+    <Content Include="app\home\search\search.result.component.html" />
     <Content Include="app\shared\login\login.component.html" />
     <Content Include="app\shared\search\search.component.html" />
     <Content Include="Content\cloud-zoom.css" />
@@ -221,7 +221,7 @@
     <TypeScriptCompile Include="app\home\index.component.ts" />
     <TypeScriptCompile Include="app\home\home.module.ts" />
     <TypeScriptCompile Include="app\home\home.component.ts" />
-    <TypeScriptCompile Include="app\home\search\search.component.ts" />
+    <TypeScriptCompile Include="app\home\search\search.result.component.ts" />
     <TypeScriptCompile Include="app\home\UtilityBuilding.ts" />
     <TypeScriptCompile Include="app\services\home.service.ts" />
     <TypeScriptCompile Include="app\shared\footer\footer.component.ts" />

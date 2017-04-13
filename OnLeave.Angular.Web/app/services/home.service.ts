@@ -44,10 +44,10 @@ export class HomeService {
             .then(response => response.json() as UtilityBuildingFacilityType[]);
     }
 
-    search(search: object): Promise<object>
+    search(search: object): Promise<UtilityBuilding[]>
     {
         return this.http.post(this.homeServiceUrl + 'search', search)
             .toPromise()
-            .then(response => response.json() as object[]);
+            .then(response => response.json() as UtilityBuilding[]);
     }
 }

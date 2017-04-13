@@ -8,6 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 //import { LoginComponent } from './shared/login/login.component'
 import { HomeComponent } from './home.component'
 import { IndexComponent } from './index.component'
+import { SearchResultComponent } from 'app/home/search/search.result.component'
 
 import { FooterComponent } from 'app/shared/footer/footer.component';
 import { LoginComponent } from 'app/shared/login/login.component'
@@ -19,7 +20,7 @@ import { HomeRoutingModule } from './home-routing.module';
 
 @NgModule({    
     imports: [CommonModule, HomeRoutingModule],
-    declarations: [IndexComponent, HomeComponent, LoginComponent, SearchComponent, FooterComponent],
+    declarations: [IndexComponent, HomeComponent, SearchResultComponent, LoginComponent, SearchComponent, FooterComponent],
     exports: [IndexComponent],
     providers: [HomeService],  
 })
