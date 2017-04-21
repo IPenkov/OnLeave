@@ -11,7 +11,8 @@ var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms"); // <--- JavaScript import from Angular
 var app_routing_module_1 = require("./app-routing.module");
-var index_component_1 = require("app/home/index.component");
+//import { IndexComponent } from 'app/home/index.component';
+var app_component_1 = require("./app.component");
 //import { HomeComponent } from 'app/home/home.component'
 //import { FooterComponent } from './shared/footer/footer.component';
 //import { LoginComponent } from './shared/login/login.component'
@@ -32,9 +33,9 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule, home_module_1.HomeModule, forms_1.FormsModule, app_routing_module_1.AppRoutingModule],
-        declarations: [],
+        declarations: [app_component_1.AppComponent],
         //providers: [HomeService],
-        bootstrap: [index_component_1.IndexComponent]
+        bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);
 exports.AppModule = AppModule;

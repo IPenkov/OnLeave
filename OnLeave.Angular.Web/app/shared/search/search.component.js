@@ -23,6 +23,8 @@ var SearchComponent = (function () {
         this.topFacilityTypes = [];
         this.additionalFacilityTypes = [];
         this.facilities = [];
+        this.name = '';
+        this.topFacilities = [];
     }
     SearchComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -44,9 +46,21 @@ var SearchComponent = (function () {
             });
         });
     };
-    SearchComponent.prototype.showSelection = function (obj, isChecked) {
+    SearchComponent.prototype.topOffersChange = function (obj, isChecked) {
         console.log(obj);
         console.log(isChecked);
+        if (isChecked)
+            this.topFacilities.push(obj.UtilityBuildingFacilityTypeId);
+        else
+            this.topFacilities.splice(this.topFacilities.indexOf(obj.UtilityBuildingFacilityTypeId), 1);
+    };
+    SearchComponent.prototype.additionalOffersChange = function (obj, isChecked) {
+        console.log(obj);
+        console.log(isChecked);
+        if (isChecked)
+            this.topFacilities.push(obj.UtilityBuildingFacilityTypeId);
+        else
+            this.topFacilities.splice(this.topFacilities.indexOf(obj.UtilityBuildingFacilityTypeId), 1);
     };
     SearchComponent.prototype.onSearch = function () {
         //this.homeService
@@ -55,7 +69,17 @@ var SearchComponent = (function () {
         //let data = await this.homeService.search({ id: 1, Name: 'Dream' });
         //console.log(data);
         //this.router.navigate(['/search', { d: data }]);
-        this.router.navigate(['/search', { id: 1, Name: 'Dream' }]);
+        this.router.navigate(['/search',
+            {
+                id: 1,
+                Name: this.name,
+                CityId: this.cityId,
+                UtilityBuildingTypeId: this.utilityBuildingTypeId,
+                TopFacilities: this.topFacilities,
+                Rating: this.rating,
+                MinAmount: this.minAmount,
+                MaxAmount: this.maxAmount
+            }]);
         //this.router.navigate(['/hero', hero.id]);
     };
     return SearchComponent;

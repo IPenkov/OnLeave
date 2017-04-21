@@ -27,6 +27,20 @@ export class SearchComponent implements OnInit
 
     facilities: number[] = []
 
+    name: string = ''
+
+    topFacilities: number[] = []
+
+    cityId: number
+
+    utilityBuildingTypeId: number
+
+    rating: number
+
+    minAmount: number
+
+    maxAmount: number    
+
     constructor(private homeService: HomeService, private router: Router) { }
 
     ngOnInit(): void
@@ -54,24 +68,40 @@ export class SearchComponent implements OnInit
             });
     }
 
-    showSelection(obj: object, isChecked: boolean): void
+    topOffersChange(obj: UtilityBuildingFacilityType, isChecked: boolean): void
     {
         console.log(obj);
         console.log(isChecked);
+        if (isChecked)
+            this.topFacilities.push(obj.UtilityBuildingFacilityTypeId);
+        else
+            this.topFacilities.splice(this.topFacilities.indexOf(obj.UtilityBuildingFacilityTypeId), 1);
     }
 
-    onSearch(): void {
-        //this.homeService
-        //    .search({ id: 1, Name: 'Test' })
-        //    .then((data) => console.log(data));
+    additionalOffersChange(obj: UtilityBuildingFacilityType, isChecked: boolean): void
+    {
+        console.log(obj);
+        console.log(isChecked);
+        if (isChecked)
+            this.topFacilities.push(obj.UtilityBuildingFacilityTypeId);
+        else
+            this.topFacilities.splice(this.topFacilities.indexOf(obj.UtilityBuildingFacilityTypeId), 1);
+    }
 
-        //let data = await this.homeService.search({ id: 1, Name: 'Dream' });
-
-        //console.log(data);
+    onSearch(): void {        
 
         //this.router.navigate(['/search', { d: data }]);
-        this.router.navigate(['/search', { id: 1, Name: 'Dream' }]);
-
-        //this.router.navigate(['/hero', hero.id]);
+        this.router.navigate(['/search',
+            {
+                id: 1,
+                Name: this.name,
+                CityId: this.cityId,
+                UtilityBuildingTypeId: this.utilityBuildingTypeId,
+                TopFacilities: this.topFacilities,
+                Rating: this.rating,
+                MinAmount: this.minAmount,
+                MaxAmount: this.maxAmount
+            }]);
+        
     }    
 }

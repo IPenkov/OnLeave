@@ -11,12 +11,7 @@ var router_1 = require("@angular/router");
 //import { CrisisListComponent } from './crisis-list.component';
 // import { HeroListComponent }  from './hero-list.component';  // <-- delete this line
 //import { PageNotFoundComponent } from './not-found.component';
-var appRoutes = [
-    //{ path: 'crisis-center', component: CrisisListComponent },
-    // { path: 'heroes',     component: HeroListComponent }, // <-- delete this line
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home/', redirectTo: '/home', pathMatch: 'full' },
-];
+var appRoutes = [];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
     }

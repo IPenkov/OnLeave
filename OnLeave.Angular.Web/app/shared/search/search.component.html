@@ -11,139 +11,141 @@
     {-->
     <!--@Html.AntiForgeryToken()-->
     <!--@*Submit on Enter not working*@-->
-    <input type="submit" value="Search" style="display:none" />
+    <form (ngSubmit)="onSearch()" #searchForm="ngForm">
 
-    <!--@*<input type="text" id="search_by_name" autocomplete="off" spellcheck="false" placeholder="Search hotel name" value="" onclick="">*@-->
+        <input type="submit" value="Search" style="display:none" />
 
-    <fieldset class="collapse-section">
-        <legend rel="open">Хотел</legend>
-        <p></p>
+        <!--@*<input type="text" id="search_by_name" autocomplete="off" spellcheck="false" placeholder="Search hotel name" value="" onclick="">*@-->
+
+        <fieldset class="collapse-section">
+            <legend rel="open">Хотел</legend>
+            <p></p>
+            <div class="clear"></div>
+
+            <ul>
+                <li style="margin-bottom: 5px">
+                    <div style="overflow: hidden">
+                        <!--@*@Html.TextBoxFor(m => m.Name, new { id = "search_by_name", placeholder = "търси хотел" })*@-->
+                        <input type="text" [(ngModel)]="name" name="Name" id="search_by_name" placeholder="търси хотел" class="q1" value="" />
+                        <span class="search_name" title="search by name" (click)="searchForm.ngSubmit.emit()">
+                            <span class="search_name"></span>
+                        </span>
+                    </div>
+                </li>
+                <li style="margin-bottom: 5px">
+                    <div>
+                        <select class="q1" style="background: #ffffff; width: 210px" [(ngModel)]="cityId" name="city">
+                            <option *ngFor="let city of cities" [value]="city.CityId">{{city.Name}}</option>
+                        </select>
+                    </div>
+                </li>
+                <li style="margin-bottom: 5px">
+                    <div>
+                        <!--@Html.DropDownListFor(
+                        m => m.UtilityBuildingTypeId,
+                        ViewBag.UtilityBuildingTypes as IEnumerable<SelectListItem>
+                            ,
+                            "-- Избери тип --",
+                            new { @class = "q1", style = "background: #ffffff; width: 210px" })-->
+                        <select class="q1" style="background: #ffffff; width: 210px" [(ngModel)]="utilityBuildingTypeId" name="bType">
+                            <option *ngFor="let bType of buildingTypes" [value]="bType.UtilityBuildingTypeId">{{bType.Description}}</option>
+                        </select>
+                    </div>
+                </li>
+                <li style="margin-bottom: 5px">
+                    <div style="overflow:hidden">
+                        <label for="prize" style="float:left">Минимална Цена</label>
+                        <!--@Html.TextBoxFor(m => m.MinAmount, new { placeholder = "минимална цена", @class = "q1", style = "clear:both; float: left; width:204px" })-->
+                        <input type="text" [(ngModel)]="minAmount" name="min" placeholder="минимална цена" class="q1" style="clear:both; float: left; width:204px" />
+                    </div>
+                </li>
+                <li style="margin-bottom: 5px">
+                    <div style="overflow:hidden">
+                        <label for="prize1" style="float:left; clear: both">Махимална Цена</label>
+                        <!--@Html.TextBoxFor(m => m.MaxAmount, new { placeholder = "махимална цена", @class = "q1", style = "clear:both; float: left; width:204px" })-->
+                        <input type="text" [(ngModel)]="maxAmount" name="max" placeholder="махимална цена" class="q1" style="clear:both; float: left; width:204px" />
+                    </div>
+                </li>
+                <li>
+                    <div style="overflow: hidden">
+                        <span class="starRating">
+                            <input id="rating5" type="radio" name="Rating" value="5" />
+                            <label for="rating5">5</label>
+                            <input id="rating4" type="radio" name="Rating" value="4" />
+                            <label for="rating4">4</label>
+                            <input id="rating3" type="radio" name="Rating" value="3" />
+                            <label for="rating3">3</label>
+                            <input id="rating2" type="radio" name="Rating" value="2" />
+                            <label for="rating2">2</label>
+                            <input id="rating1" type="radio" name="Rating" value="1" />
+                            <label for="rating1">1</label>
+                        </span>
+
+                        <span class="remove" onclick="$(this).prev().children().removeAttr('checked')" title="Премахни">
+                        </span>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="clear"></div>
+            <p></p>
+        </fieldset>
+
         <div class="clear"></div>
 
-        <ul>
-            <li style="margin-bottom: 5px">
-                <div style="overflow: hidden">
-                    <!--@*@Html.TextBoxFor(m => m.Name, new { id = "search_by_name", placeholder = "търси хотел" })*@-->
-                    <input type="text" name="Name" id="search_by_name" placeholder="търси хотел" class="q1" value="" (click)="showSelection()" />
-                    <span class="search_name" title="search by name" (click)="onSearch()">
-                        <span class="search_name"></span>
-                    </span>
-                </div>
-            </li>
-            <li style="margin-bottom: 5px">
-                <div>                    
-                    <select class="q1" style="background: #ffffff; width: 210px">
-                        <option *ngFor="let city of cities" [value]="city.CityId">{{city.Name}}</option>
-                    </select>
-                </div>
-            </li>
-            <li style="margin-bottom: 5px">
-                <div>
-                    <!--@Html.DropDownListFor(
-                    m => m.UtilityBuildingTypeId,
-                    ViewBag.UtilityBuildingTypes as IEnumerable<SelectListItem>
-                        ,
-                        "-- Избери тип --",
-                        new { @class = "q1", style = "background: #ffffff; width: 210px" })-->
-                    <select class="q1" style="background: #ffffff; width: 210px" >
-                        <option *ngFor="let bType of buildingTypes" [value]="bType.UtilityBuildingTypeId">{{bType.Description}}</option>
-                    </select>
-                </div>
-            </li>
-            <li style="margin-bottom: 5px">
-                <div style="overflow:hidden">
-                    <label for="prize" style="float:left">Минимална Цена</label>
-                    <!--@Html.TextBoxFor(m => m.MinAmount, new { placeholder = "минимална цена", @class = "q1", style = "clear:both; float: left; width:204px" })-->
-                    <input type="text" placeholder="минимална цена" class="q1" style="clear:both; float: left; width:204px" />
-                </div>
-            </li>
-            <li style="margin-bottom: 5px">
-                <div style="overflow:hidden">
-                    <label for="prize1" style="float:left; clear: both">Махимална Цена</label>
-                    <!--@Html.TextBoxFor(m => m.MaxAmount, new { placeholder = "махимална цена", @class = "q1", style = "clear:both; float: left; width:204px" })-->
-                    <input type="text" placeholder="махимална цена" class="q1" style="clear:both; float: left; width:204px" />
-                </div>
-            </li>
-            <li>
-                <div style="overflow: hidden">
-                    <span class="starRating">
-                        <input id="rating5" type="radio" name="Rating" value="5" />
-                        <label for="rating5">5</label>
-                        <input id="rating4" type="radio" name="Rating" value="4" />
-                        <label for="rating4">4</label>
-                        <input id="rating3" type="radio" name="Rating" value="3" />
-                        <label for="rating3">3</label>
-                        <input id="rating2" type="radio" name="Rating" value="2" />
-                        <label for="rating2">2</label>
-                        <input id="rating1" type="radio" name="Rating" value="1" />
-                        <label for="rating1">1</label>
-                    </span>
-
-                    <span class="remove" onclick="$(this).prev().children().removeAttr('checked')" title="Премахни">
-                    </span>
-                </div>
-            </li>
-        </ul>
+        <fieldset class="collapse-section">
+            <legend rel="open">Топ Услуги</legend>
+            <p></p>
+            <div class="clear"></div>
+            <ul>
+                <!--@for (int i = 0; i < Model.TopFacilities.Length; i++)
+                {-->
+                <li *ngFor="let fType of topFacilityTypes">
+                    <!--@Html.EditorFor(m => m.TopFacilities[i])-->
+                    <input type="checkbox" id="{{fType.Name}}" (change)="topOffersChange(fType, $event.target.checked)" />
+                    <label for="{{fType.Name}}">{{fType.Name}}</label>
+                </li>
+                <!--}-->
+            </ul>
+            <div class="clear"></div>
+            <p></p>
+        </fieldset>
 
         <div class="clear"></div>
-        <p></p>
-    </fieldset>
 
-    <div class="clear"></div>
+        <fieldset class="collapse-section">
+            <legend rel="open">Допълнителни Услуги</legend>
+            <p></p>
+            <div class="clear"></div>
+            <ul>
+                <!--@for (int i = 0; i < Model.Facilities.Length; i++)
+                {-->
+                <li *ngFor="let fType of additionalFacilityTypes">
+                    <!--@Html.EditorFor(m => m.Facilities[i])-->
+                    <input type="checkbox" id="{{fType.Name}}" (change)="additionalOffersChange(fType, $event.target.checked)" />
+                    <label for="{{fType.Name}}">{{fType.Name}}</label>
+                </li>
+                <!--}-->
+            </ul>
+            <div class="clear"></div>
+            <p></p>
+        </fieldset>
+    </form>
 
-    <fieldset class="collapse-section">
-        <legend rel="open">Топ Услуги</legend>
-        <p></p>
+
+
         <div class="clear"></div>
-        <ul>
-            <!--@for (int i = 0; i < Model.TopFacilities.Length; i++)
-            {-->
-            <li *ngFor="let fType of topFacilityTypes">
-                <!--@Html.EditorFor(m => m.TopFacilities[i])-->
-                <input type="checkbox" id="{{fType.Name}}" (change)="showSelection(fType, $event.target.checked)" />
-                <label for="{{fType.Name}}" >{{fType.Name}}</label>
-            </li>
-            <!--}-->
-        </ul>
-        <div class="clear"></div>
-        <p></p>
-    </fieldset>
-
-    <div class="clear"></div>
-
-    <fieldset class="collapse-section">
-        <legend rel="open">Допълнителни Услуги</legend>
-        <p></p>
-        <div class="clear"></div>
-        <ul>
-            <!--@for (int i = 0; i < Model.Facilities.Length; i++)
-            {-->
-            <li *ngFor="let fType of additionalFacilityTypes">
-                <!--@Html.EditorFor(m => m.Facilities[i])-->
-                <input type="checkbox" id="{{fType.Name}}" (change)="showSelection(fType, $event.target.checked)" />
-                <label for="{{fType.Name}}">{{fType.Name}}</label>
-            </li>
-            <!--}-->
-        </ul>
-        <div class="clear"></div>
-        <p></p>
-    </fieldset>
-
-    
-
-    <div class="clear"></div>
-    <fieldset id="booking_section" class="collapse-section" style="padding: 0; display: none">
-        <legend rel="open" style="padding: 0">Booking</legend>
-        <ins class="bookingaff" data-aid="873468" data-target_aid="873411" data-prod="nsb" data-width="250" data-height="250">
-            <!-- Anything inside will go away once widget is loaded. -->
-            <a href="//www.booking.com?aid=873411">Booking.com</a>
-        </ins>
-    </fieldset>
+        <fieldset id="booking_section" class="collapse-section" style="padding: 0; display: none">
+            <legend rel="open" style="padding: 0">Booking</legend>
+            <ins class="bookingaff" data-aid="873468" data-target_aid="873411" data-prod="nsb" data-width="250" data-height="250">
+                <!-- Anything inside will go away once widget is loaded. -->
+                <a href="//www.booking.com?aid=873411">Booking.com</a>
+            </ins>
+        </fieldset>
 </div>
 
 <script type="text/javascript">
-    (function (d, sc, u)
-    {
+    (function (d, sc, u) {
         var s = d.createElement(sc), p = d.getElementsByTagName(sc)[0];
         s.type = 'text/javascript';
         s.async = true;

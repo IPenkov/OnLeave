@@ -8,8 +8,8 @@ import { RouterModule, Routes } from '@angular/router';
 const appRoutes: Routes = [
     //{ path: 'crisis-center', component: CrisisListComponent },
     // { path: 'heroes',     component: HeroListComponent }, // <-- delete this line
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home/', redirectTo: '/home', pathMatch: 'full' },
+    //{ path: '', redirectTo: '/home', pathMatch: 'full' },
+    //{ path: 'home/', redirectTo: '/home', pathMatch: 'full' },
     //{ path: '**', component: PageNotFoundComponent }
 ];
 

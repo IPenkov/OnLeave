@@ -2,6 +2,7 @@ import { NgModule }      from '@angular/core';
 import { CommonModule }       from '@angular/common';
 //import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 //import { AppComponent } from './app.component';
 //import { FooterComponent } from './shared/footer/footer.component';
@@ -19,7 +20,7 @@ import { HomeService } from 'app/services/home.service'
 import { HomeRoutingModule } from './home-routing.module';
 
 @NgModule({    
-    imports: [CommonModule, HomeRoutingModule],
+    imports: [CommonModule, HomeRoutingModule, FormsModule],
     declarations: [IndexComponent, HomeComponent, SearchResultComponent, LoginComponent, SearchComponent, FooterComponent],
     exports: [IndexComponent],
     providers: [HomeService],  

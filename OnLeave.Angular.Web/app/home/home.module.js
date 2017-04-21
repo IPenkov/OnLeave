@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
+var forms_1 = require("@angular/forms");
 //import { AppComponent } from './app.component';
 //import { FooterComponent } from './shared/footer/footer.component';
 //import { LoginComponent } from './shared/login/login.component'
@@ -26,7 +27,7 @@ var HomeModule = (function () {
 }());
 HomeModule = __decorate([
     core_1.NgModule({
-        imports: [common_1.CommonModule, home_routing_module_1.HomeRoutingModule],
+        imports: [common_1.CommonModule, home_routing_module_1.HomeRoutingModule, forms_1.FormsModule],
         declarations: [index_component_1.IndexComponent, home_component_1.HomeComponent, search_result_component_1.SearchResultComponent, login_component_1.LoginComponent, search_component_1.SearchComponent, footer_component_1.FooterComponent],
         exports: [index_component_1.IndexComponent],
         providers: [home_service_1.HomeService],

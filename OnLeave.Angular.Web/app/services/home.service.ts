@@ -44,7 +44,7 @@ export class HomeService {
             .then(response => response.json() as UtilityBuildingFacilityType[]);
     }
 
-    search(search: object): Promise<UtilityBuilding[]>
+    search(search: any): Promise<UtilityBuilding[]>
     {
         return this.http.post(this.homeServiceUrl + 'search', search)
             .toPromise()

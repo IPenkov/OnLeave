@@ -1,6 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core'
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import 'rxjs/add/operator/switchMap';
+
 import { HomeService } from 'app/services/home.service'
 import { UtilityBuilding } from 'app/business.entities/utility.building'
 //import { UtilityBuildingType } from 'app/business.entities/entity.contracts'
@@ -28,37 +30,29 @@ export class SearchResultComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private homeService: HomeService) { }
-
-    async ngOnInit(): Promise<void> {
-        //this.homeService
-        //    .getCities()
-        //    .then((data) => this.cities = data);
-
-        //this.homeService
-        //    .getUtilityBuildingTypes()
-        //    .then((data) => this.buildingTypes = data);
-
-        //this.homeService
-        //    .getFacilityTypes()
-        //    .then((data) => {
-        //        this.facilityTypes = data;
-
-        //        this.topFacilityTypes = data.filter((fType) =>
-        //            [FacilityTypes.BREAKFASET, FacilityTypes.SPA, FacilityTypes.SWIMMING_POOL, FacilityTypes.WI_FI].indexOf(fType.UtilityBuildingFacilityTypeId) != -1);
-
-        //        this.additionalFacilityTypes = data.filter((fType) =>
-        //            [FacilityTypes.BREAKFASET, FacilityTypes.SPA, FacilityTypes.SWIMMING_POOL, FacilityTypes.WI_FI].indexOf(fType.UtilityBuildingFacilityTypeId) === -1);
-
-        //    });
-
-        let data = await this.homeService.search(this.route.params['value']);
-
-        this.buildings = data;
-        console.log(data);
+        private homeService: HomeService)
+    {        
     }
 
-    showSelection(obj: object, isChecked: boolean): void {
+    ngOnInit(): void {
+        
+
+        this.route.params
+            // (+) converts string 'id' to a number
+            .switchMap((params: Params) =>
+                this.homeService.search(params))
+            .subscribe(data => {
+                this.buildings = data;
+                console.log(data);
+            });
+
+        //let data = await this.homeService.search(this.route.params['value']);
+
+        //this.buildings = data;
+        //console.log(data);
+    }
+
+    showSelection(obj: any, isChecked: boolean): void {
         console.log(obj);
         console.log(isChecked);
     }
