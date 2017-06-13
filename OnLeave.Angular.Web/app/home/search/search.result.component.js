@@ -27,26 +27,9 @@ var SearchResultComponent = (function () {
         this.router = router;
         this.homeService = homeService;
         this.buildings = [];
-        console.log('make SearchComponent');
-        console.log('---------------------------');
     }
     SearchResultComponent.prototype.ngOnInit = function () {
-        //this.homeService
-        //    .getCities()
-        //    .then((data) => this.cities = data);
         var _this = this;
-        //this.homeService
-        //    .getUtilityBuildingTypes()
-        //    .then((data) => this.buildingTypes = data);
-        //this.homeService
-        //    .getFacilityTypes()
-        //    .then((data) => {
-        //        this.facilityTypes = data;
-        //        this.topFacilityTypes = data.filter((fType) =>
-        //            [FacilityTypes.BREAKFASET, FacilityTypes.SPA, FacilityTypes.SWIMMING_POOL, FacilityTypes.WI_FI].indexOf(fType.UtilityBuildingFacilityTypeId) != -1);
-        //        this.additionalFacilityTypes = data.filter((fType) =>
-        //            [FacilityTypes.BREAKFASET, FacilityTypes.SPA, FacilityTypes.SWIMMING_POOL, FacilityTypes.WI_FI].indexOf(fType.UtilityBuildingFacilityTypeId) === -1);
-        //    });
         this.route.params
             .switchMap(function (params) {
             return _this.homeService.search(params);

@@ -11,17 +11,18 @@ import { HomeComponent } from './home.component'
 import { IndexComponent } from './index.component'
 import { SearchResultComponent } from 'app/home/search/search.result.component'
 
-import { FooterComponent } from 'app/shared/footer/footer.component';
-import { LoginComponent } from 'app/shared/login/login.component'
+//import { FooterComponent } from 'app/shared/footer/footer.component';
+//import { LoginComponent } from 'app/shared/login/login.component'
 import { SearchComponent } from 'app/shared/search/search.component'
 
 import { HomeService } from 'app/services/home.service'
 
 import { HomeRoutingModule } from './home-routing.module';
+import { SharedModule } from 'app/shared/shared.module';
 
-@NgModule({    
-    imports: [CommonModule, HomeRoutingModule, FormsModule],
-    declarations: [IndexComponent, HomeComponent, SearchResultComponent, LoginComponent, SearchComponent, FooterComponent],
+@NgModule({
+    imports: [CommonModule, HomeRoutingModule, FormsModule, SharedModule],
+    declarations: [IndexComponent, HomeComponent, SearchResultComponent, SearchComponent ],
     exports: [IndexComponent],
     providers: [HomeService],  
 })

@@ -13,6 +13,8 @@ var forms_1 = require("@angular/forms"); // <--- JavaScript import from Angular
 var app_routing_module_1 = require("./app-routing.module");
 //import { IndexComponent } from 'app/home/index.component';
 var app_component_1 = require("./app.component");
+//import { FooterComponent } from 'app/shared/footer/footer.component';
+//import { LoginComponent } from 'app/shared/login/login.component'
 //import { HomeComponent } from 'app/home/home.component'
 //import { FooterComponent } from './shared/footer/footer.component';
 //import { LoginComponent } from './shared/login/login.component'
@@ -25,6 +27,8 @@ var app_component_1 = require("./app.component");
 //];
 /* Contact Imports */
 var home_module_1 = require("./home/home.module");
+var admin_module_1 = require("./admin/admin.module");
+var shared_module_1 = require("./shared/shared.module");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -32,8 +36,9 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, home_module_1.HomeModule, forms_1.FormsModule, app_routing_module_1.AppRoutingModule],
+        imports: [platform_browser_1.BrowserModule, http_1.HttpModule, home_module_1.HomeModule, admin_module_1.AdminModule, shared_module_1.SharedModule, forms_1.FormsModule, app_routing_module_1.AppRoutingModule],
         declarations: [app_component_1.AppComponent],
+        exports: [],
         //providers: [HomeService],
         bootstrap: [app_component_1.AppComponent]
     })

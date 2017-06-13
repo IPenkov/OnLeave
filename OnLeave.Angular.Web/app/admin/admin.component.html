@@ -1,0 +1,89 @@
+﻿<div class="bg-1">
+    <div class="main-shining">
+        <div class="row-1">
+            <div id="header">
+                <div class="outer">
+                    <!--@Html.Partial("_LoginPartial")-->
+                    <app-login></app-login>
+                    <div class="clear"></div>
+                    <div class="header-top1">
+                        <div id="logo">
+                            <!--<a href=@Url.Action("Index", "Home" )>
+                                <img src="~/Content/Images/logo1.png" />
+                            </a>-->
+                            <a href="/index.html"><img src="Content/Images/logo1.png" /></a>
+                        </div>
+                        <ul class="links">
+                            <!--<li><a href="">Home</a>  @Html.ActionLink("Хотели", "Index", "Home")</li>-->
+                            <li><a routerLink="/" routerLinkActive="active">Хотели</a></li>
+                            <!--<li><a href="">Account</a> @Html.ActionLink("Вход за хотелиери", "Login", "Account")</li>-->
+                            <li><a routerLink="/admin" routerLinkActive="active">Вход за хотелиери</a></li>
+
+                        </ul>
+                        <!--
+                        <div id="search">
+                            <div class="button-search" onclick="$('#top_search').submit();"></div>
+                            <!--@using (Ajax.BeginForm("SearchBuilding", "Home",
+                            new AjaxOptions
+                            {
+                            UpdateTargetId = "content",
+                            OnBegin = "$('#content').empty().css('min-height', '100px').css('background', 'url(Content/Images/loading.gif) no-repeat center');",
+                            OnSuccess = "$('#search_by_name').val($('#search_by_name_top').val()); $('#content').css('background', '');"
+                            },
+                            new { id = "top_search" }))
+                            {
+                            @Html.AntiForgeryToken()
+                            <input type="text" name="Name" id="search_by_name_top" placeholder="Search" value="" />
+                            <input type="hidden" name="Facilities[0].Selected" value="false" />
+                            <input type="hidden" name="TopFacilities[0].Selected" value="false" />
+                            }
+                        </div>-->
+                        <!--@*@Html.Partial("_LoginPartial")*@-->
+
+                        <div class="clear"></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <div id="menu"></div>
+        </div>
+        <div class="clear"></div>
+
+        <!--@RenderSection("TopOffers", false)-->
+
+        <div class="clear"></div>
+        <div class="main-container">
+            <p id="back-top" style="display: block">
+                <a href="#top">
+                    <span></span>
+                </a>
+            </p>
+            <div id="container">
+
+                <!--@Html.ValidationSummary(true)-->
+
+                <div class="clear"></div>
+                <div id="notification"></div>
+                <div id="column-left">
+                    <!--@RenderSection("LeftSideBar", false)-->
+                    <left-admin></left-admin>
+                </div>
+                <div id="content">
+                    <!--<app-home></app-home>-->
+                    <router-outlet></router-outlet>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+
+            <app-footer></app-footer>
+
+        </div>
+
+    </div>
+</div>
+<!--@Scripts.Render("~/bundles/jquery")-->
+<!--@*@Scripts.Render("~/bundles/bootstrap")*@-->
+<!--@RenderSection("scripts", required: false)-->

@@ -121,6 +121,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\admin\admin.component.html" />
+    <Content Include="app\admin\left\left.component.html" />
+    <Content Include="app\admin\login\login.component.html" />
     <Content Include="app\app.component.html" />
     <Content Include="app\home\index.component.html" />
     <Content Include="app\home\home.component.html" />
@@ -239,6 +242,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\admin\admin-routing.module.ts" />
+    <TypeScriptCompile Include="app\admin\admin.component.ts" />
+    <TypeScriptCompile Include="app\admin\admin.module.ts" />
+    <TypeScriptCompile Include="app\admin\auth-guard.service.ts" />
+    <TypeScriptCompile Include="app\admin\left\left.component.ts" />
+    <TypeScriptCompile Include="app\admin\login\login.component.ts" />
     <TypeScriptCompile Include="app\app-routing.module.ts" />
     <TypeScriptCompile Include="app\app.component.spec.ts" />
     <TypeScriptCompile Include="app\app.component.ts" />
@@ -253,10 +262,12 @@
     <TypeScriptCompile Include="app\home\home.component.ts" />
     <TypeScriptCompile Include="app\home\search\search.result.component.ts" />
     <TypeScriptCompile Include="app\home\UtilityBuilding.ts" />
+    <TypeScriptCompile Include="app\services\auth.service.ts" />
     <TypeScriptCompile Include="app\services\home.service.ts" />
     <TypeScriptCompile Include="app\shared\footer\footer.component.ts" />
     <TypeScriptCompile Include="app\shared\login\login.component.ts" />
     <TypeScriptCompile Include="app\shared\search\search.component.ts" />
+    <TypeScriptCompile Include="app\shared\shared.module.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

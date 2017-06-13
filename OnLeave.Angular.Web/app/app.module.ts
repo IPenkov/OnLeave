@@ -7,6 +7,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 //import { IndexComponent } from 'app/home/index.component';
 import { AppComponent } from './app.component'
+
+
+//import { FooterComponent } from 'app/shared/footer/footer.component';
+//import { LoginComponent } from 'app/shared/login/login.component'
+
 //import { HomeComponent } from 'app/home/home.component'
 //import { FooterComponent } from './shared/footer/footer.component';
 //import { LoginComponent } from './shared/login/login.component'
@@ -23,10 +28,13 @@ import { AppComponent } from './app.component'
 
 /* Contact Imports */
 import { HomeModule } from './home/home.module';
+import { AdminModule } from './admin/admin.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-    imports: [BrowserModule, HttpModule, HomeModule, FormsModule, AppRoutingModule],
-    declarations: [AppComponent],
+    imports: [BrowserModule, HttpModule, HomeModule, AdminModule, SharedModule, FormsModule, AppRoutingModule],
+    declarations: [AppComponent ],
+    exports: [],
     //providers: [HomeService],
     bootstrap: [AppComponent ]
 })

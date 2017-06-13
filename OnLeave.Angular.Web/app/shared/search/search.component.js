@@ -63,11 +63,6 @@ var SearchComponent = (function () {
             this.topFacilities.splice(this.topFacilities.indexOf(obj.UtilityBuildingFacilityTypeId), 1);
     };
     SearchComponent.prototype.onSearch = function () {
-        //this.homeService
-        //    .search({ id: 1, Name: 'Test' })
-        //    .then((data) => console.log(data));
-        //let data = await this.homeService.search({ id: 1, Name: 'Dream' });
-        //console.log(data);
         //this.router.navigate(['/search', { d: data }]);
         this.router.navigate(['/search',
             {
@@ -80,7 +75,6 @@ var SearchComponent = (function () {
                 MinAmount: this.minAmount,
                 MaxAmount: this.maxAmount
             }]);
-        //this.router.navigate(['/hero', hero.id]);
     };
     return SearchComponent;
 }());

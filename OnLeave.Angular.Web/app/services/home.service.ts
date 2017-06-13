@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, RequestOptions } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -18,8 +18,15 @@ export class HomeService {
     constructor(private http: Http) { }
 
     getTopOffers(): Promise<UtilityBuilding[]> {
-        let result = this.http.get(this.homeServiceUrl + "offers")
-            .toPromise().then(response => response.json() as UtilityBuilding[]);
+        //let result = this.http.get(this.homeServiceUrl + "offers")
+        //    .toPromise().then(response => response.json() as UtilityBuilding[]);
+
+        let headers = new Headers({
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}` });
+        let options = new RequestOptions({ headers: headers });
+
+        let result = this.http.get("http://localhost/OnLeave.Services/api/home/offers", options)
+            .toPromise().then(response => response.json() as UtilityBuilding[]).catch(err => console.log(err));
         
         return result;
     }

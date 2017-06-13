@@ -19,8 +19,14 @@ var HomeService = (function () {
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
     HomeService.prototype.getTopOffers = function () {
-        var result = this.http.get(this.homeServiceUrl + "offers")
-            .toPromise().then(function (response) { return response.json(); });
+        //let result = this.http.get(this.homeServiceUrl + "offers")
+        //    .toPromise().then(response => response.json() as UtilityBuilding[]);
+        var headers = new http_1.Headers({
+            'Authorization': "Bearer " + sessionStorage.getItem('token')
+        });
+        var options = new http_1.RequestOptions({ headers: headers });
+        var result = this.http.get("http://localhost/OnLeave.Services/api/home/offers", options)
+            .toPromise().then(function (response) { return response.json(); }).catch(function (err) { return console.log(err); });
         return result;
     };
     HomeService.prototype.getCities = function () {
