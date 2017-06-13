@@ -20,7 +20,7 @@
                     <li class=@(i % 3 == 0 ? "first-in-line" : "")@(i % 3 == 2 ? "last-in-line" : "")>
                         <div class="inner-indent">
                             <div class="image2">
-                                @if (Model[i].SystemTypeId == (int)Common.Constant.SystemType.Local)
+                                @if (Model[i].SystemTypeId == (int)Common.Constant.SystemType.Booking)
                                 {
                                     <a data-ajax="true"
                                        data-ajax-failure="handleError(&#39;Error. Please contact Administrator.&#39;)"
