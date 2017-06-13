@@ -125,7 +125,8 @@ namespace OnLeave.Controllers
                         Rating = model.Rating,
                         lon = model.Longitude,
                         lat = model.Latitude,
-                        Size = model.Size
+                        Size = model.Size,
+                        SystemTypeId = (int)Common.Constant.SystemType.Local
                     };
 
                     building.UtilityBuildingLocales.Add(new UtilityBuildingLocale
