@@ -1,0 +1,29 @@
+{
+  "name": "PWA",
+  "homepage": "https://github.com/IPenkov/OnLeave",
+  "authors": [
+    "Ivan Penkov <ivanp@bbd.co.za>"
+  ],
+  "description": "Progressive Web App",
+  "main": "Start.html",
+  "keywords": [
+    "fun",
+    "with",
+    "core"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v4.0.0",
+    "font-awesome": "Font-Awesome#v4.7.0",
+    "knockout": "v3.4.2",
+    "open-iconic": "1.1.1"
+  }
+}

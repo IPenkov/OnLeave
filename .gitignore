@@ -160,3 +160,6 @@ OnLeave/Config/Smtp.Debug.config
 OnLeave/ConnectionStrings.Release.config
 Onleave/Web.Release.config
 packages/
+PWA/wwwroot/lib/
+PWA/bower_components/font-awesome/scss/_screen-reader.scss
+PWA/bower_components/
