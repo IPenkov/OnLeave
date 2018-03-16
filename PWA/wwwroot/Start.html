@@ -27,7 +27,7 @@
 
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto col-8">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Details for Tonight<span class="sr-only">(current)</span></a>
                 </li>
@@ -50,7 +50,7 @@
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="button" data-bind="click: searchProperties">Search</button>
             </form>-->
-            <!--<div class="input-group my-2 my-lg-0">
+            <div class="input-group my-2 my-lg-0 d-sm-none d-md-flex col-4">
                 <div class="input-group-prepend">
                     <span class="input-group-text io" id="basic-addon1" data-bind="click: searchProperties">
                         <svg class="icon mx-auto d-block" style="height:16px;width:16px;">
@@ -58,8 +58,8 @@
                         </svg>
                     </span>
                 </div>
-                <input type="text" class="form-control mr-sm-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-            </div>-->
+                <input type="text" class="form-control mr-sm-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" data-bind="textInput: name">
+            </div>
         </div>
 
     </nav>
@@ -71,16 +71,16 @@
                 </svg>
             </span>
         </div>
-        <input type="text" class="form-control mr-sm-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+        <input type="text" class="form-control mr-sm-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" data-bind="textInput: name">
     </div>
 
     <main role="main" class="container">
 
-        <div class="starter-template">
+        <div class="starter-template col-12">
             <h1>Bootstrap starter template</h1>
             <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
 
-            <div id="buildings" class="list-group" data-bind="foreach: buildings">
+            <!--<div id="buildings" class="list-group" data-bind="foreach: buildings">
 
                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
@@ -90,7 +90,31 @@
                     <p class="mb-1" data-bind="text: Description"></p>
                     <small>Donec id elit non mi porta.</small>
                 </a>
+            </div>-->
+
+            <div class="table-responsive-sm col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Handle</th>
+                            <th scope="col">Scroll me</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-striped" data-bind="foreach: buildings">                         
+                        <tr>
+                            <th scope="row" data-bind="text: $index"></th>
+                            <td data-bind="text: Name"></td>
+                            <td data-bind="text: Description"></td>
+                            <td>@mdo</td>
+                            <td>Scroll</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+
         </div>
 
     </main><!-- /.container -->

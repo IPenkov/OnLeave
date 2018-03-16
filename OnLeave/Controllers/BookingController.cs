@@ -7,35 +7,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Common.Constant;
 
 namespace OnLeave.Controllers
 {
     [RoutePrefix("api/booking")]
     public class BookingController : ApiController
     {
-        [HttpGet]
-        public List<string> Echo()
-        {
-            return new List<string>
-            {
-                "Amazon",
-                "Google",
-                "Microsoft"
-            };
-        }
-
-        [HttpPost]
-        public List<string> EchoPost()
-        {
-            return new List<string>
-            {
-                "Amazon",
-                "Google",
-                "Microsoft"
-            };
-        }
-
-
         [Route("topoffers"), HttpPost]
         public Building[] TopOffers()
         {
@@ -63,6 +41,43 @@ namespace OnLeave.Controllers
 
                 return buildings;
             }            
+        }
+
+        /// <summary>
+        /// Searches buildings to match criterias.
+        /// </summary>
+        /// <param name="model">The Search model.</param>
+        /// <returns>The result</returns>
+        [Route("search"), HttpPost]
+        public Building[] SearchBuilding([FromBody] string name)
+        {
+            System.Diagnostics.Debug.WriteLine(name);
+
+            using (var db = new Models.OnLeaveContext())
+            {
+                var result = db.UtilityBuildings
+                    .Include(b => b.UtilityBuildingPhotoDetails)
+                    .Include(b => b.Periods)
+                    .Include(b => b.Periods.Select(p => p.RoomAmounts))
+                    .Include(b => b.UtilityBuildingLocales)
+                    .Where(b => (string.IsNullOrEmpty(name) || b.UtilityBuildingLocales.Any(l => l.Name.ToLower().Contains(name.ToLower()))) && b.UtilityBuildingPhotoDetails.Count > 0)
+                    .OrderByDescending(b => b.SearchRating)
+                    .Take(51)
+                    .ToArray();
+
+                var buildings = result
+                    .Select(b => new Building
+                    {
+                        Id = b.UtilityBuildingId,
+                        Name = b.UtilityBuildingLocales.Where(l => l.LocaleId == (int)LocaleTypes.BG).Select(l => l.Name).FirstOrDefault(),
+                        Description = b.UtilityBuildingLocales.Where(l => l.LocaleId == (int)LocaleTypes.BG).Select(l => l.Description).FirstOrDefault(),
+                        UrlAddress = b.ExternalUrl,                        
+                        SystemTypeId = b.SystemTypeId,                        
+                        PhotoIds = new int[] { b.UtilityBuildingPhotoDetails.First().PhotoId },                        
+                    }).ToArray();
+
+                return buildings;
+            }
         }
     }
 }
