@@ -17,7 +17,7 @@
     <link href="styles/fonts/open-iconic.css" rel="stylesheet">
 </head>
 
-<body id="main">
+<body id="main" style="padding-top: 55px">
 
     <nav class="navbar navbar-expand-md  navbar-dark bg-dark fixed-top">
         <button class="pull-left navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,32 +46,28 @@
                     </div>
                 </li>
             </ul>
-            <!--<form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="button" data-bind="click: searchProperties">Search</button>
-            </form>-->
+            
             <div class="input-group my-2 my-lg-0 d-sm-none d-md-flex col-4">
                 <div class="input-group-prepend">
                     <span class="input-group-text io" id="basic-addon1" data-bind="click: searchProperties">
-                        <svg class="icon mx-auto d-block" style="height:16px;width:16px;">
-                            <use xlink:href="images/icons/open-iconic.svg#magnifying-glass"></use>
-                        </svg>
+                        <svg viewBox="0 0 8 8" class="" style="height:16px;width:16px;">
+                            <use xlink:href="images/icons/open-iconic.svg#magnifying-glass" ></use>
+                        </svg>                        
                     </span>
                 </div>
                 <input type="text" class="form-control mr-sm-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" data-bind="textInput: name">
             </div>
         </div>
-
     </nav>
-    <div class="input-group my-2 my-lg-0 d-sm-flex d-md-none">
+    <div class="input-group mb-3 d-sm-flex d-md-none">
         <div class="input-group-prepend">
             <span class="input-group-text io" id="basic-addon1" data-bind="click: searchProperties">
-                <svg class="icon mx-auto d-block" style="height:16px;width:16px;">
+                <svg viewBox="0 0 8 8" class="" style="height:16px;width:16px;">
                     <use xlink:href="images/icons/open-iconic.svg#magnifying-glass"></use>
                 </svg>
             </span>
         </div>
-        <input type="text" class="form-control mr-sm-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" data-bind="textInput: name">
+        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" data-bind="textInput: name">
     </div>
 
     <main role="main" class="container">
@@ -82,15 +78,15 @@
 
             <!--<div id="buildings" class="list-group" data-bind="foreach: buildings">
 
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1" data-bind="text: Name"></h5>
-                        <small>3 days ago</small>
-                    </div>
-                    <p class="mb-1" data-bind="text: Description"></p>
-                    <small>Donec id elit non mi porta.</small>
-                </a>
-            </div>-->
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1" data-bind="text: Name"></h5>
+                <small>3 days ago</small>
+            </div>
+            <p class="mb-1" data-bind="text: Description"></p>
+            <small>Donec id elit non mi porta.</small>
+        </a>
+    </div>-->
 
             <div class="table-responsive-sm col-12">
                 <table class="table">
@@ -103,7 +99,7 @@
                             <th scope="col">Scroll me</th>
                         </tr>
                     </thead>
-                    <tbody class="table-striped" data-bind="foreach: buildings">                         
+                    <tbody class="table-striped" data-bind="foreach: buildings">
                         <tr>
                             <th scope="row" data-bind="text: $index"></th>
                             <td data-bind="text: Name"></td>
@@ -114,6 +110,8 @@
                     </tbody>
                 </table>
             </div>
+
+            <h1 class="text-hide" style="background-image: url('images/icons/open-iconic.svg#magnifying-glass'); background-repeat:no-repeat; background-size:cover; width: 50px; height: 50px;">Bootstrap</h1>
 
         </div>
 
