@@ -4,9 +4,8 @@
     sass = require("gulp-sass");
 
 // other content removed
-
 gulp.task("sass", function () {
-    return gulp.src('/wwwroot/cscc/custom.scss')
-        .pipe(sass())
-        .pipe(gulp.dest('/wwwroot/styles/'));
+    return gulp.src('wwwroot/scss/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('wwwroot/styles'));
 });
