@@ -13,4 +13,8 @@
     <PackageReference Include="WebEssentials.AspNetCore.PWA" Version="1.0.33" />
   </ItemGroup>
 
+  <Target Name="MyPreCompileTarget" BeforeTargets="Build">
+    <Exec Command="gulp sass" />
+  </Target>
+
 </Project>

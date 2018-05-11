@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PWA", "PWA\PWA.csproj", "{B36ED00F-CC79-42FF-BC49-683DF2EA611B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnLeave.Business.Entities", "OnLeave.Business.Entities\OnLeave.Business.Entities.csproj", "{7315EAF2-B2EF-4337-81D7-28F772C5BE4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnLeave.Business.Entities", "OnLeave.Business.Entities\OnLeave.Business.Entities.csproj", "{7315EAF2-B2EF-4337-81D7-28F772C5BE4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2", "WebApplication2\WebApplication2.csproj", "{0A985A07-6D8B-46CC-AFF2-F2AA65B8E173}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7315EAF2-B2EF-4337-81D7-28F772C5BE4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7315EAF2-B2EF-4337-81D7-28F772C5BE4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7315EAF2-B2EF-4337-81D7-28F772C5BE4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A985A07-6D8B-46CC-AFF2-F2AA65B8E173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A985A07-6D8B-46CC-AFF2-F2AA65B8E173}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A985A07-6D8B-46CC-AFF2-F2AA65B8E173}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A985A07-6D8B-46CC-AFF2-F2AA65B8E173}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

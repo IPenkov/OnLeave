@@ -34,8 +34,7 @@ namespace OnLeave.Controllers
                             Name = string.Join(" / ", b.UtilityBuildingLocales.Select(l => l.Name)),
                             Description = string.Join(System.Environment.NewLine, b.UtilityBuildingLocales.Select(l => l.Description)),
                             SystemTypeId = b.SystemTypeId,
-                            UrlAddress = b.ExternalUrl,
-                            PhotoIds = b.UtilityBuildingPhotoDetails.Select(p => p.PhotoId).ToArray()
+                            UrlAddress = b.UtilityBuildingPhotoDetails.First().Photo.Image.ToString()                            
                         })
                         .ToArray();
 
@@ -71,9 +70,9 @@ namespace OnLeave.Controllers
                         Id = b.UtilityBuildingId,
                         Name = b.UtilityBuildingLocales.Where(l => l.LocaleId == (int)LocaleTypes.BG).Select(l => l.Name).FirstOrDefault(),
                         Description = b.UtilityBuildingLocales.Where(l => l.LocaleId == (int)LocaleTypes.BG).Select(l => l.Description).FirstOrDefault(),
-                        UrlAddress = b.ExternalUrl,                        
-                        SystemTypeId = b.SystemTypeId,                        
-                        PhotoIds = new int[] { b.UtilityBuildingPhotoDetails.First().PhotoId },                        
+                        UrlAddress = string.Join(",", b.UtilityBuildingPhotoDetails.First().Photo.Image),
+                        SystemTypeId = b.SystemTypeId,
+                        PhotoIds = Convert.ToBase64String(b.UtilityBuildingPhotoDetails.First().Photo.Image, Base64FormattingOptions.None)
                     }).ToArray();
 
                 return buildings;
